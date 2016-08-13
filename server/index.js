@@ -68,6 +68,19 @@ app.get('/', function(req, res) {
         }
     })
 });
+app.get('/home', function(req, res) {
+    render(req, res, {
+        view: 'home',
+        title: 'Home page',
+        meta: {
+            description: 'Page description',
+            og: {
+                url: 'https://site.com',
+                siteName: 'Site name'
+            }
+        }
+    })
+});
 
 app.get('*', function(req, res) {
     res.status(404);
