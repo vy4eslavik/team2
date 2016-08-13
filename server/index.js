@@ -14,6 +14,10 @@ var fs = require('fs'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
 
+    mongoose = require('mongoose'),
+
+
+
     config = require('./config'),
     staticFolder = config.staticFolder,
 
@@ -42,6 +46,10 @@ app
     .use(passport.session())
     .use(slashes());
     // TODO: csrf, gzip
+
+mongoose.connect('mongodb://localhost/pepo');
+
+Seed = require('./models/seed.js');
 
 passport.serializeUser(function(user, done) {
     done(null, JSON.stringify(user));
@@ -80,6 +88,34 @@ app.get('/home', function(req, res) {
             }
         }
     })
+});
+
+app.get('/tmp-home', function(req, res) {
+
+  Seed.find(function(err,seed){
+    res.send(JSON.stringify(seed));
+  });
+
+});
+
+app.get('/fakedata',function(req,res) {
+
+
+  var seed = new Seed({
+    msg: 'test message',
+    datetime: Math.floor(Date.now() / 1000)
+  });
+  seed.save(function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('dees added');
+    }
+  });
+
+  res.send('fakedata added');
+
+
 });
 
 app.get('*', function(req, res) {
