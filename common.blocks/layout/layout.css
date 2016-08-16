@@ -1,0 +1,18 @@
+.layout{
+    position: relative;
+}
+
+
+.layout__left
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+}
+
+
+.layout__right
+{
+    padding-left: 150px;
+}
