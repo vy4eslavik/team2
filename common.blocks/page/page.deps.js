@@ -4,7 +4,10 @@
             mods: { view: ['404', 'home'] }
         },
         'header',
+        'button',
         'body',
-        'footer'
+        'footer',
+        'layout',
+        'image'
     ]
 })
