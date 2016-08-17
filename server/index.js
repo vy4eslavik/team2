@@ -13,6 +13,9 @@ var fs = require('fs'),
     slashes = require('connect-slashes'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy,
+    VKontakteStrategy = require('passport-vkontakte').Strategy;
+    env = require('node-env-file'),
 
     mongoose = require('mongoose'),
 
@@ -28,6 +31,8 @@ var fs = require('fs'),
     port = process.env.PORT || config.defaultPort,
     isSocket = isNaN(port),
     isDev = process.env.NODE_ENV === 'development';
+
+env(__dirname + '/../.env');
 
 app
     .disable('x-powered-by')
@@ -59,6 +64,40 @@ passport.deserializeUser(function(user, done) {
     done(null, JSON.parse(user));
 });
 
+passport.use(new FacebookStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: 'http://localhost:3000/login/facebook/return'
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    // In this example, the user's Facebook profile is supplied as the user
+    // record.  In a production-quality application, the Facebook profile should
+    // be associated with a user record in the application's database, which
+    // allows for account linking and authentication with other identity
+    // providers.
+    return cb(null, profile);
+  }));
+
+  passport.use(new VKontakteStrategy(
+    {
+      clientID:     process.env.VKONTAKTE_APP_ID, // VK.com docs call it 'API ID', 'app_id', 'api_id', 'client_id' or 'apiId'
+      clientSecret: process.env.VKONTAKTE_APP_SECRET,
+      callbackURL:  "http://localhost:3000/login/vkontakte/return"
+    },
+    function myVerifyCallbackFn(accessToken, refreshToken, profile, done) {
+
+      // Now that we have user's `profile` as seen by VK, we can
+      // use it to find corresponding database records on our side.
+      // Here, we have a hypothetical `User` class which does what it says.
+      User.findOrCreate({ vkontakteId: profile.id })
+          .then(function (user) { done(null, user) })
+          .catch(done);
+    }
+  ));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get('/ping/', function(req, res) {
     res.send('ok');
 });
@@ -76,6 +115,46 @@ app.get('/', function(req, res) {
         }
     })
 });
+
+app.get('/login',
+  function(req, res){
+    res.send('<a href="/login/facebook">Log In with Facebook</a><a href="/login/vkontakte">Log In with vkontakte</a>');
+  });
+
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/login/facebook/return',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+app.get('/login/vkontakte',
+  passport.authenticate('vkontakte'),
+  function (req, res) {
+    // The request will be redirected to vk.com for authentication, so
+    // this function will not be called.
+  });
+
+app.get('/login/vkontakte/return',
+  passport.authenticate('vkontakte', { failureRedirect: '/login' }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
+app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.send(JSON.stringify(req.user));
+  });
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 app.get('/home', function(req, res) {
     render(req, res, {
         view: 'home',
@@ -90,13 +169,6 @@ app.get('/home', function(req, res) {
     })
 });
 
-app.get('/tmp-home', function(req, res) {
-
-  Seed.find(function(err,seed){
-    res.send(JSON.stringify(seed));
-  });
-
-});
 
 app.get('/fakedata',function(req,res) {
 
