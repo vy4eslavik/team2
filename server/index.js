@@ -13,6 +13,8 @@ var fs = require('fs'),
     slashes = require('connect-slashes'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy,
+    env = require('node-env-file'),
 
     mongoose = require('mongoose'),
 
@@ -28,6 +30,8 @@ var fs = require('fs'),
     port = process.env.PORT || config.defaultPort,
     isSocket = isNaN(port),
     isDev = process.env.NODE_ENV === 'development';
+
+env(__dirname + '/../.env');
 
 app
     .disable('x-powered-by')
@@ -59,6 +63,23 @@ passport.deserializeUser(function(user, done) {
     done(null, JSON.parse(user));
 });
 
+passport.use(new FacebookStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: 'http://localhost:3000/login/facebook/return'
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    // In this example, the user's Facebook profile is supplied as the user
+    // record.  In a production-quality application, the Facebook profile should
+    // be associated with a user record in the application's database, which
+    // allows for account linking and authentication with other identity
+    // providers.
+    return cb(null, profile);
+  }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get('/ping/', function(req, res) {
     res.send('ok');
 });
@@ -76,6 +97,27 @@ app.get('/', function(req, res) {
         }
     })
 });
+
+app.get('/login',
+  function(req, res){
+    res.send('<a href="/login/facebook">Log In with Facebook</a>');
+  });
+
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/login/facebook/return',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.send(JSON.stringify(req.user));
+  });
+
 app.get('/home', function(req, res) {
     render(req, res, {
         view: 'home',

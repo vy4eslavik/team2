@@ -14,3 +14,4 @@ libs/
 !*bundles*/*/*.bemdecl.js
 *bundles*/*/*.tmpl.bemdecl.js
 !*bundles*/.bem/*
+.env
