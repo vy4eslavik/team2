@@ -1,0 +1,12 @@
+.search-icon
+{
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    fill: none;
+    stroke: rgba(151, 151, 151, 1);
+    stroke-width: 2;
+}

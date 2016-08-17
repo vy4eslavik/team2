@@ -8,6 +8,9 @@
         'body',
         'footer',
         'layout',
-        'image'
+        'image',
+        'input',
+        'button',
+        'search-icon'
     ]
 })

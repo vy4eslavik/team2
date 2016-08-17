@@ -27,7 +27,25 @@ block('header').content()(function() {
                 }
             },
             {
-                elem: 'right',
+                elem: 'right-top',
+                content:{
+                    tag: 'form',
+                    attrs: { action: '' },
+                    content: [
+                        {
+                            block: 'input',
+                            name: 'text',
+                            val: 'Search for seeds'
+                        },
+                        {
+                            block: 'search-icon'
+                        }
+                    ]
+                }
+
+            },
+            {
+                elem: 'right-bottom',
                 content: ''
             }
         ]
