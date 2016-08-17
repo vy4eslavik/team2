@@ -12,7 +12,16 @@
 }
 
 
-.layout__right
+.layout__right-top, .layout__right-bottom
 {
+    position: relative;
     padding-left: 150px;
+    padding-top: 10px;
+
 }
+
+.layout__right-top{
+    width: 50%;
+}
+
+
