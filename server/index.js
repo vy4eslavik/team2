@@ -182,6 +182,15 @@ app.get('/seed', function(req, res) {
         }
     })
 });
+app.get('/profile/my', function(req, res) {
+    render(req, res, {
+        view: 'editProfile',
+        title: 'Edit profile',
+        meta: {
+            description: 'Редактиование сраницы пользователя'
+        }
+    })
+});
 
 
 app.get('/fakedata',function(req,res) {
