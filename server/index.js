@@ -67,7 +67,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new FacebookStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/login/facebook/return'
+    callbackURL: "http://"+process.env.HOSTNAME+"/login/facebook/return"
   },
   function(accessToken, refreshToken, profile, cb) {
     // In this example, the user's Facebook profile is supplied as the user
@@ -82,7 +82,7 @@ passport.use(new FacebookStrategy({
     {
       clientID:     process.env.VKONTAKTE_APP_ID, // VK.com docs call it 'API ID', 'app_id', 'api_id', 'client_id' or 'apiId'
       clientSecret: process.env.VKONTAKTE_APP_SECRET,
-      callbackURL:  "http://localhost:3000/login/vkontakte/return"
+      callbackURL:  "http://"+process.env.HOSTNAME+"/login/vkontakte/return"
     },
     function myVerifyCallbackFn(accessToken, refreshToken, profile, done) {
 
