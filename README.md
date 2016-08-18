@@ -6,23 +6,31 @@ Pepo repo
 
 Устанавливаем монгу. https://www.mongodb.com/
 
-Создаем папку под базу данных
-```
-windows:
->mongod --dbpath c:\data\pepo
+Windows:
+* Создаем папку под базу данных 
+    ```
+    >mongod --dbpath c:\data\pepo
+    ```
+* Запускаем его
+    ```
+    mongod --dbpath c:\data\pepo
+    ```
+* И пусть работает.
 
-mac:
-??????????????
+macOS:
+* ??????????????
 
 Linux:
-??????????????
-```
+* Ubuntu - рекомендуется 12.04 | 14.04 | 16.04
+* Инструкция: [Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/)
+* Особенности Ubuntu 16.04:
+  * Для автомтического запуска MongoDB при старте системы, cоздать файл [/lib/systemd/system/mongod.service](https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/#ubuntu-16-04-only-create-systemd-service-file)
+  * Выполнить команду  
+  ```
+     sudo systemctl start mongod
+     sudo systemctl enable mongod
+  ``` 
 
-Запускаем его
-```
-mongod --dbpath c:\data\pepo
-```
-И пусть работает.
 
 ## Билд БЭМ
 ```
@@ -62,7 +70,7 @@ user = {
         //...
     },
     timeZone: '',
-    follow: [], //на кого мы пописаны
+    follow: [], //на кого мы подписаны
     subscribers: [] //наши подписчики
 }
 ```
