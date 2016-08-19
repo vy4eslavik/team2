@@ -21,7 +21,7 @@ block('header-menu').content()(function() {
             content: {
                 elem: 'link',
                 tag: 'a',
-                attrs: { href: '/profile' },
+                attrs: { href: '/profile/my' },
                 content: 'Edit Profile'
             }
         },
