@@ -11,49 +11,72 @@ block('settingsList').content()(function () {
         subscribers: []
     };
     return [
-        //TODO Добавить блок аватар когда он будет
+        //TODO надо как-то красивее продумать смену аватара
         {
-            elem: 'label',
-            tag: 'label',
-            attrs: {'for': 'editFirstName'},
-            content: 'Имя'
+            block: 'avatar'
         },
         {
-            block: 'input',
-            name: 'firstName',
-            val: user.userData.firstName,
-            id: 'editFirstName',
-            tabIndex: 1,
-            mods: {theme: 'islands', size: 'm'}
+            elem: 'editAvatar',
+            tag: 'input',
+            attrs: {name: 'newAvatar', type: 'file', accept: 'image/jpeg,image/png'}
         },
         {
-            elem: 'label',
-            tag: 'label',
-            attrs: {'for': 'editLastName'},
-            content: 'Фамилия'
+            elem: 'firstName',
+            content: [
+                {
+                    elem: 'label',
+                    tag: 'label',
+                    attrs: {'for': 'editFirstName'},
+                    content: 'Имя'
+                },
+                {
+                    block: 'input',
+                    name: 'firstName',
+                    val: user.userData.firstName,
+                    id: 'editFirstName',
+                    tabIndex: 1,
+                    mods: {theme: 'islands', size: 'm'}
+                }
+            ]
         },
         {
-            block: 'input',
-            name: 'lastName',
-            val: user.userData.lastName,
-            id: 'editLastName',
-            tabIndex: 2,
-            mods: {theme: 'islands', size: 'm'}
+            elem: 'lastName',
+            content: [
+                {
+                    elem: 'label',
+                    tag: 'label',
+                    attrs: {'for': 'editLastName'},
+                    content: 'Фамилия'
+                },
+                {
+                    block: 'input',
+                    name: 'lastName',
+                    val: user.userData.lastName,
+                    id: 'editLastName',
+                    tabIndex: 2,
+                    mods: {theme: 'islands', size: 'm'}
+                }
+            ]
         },
         {
-            elem: 'label',
-            tag: 'label',
-            attrs: {'for': 'editAboutMe'},
-            content: 'О себе'
-        },
-        {
-            block: 'textarea',
-            name: 'aboutMe',
-            val: user.userData.aboutMe,
-            id: 'editAboutMe',
-            tabIndex: 3,
-            mods: {theme: 'islands', size: 'xl',  width: 'available'},
-            attrs: {cols: '33', rows: '4'}
+            elem: 'aboutMe',
+            content: [
+                {
+                    elem: 'label',
+                    tag: 'label',
+                    attrs: {'for': 'editAboutMe'},
+                    content: 'О себе'
+                },
+                {
+                    block: 'textarea',
+                    name: 'aboutMe',
+                    val: user.userData.aboutMe,
+                    id: 'editAboutMe',
+                    tabIndex: 3,
+                    mods: {theme: 'islands', size: 'xl', width: 'available'},
+                    attrs: {cols: '35', rows: '4'}
+                }
+            ]
         },
         {
             block: 'button',

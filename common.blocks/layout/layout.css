@@ -1,5 +1,7 @@
-.layout{
+.layout
+{
     position: relative;
+
     height: 76px;
 }
 
@@ -7,8 +9,9 @@
 .layout__left
 {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
+
     width: 100px;
 }
 
@@ -16,14 +19,12 @@
 .layout__right
 {
     position: relative;
-    padding-left: 100px;
+
     padding-top: 10px;
-
-
+    padding-left: 100px;
 }
 
-.layout__right{
+.layout__right
+{
     width: 50%;
 }
-
-

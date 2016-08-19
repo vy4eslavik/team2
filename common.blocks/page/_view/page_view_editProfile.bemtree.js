@@ -11,9 +11,8 @@ block('page').mod('view', 'editProfile').content()(function() {
                     content: [
                         {
                             block: 'settingsList',
-                            tag: 'form',
                             //TODO установить action и method для формы
-                            attrs: {autocomplete:'on'}
+                            attrs: {autocomplete:'on', action: '#'}
                         }
                     ]
                 }

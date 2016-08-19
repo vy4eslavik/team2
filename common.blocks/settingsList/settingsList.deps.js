@@ -1,3 +1,3 @@
 ({
-    shouldDeps: ['input', 'textarea']
+    shouldDeps: ['input', 'textarea', 'avatar']
 })
