@@ -11,7 +11,7 @@ block('header-menu').content()(function() {
             content: {
                 elem: 'link',
                 tag: 'a',
-                attr: { href: '/home' },
+                attrs: { href: '/home' },
                 content: 'Home'
             }
         },
@@ -21,7 +21,7 @@ block('header-menu').content()(function() {
             content: {
                 elem: 'link',
                 tag: 'a',
-                attr: { href: '' },
+                attrs: { href: '/profile' },
                 content: 'Edit Profile'
             }
         },
@@ -31,7 +31,7 @@ block('header-menu').content()(function() {
             content: {
                 elem: 'link',
                 tag: 'a',
-                attr: { href: '' },
+                attrs: { href: '/seed' },
                 content: 'Seed'
             }
         },
@@ -41,7 +41,7 @@ block('header-menu').content()(function() {
             content: {
                 elem: 'link',
                 tag: 'a',
-                attr: { href: '' },
+                attrs: { href: '/logout' },
                 content: 'Log Out'
             }
         }
