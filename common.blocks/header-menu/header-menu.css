@@ -1,0 +1,38 @@
+.header-menu
+{
+    font-size: 14px;
+    background-color: #fff;
+    height: 100%;
+    margin: 0;
+    padding-left: 0;
+}
+
+.header-menu__item
+{
+    display: inline-block;
+
+    margin-right: 18px;
+
+    letter-spacing: 2px;
+
+    color: #fff;
+}
+
+.header-menu__item:last-child
+{
+    margin-right: 0;
+}
+
+.header-menu__link
+{
+    transition: all 0.3s;
+    text-decoration: none;
+
+    color: #565656;
+}
+
+.header-menu__link:hover
+{
+    /*color: #fff;*/
+}
+

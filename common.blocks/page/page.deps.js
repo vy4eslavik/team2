@@ -11,6 +11,7 @@
         'image',
         'input',
         'button',
-        'search-icon'
+        'search-icon',
+        'header-menu'
     ]
 })
