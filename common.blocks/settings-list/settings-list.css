@@ -1,14 +1,14 @@
-.settingsList__label
+.settings-list__label
 {
     display: inline-block;
 
     min-width: 150px;
 }
-.settingsList__aboutMe .settingsList__label
+.settings-list__about-me .settings-list__label
 {
     vertical-align: top;
 }
-.settingsList input
+.settings-list input
 {
     max-width: 245px;
     margin-bottom: 10px;

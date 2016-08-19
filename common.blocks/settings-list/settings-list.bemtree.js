@@ -1,9 +1,9 @@
-block('settingsList').content()(function () {
+block('settings-list').content()(function () {
     var user = {
-        nick: 'vy4eslavik',
+        nick: 'test',
         userData: {
-            firstName: 'Вячеслав',
-            lastName: 'Ляутин',
+            firstName: 'Вася',
+            lastName: 'Васичкин',
             aboutMe: 'Всё хорошо'
         },
         timezone: '',
@@ -16,12 +16,12 @@ block('settingsList').content()(function () {
             block: 'avatar'
         },
         {
-            elem: 'editAvatar',
+            elem: 'edit-avatar',
             tag: 'input',
             attrs: {name: 'newAvatar', type: 'file', accept: 'image/jpeg,image/png'}
         },
         {
-            elem: 'firstName',
+            elem: 'first-name',
             content: [
                 {
                     elem: 'label',
@@ -40,7 +40,7 @@ block('settingsList').content()(function () {
             ]
         },
         {
-            elem: 'lastName',
+            elem: 'last-name',
             content: [
                 {
                     elem: 'label',
@@ -59,7 +59,7 @@ block('settingsList').content()(function () {
             ]
         },
         {
-            elem: 'aboutMe',
+            elem: 'about-me',
             content: [
                 {
                     elem: 'label',

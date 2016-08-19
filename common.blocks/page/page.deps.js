@@ -16,6 +16,6 @@
         'seed-list',
         'body',
         'content',
-        'settingsList'
+        'settings-list'
     ]
 })

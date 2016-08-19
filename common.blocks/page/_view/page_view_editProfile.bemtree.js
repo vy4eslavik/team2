@@ -10,7 +10,7 @@ block('page').mod('view', 'editProfile').content()(function() {
                     block: 'content',
                     content: [
                         {
-                            block: 'settingsList',
+                            block: 'settings-list',
                             //TODO установить action и method для формы
                             attrs: {autocomplete:'on', action: '#'}
                         }
