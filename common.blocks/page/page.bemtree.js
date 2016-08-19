@@ -1,13 +1,5 @@
 block('page').content()(function() {
     return [
-        {
-            block: 'header'
-        },
-        {
-            block: 'body'
-        },
-        {
-            block: 'footer'
-        }
+        'Place for Login/Sign Up Forms</br><a href="/home">To see Pepo Pages</a>'
     ];
 });

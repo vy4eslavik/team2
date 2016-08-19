@@ -1,3 +1,13 @@
 block('page').mod('view', 'home').content()(function() {
-    return 'home';
+    return [
+        {
+            block: 'header'
+        },
+        {
+            block: 'seed-list'
+        },
+        {
+            block: 'footer'
+        }
+    ];
 });

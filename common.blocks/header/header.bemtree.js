@@ -1,10 +1,3 @@
-//block('header').content()(function() {
-//    return [
-//        {
-//            block: 'logo'
-//        }
-//    ];
-//});
 
 block('header').content()(function() {
     return [

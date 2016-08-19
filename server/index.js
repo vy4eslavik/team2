@@ -158,7 +158,21 @@ app.get('/logout', function(req, res){
 app.get('/home', function(req, res) {
     render(req, res, {
         view: 'home',
-        title: 'Home page',
+        title: 'Home Page',
+        meta: {
+            description: 'Page description',
+            og: {
+                url: 'https://site.com',
+                siteName: 'Site name'
+            }
+        }
+    })
+});
+
+app.get('/seed', function(req, res) {
+    render(req, res, {
+        view: 'seed',
+        title: 'Seed Page',
         meta: {
             description: 'Page description',
             og: {
