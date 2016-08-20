@@ -1,4 +1,6 @@
 block('settings-list').content()(function () {
+    var data = this.data;
+
     var user = {
         nick: 'test',
         userData: {
@@ -16,16 +18,16 @@ block('settings-list').content()(function () {
             block: 'avatar'
         },
         {
-            elem: 'edit-avatar',
-            tag: 'input',
-            attrs: {name: 'newAvatar', type: 'file', accept: 'image/jpeg,image/png'}
+            block: 'input',
+            name: 'newAvatar',
+            id: 'newAvatar',
+            mods: {theme: 'islands', size: 'm', type: 'file'}
         },
         {
             elem: 'first-name',
             content: [
                 {
-                    elem: 'label',
-                    tag: 'label',
+                    block: 'label',
                     attrs: {'for': 'editFirstName'},
                     content: 'Имя'
                 },
@@ -43,8 +45,7 @@ block('settings-list').content()(function () {
             elem: 'last-name',
             content: [
                 {
-                    elem: 'label',
-                    tag: 'label',
+                    block: 'label',
                     attrs: {'for': 'editLastName'},
                     content: 'Фамилия'
                 },
@@ -62,8 +63,7 @@ block('settings-list').content()(function () {
             elem: 'about-me',
             content: [
                 {
-                    elem: 'label',
-                    tag: 'label',
+                    block: 'label',
                     attrs: {'for': 'editAboutMe'},
                     content: 'О себе'
                 },

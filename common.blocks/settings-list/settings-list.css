@@ -1,10 +1,10 @@
-.settings-list__label
+.settings-list .label
 {
     display: inline-block;
 
     min-width: 150px;
 }
-.settings-list__about-me .settings-list__label
+.settings-list__about-me .label
 {
     vertical-align: top;
 }
