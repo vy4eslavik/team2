@@ -218,7 +218,8 @@ app.get('/profile/my', function(req, res) {
 
 
 app.get('/fakedata',function(req,res) {
-
+    res.send('depreacated');
+    /*
 
   var seed = new Seed({
     msg: 'test message',
@@ -234,7 +235,7 @@ app.get('/fakedata',function(req,res) {
 
   res.send('fakedata added');
 
-
+    */
 });
 
 app.get('*', function(req, res) {
