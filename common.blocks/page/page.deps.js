@@ -1,7 +1,7 @@
 ({
     shouldDeps: [
         {
-            mods: { view: ['404', 'home','profile','seed', 'editProfile' 'add-seed'] }
+            mods: { view: ['404', 'home','profile','seed', 'editProfile', 'addSeed'] }
         },
         'header',
         'body',

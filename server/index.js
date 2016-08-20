@@ -273,7 +273,7 @@ app.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), 
 
 app.get('/seed/add', function(req, res) {
     render(req, res, {
-        view: 'add-seed',
+        view: 'addSeed',
         title: 'Add seed page',
         meta: {
             description: 'Add seed page',
