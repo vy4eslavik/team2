@@ -1,15 +1,13 @@
 ({
     shouldDeps: [
         {
-            mods: { view: ['404', 'home','profile','seed', 'editProfile'] }
+            mods: { view: ['404', 'home','profile','seed', 'editProfile' 'add-seed'] }
         },
         'header',
-        'button',
         'body',
         'footer',
         'layout',
         'image',
-        'input',
         'button',
         'search-icon',
         'header-menu',
@@ -17,6 +15,13 @@
         'body',
         'content',
         'settings-list',
-        'profile'
+        'profile',
+        {   block : 'input',
+            mods : { theme: 'islands', size : 'm' }
+        },
+        {
+            block : 'button',
+            mods : { theme : 'islands', size : 'm', type : 'submit' }
+        }
     ]
 })
