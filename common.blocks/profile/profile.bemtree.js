@@ -2,7 +2,8 @@ block('profile').content()(function() {
     return [
         {
           block : 'avatar',
-          mix: { block : 'profile', elem: 'avatar' },
+          img: 'https://pp.vk.me/c624620/v624620916/54645/sVzPtL8zip8.jpg',
+          mix: { block : 'profile', elem: 'avatar' }
         },
         {
           elem : 'seeds',
