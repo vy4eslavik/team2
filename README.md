@@ -66,8 +66,9 @@ user = {
     id: '',
     nick: '',
     userData: {
-        firstName: ''
-        //...
+        firstName: '',
+        lastName: '',
+        aboutMe: ''
     },
     timeZone: '',
     follow: [], //на кого мы подписаны

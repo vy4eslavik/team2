@@ -1,4 +1,8 @@
-.page{
-    font-family: "Comic Sans MS";
+.page
+{
+    font-family: 'Comic Sans MS';
+
+    margin: 0;
+
     color: #565656;
 }

@@ -1,0 +1,15 @@
+.settings-list__label
+{
+    display: inline-block;
+
+    min-width: 150px;
+}
+.settings-list__about-me .settings-list__label
+{
+    vertical-align: top;
+}
+.settings-list input
+{
+    max-width: 245px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,7 @@
+.avatar
+{
+    display: inline-block;
+
+    border: 2px solid #565656;
+    border-radius: 10px;
+}
