@@ -1,4 +1,6 @@
 block('page').mod('view', 'home').content()(function() {
+
+    var seeds = this.data.seeds || [];
     return [
         {
             block: 'header'
@@ -7,7 +9,8 @@ block('page').mod('view', 'home').content()(function() {
           block: 'profile'
         },
         {
-            block: 'seed-list'
+            block: 'seed-list',
+            seeds: seeds
         },
         {
             block: 'footer'
