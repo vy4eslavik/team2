@@ -45,6 +45,10 @@ node server
 
 ## Заполняем БД фейковые данными
 
+Запускаем 
+```
+node server/createDB.js
+```
 Открываем страничку http://localhost:3000/fakedata
 
 На странице http://localhost:3000/tmp-home будет стрингифай того, что лежит в БД с сидами
