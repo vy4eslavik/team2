@@ -4,12 +4,31 @@
 
     min-width: 150px;
 }
+.settings-list .input,
+.settings-list .select,
+.settings-list textarea
+{
+    width: 100%;
+    max-width: 245px;
+    box-sizing: border-box;
+}
+
+.settings-list > div
+{
+    margin-bottom: 10px;
+}
+.settings-list > div > div
+{
+    vertical-align: middle;
+}
 .settings-list__about-me .label
 {
     vertical-align: top;
 }
-.settings-list input
+.settings-list__avatar-edit .label
 {
-    max-width: 245px;
-    margin-bottom: 10px;
+    vertical-align: bottom;
+}
+.settings-list__form-save{
+    text-align: center;
 }
