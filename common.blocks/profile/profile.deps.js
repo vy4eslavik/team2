@@ -1,12 +1,14 @@
 ({
     shouldDeps: [
       {
-        block:'avatar'
+        block : 'avatar'
       },
 
       {
-        block: 'link'
+        block : 'link',
+        mods : {theme : 'greylink'}
       }
+
 
     ]
 });

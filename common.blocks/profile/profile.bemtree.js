@@ -9,7 +9,7 @@ block('profile').content()(function() {
           content : [
             {
               block : 'link',
-              mods : { theme : 'islands', size : 'm', pseudo : true },
+              mods : { theme : 'greylink', size : 'm', pseudo : true },
               url: '#',
               content : 'Seeds(0)'
             }
@@ -20,7 +20,7 @@ block('profile').content()(function() {
           content: [
             {
               block : 'link',
-              mods : { theme : 'islands', size : 'm', pseudo : true },
+              mods : { theme : 'greylink', size : 'm', pseudo : true },
               url: '#',
               content : 'Follow(25)'
             }

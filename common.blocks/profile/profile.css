@@ -1,20 +1,26 @@
-.profile {
-  height: auto;
-  margin: 0;
-  width: inherit;
-  border-bottom: 2px solid #979797;
-  background-color: #d8d8d8;
+.profile
+{
+    height: auto;
+    margin: 0;
+
+    border-bottom: 2px solid #979797;
+    background-color: #d8d8d8;
 }
 
-.profile__avatar{
-  margin-left: 1em;
+.profile__avatar
+{
+    margin-left: 1em;
 }
-.profile__follow {
-  margin-left: 1em;
-  display:inline-block;
+.profile__follow
+{
+    display: inline-block;
+
+    margin-left: 1em;
 }
 
-.profile__seeds{
-  margin-left: 1em;
-  display:inline-block;
+.profile__seeds
+{
+    display: inline-block;
+
+    margin-left: 1em;
 }
