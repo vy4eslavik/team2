@@ -4,6 +4,9 @@ block('page').mod('view', 'home').content()(function() {
             block: 'header'
         },
         {
+          block: 'profile'
+        },
+        {
             block: 'seed-list'
         },
         {
