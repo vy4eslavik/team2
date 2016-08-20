@@ -156,6 +156,29 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/home', function(req, res) {
+    var seeds = [
+        {
+            id: '',
+            msg: 'Contrary to popular belief, Lorem Ipsum is not simply random text.',
+            datetime: '',
+            parent: '', //Твит на который сделали ответ
+            author_name: 'Drew Coleman',
+            author_nick: 'drew_coleman',
+            author_ava: 'http://xage.ru/media/posts/2013/3/25/fotografii-glaz-zhivotnyh-i-nasekomyh.jpg',
+            img:''
+
+        },
+        {
+            id: '',
+            msg: 'There are many variations of passages of Lorem Ipsum available.',
+            datetime: '',
+            parent: '', //Твит на который сделали ответ
+            author_name: 'Steve Nassar',
+            author_nick: 'steve_nassar',
+            author_ava: 'http://www.popmeh.ru/upload/iblock/1d3/1d36d9dd3c9b46f777d0507205cc74b6.jpg',
+            img:''
+        },
+    ];
     render(req, res, {
         view: 'home',
         title: 'Home Page',
@@ -165,7 +188,8 @@ app.get('/home', function(req, res) {
                 url: 'https://site.com',
                 siteName: 'Site name'
             }
-        }
+        },
+        seeds:seeds
     })
 });
 
