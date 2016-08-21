@@ -11,6 +11,10 @@ var path = require('path'),
     cache = {};
 
 function render(req, res, data, context) {
+    if(data.profileSettings){
+        dropCache();
+    }
+
     var query = req.query,
         user = req.user,
         cacheKey = req.url + (context ? JSON.stringify(context) : '') + (user ? JSON.stringify(user) : ''),

@@ -211,7 +211,6 @@ app.get('/profile/my', function(req, res) {
     //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
     var userId = '57b8697a5e7f529f275508c4';
 
-    //TODO кеширует старые данные. Исправить.
     User.findById(userId, function (err, user) {
         if (err) console.log(err);
 
@@ -219,10 +218,15 @@ app.get('/profile/my', function(req, res) {
             view: 'editProfile',
             title: 'Мои настройки',
             meta: {
-                description: 'Редактирование профиля'
+                description: 'Редактирование профиля',
+                og: {
+                    siteName: 'Pepo',
+                    locale: 'ru_RU',
+                    url: 'http://'+process.env.HOSTNAME
+                }
             },
             profileSettings: user,
-            userPath: 'https://'+process.env.HOSTNAME+'/profile/'+user.nick,
+            userPath: 'http://'+process.env.HOSTNAME+'/profile/'+user.nick,
             formSave: req.query.success
         })
     });
