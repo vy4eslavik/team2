@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var Seed = mongoose.model('User', {
+var User = mongoose.model('User', {
     //id - автоматическое от MongoDB
     nick: {
         type:String,
@@ -18,4 +18,4 @@ var Seed = mongoose.model('User', {
     subscribers:[] // на кого мы подписались
 });
 
-module.exports = Seed;
+module.exports = User;
