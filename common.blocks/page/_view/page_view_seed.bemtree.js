@@ -7,6 +7,12 @@ block('page').mod('view', 'seed').content()(function() {
         {
             block: 'header'
         },
-        'Place for Seed Page'
+        'Place for Seed Page<br>',
+        {
+            block: 'link',
+            url: '/seed/add',
+            mods : { theme : 'islands', size : 'm', pseudo : true },
+            content: 'add seed'
+        }
     ];
 });

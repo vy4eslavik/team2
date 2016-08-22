@@ -256,15 +256,54 @@ app.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), 
         // timeZone: obj.timeZone
     };
     var avatar = req.file;
-    if(avatar){
-        user.avatar = 'avatar/'+avatar.originalname;
+    if (avatar) {
+        user.avatar = 'avatar/' + avatar.originalname;
     }
 
     User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
-        if (err) {console.log(err); res.redirect('/profile/my?success=error');}
+        if (err) {
+            console.log(err);
+            res.redirect('/profile/my?success=error');
+        }
 
         res.redirect('/profile/my?success=done');
     });
+
+});
+
+app.get('/seed/add', function(req, res) {
+    render(req, res, {
+        view: 'addSeed',
+        title: 'Add seed page',
+        meta: {
+            description: 'Add seed page',
+            og: {
+                url: 'https://site.com',
+                siteName: 'Site name'
+            }
+        }
+    })
+});
+
+
+app.post('/seed/add', function(req, res) {
+var msg = req.body.name + ':' + req.body.text;
+    console.log('req', req.body);
+    var seed = new Seed({
+        msg : msg,
+        datetime: Math.floor(Date.now() / 1000)
+    });
+
+    seed.save(function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('add');
+        }
+    });
+    // res.send('add query');
+    res.redirect('/');
+
 });
 
 app.get('/fakedata',function(req,res) {
