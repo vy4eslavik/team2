@@ -8,6 +8,7 @@ block('seed-list').content()(function() {
         //    title = typeof item.title === 'string' ? item.title : item.title[lang];
 
         return {
+<<<<<<< HEAD
             elem: 'item',
             content: [
                 {
@@ -49,6 +50,10 @@ block('seed-list').content()(function() {
 
                 }
             ]
+=======
+            block: 'seed-list-item',
+            seed: item
+>>>>>>> seed_item
         };
     }, this);
 
