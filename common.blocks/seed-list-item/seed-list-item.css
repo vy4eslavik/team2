@@ -1,0 +1,38 @@
+.seed-list-item{
+    display: flex;
+    margin: 2px auto;
+    border: 2px solid #979797;
+    border-radius: 10px;
+    max-width: 320px;
+    position: relative;
+}
+
+.seed-list__avatar{
+    margin: 5px 5px 5px 9px;
+}
+
+.seed-list-item__left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+}
+
+.seed-list-item__right{
+    padding-left: 100px;
+}
+
+.seed-list-item__title{
+     min-height: 85px;
+ }
+
+.seed-list-item__msg{
+    padding: 5px 5px;
+}
+
+
+.seed-list-item__bottom .image{
+    border-radius: 10px;
+    margin: 0 3px;
+    width: calc(100% - 6px);
+}
