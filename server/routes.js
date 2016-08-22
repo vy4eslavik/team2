@@ -101,6 +101,29 @@ module.exports = function(conn, passport){
         });
     });
 
+    app.get('/profile/:nick', function (req, res, next) {
+        User.findOne({ nick: req.params.nick}, function (err, user){
+            if(err || !user)  {
+                console.log(err);
+                res.status(404);
+                return render(req, res, { view: '404' });
+            }
+
+            render(req, res, {
+                view: 'viewProfile',
+                title: user.nick,
+                meta: {
+                    description: user.userData.description,
+                    og: {
+                        siteName: 'Pepo',
+                        locale: 'ru_RU',
+                        url: 'http://'+process.env.HOSTNAME
+                    }
+                },
+                user: user
+            });
+        });
+    });
 
     router.get('*', function(req, res) {
         res.status(404);

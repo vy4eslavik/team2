@@ -18,6 +18,7 @@
         'settings-setup-list',
         'profile',
         'seed-list-item',
+        'view-profile',
         {   block : 'input',
             mods : { theme: 'islands', size : 'm' }
         },
