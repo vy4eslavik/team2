@@ -15,7 +15,39 @@ block('seed-list').content()(function() {
                     img: item.author_ava,
                     mix: { block : 'seed-list', elem: 'avatar' }
                 },
-                'My Seed'
+                {
+                    elem: 'title',
+                    content: [
+                        {
+                          elem: 'name',
+                          tag: 'span',
+                          content: item.author_name
+                        },
+                        {
+                            elem: 'nick',
+                            tag: 'span',
+                            content: '@'+item.author_nick
+                        },
+                        {
+                            elem: 'nick',
+                            tag: 'span',
+                            content: '- Aug 20'
+                        },
+                    ]
+
+                },
+                {
+                    elem: 'msg',
+                    content: item.msg
+                },
+                {
+                    block: 'image',
+                    url: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR4mLmKpa_q3lgkn9Je2guQG3YMvhRMCQtpyOoSLUOjWSykvfME',
+                    alt: 'Seed Image',
+                    width: '100%',
+                    height: 'auto'
+
+                }
             ]
         };
     }, this);

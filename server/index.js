@@ -47,6 +47,7 @@ app
         saveUninitialized: true,
         secret: config.sessionSecret
     }))
+    .use(express.static(__dirname + 'static'))
     .use(passport.initialize())
     .use(passport.session())
     .use(slashes());
