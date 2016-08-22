@@ -9,18 +9,22 @@
 .layout__left
 {
     position: absolute;
-    top: 0;
+    top: 3px;
     left: 0;
 
     width: 100px;
 }
 
+.layout__left .image
+{
+    width: 83px;
+}
 
 .layout__right
 {
     position: relative;
 
-    padding-top: 10px;
+    padding-top: 19px;
     padding-left: 100px;
 }
 
