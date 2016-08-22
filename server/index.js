@@ -19,7 +19,7 @@ var fs = require('fs'),
 
     mongoose = require('mongoose'),
 
-
+    multer  = require('multer'),
 
     config = require('./config'),
     staticFolder = config.staticFolder,
@@ -54,7 +54,8 @@ app
 
 mongoose.connect('mongodb://localhost/pepo');
 
-Seed = require('./models/seed.js');
+Seed = require('./models/seed.js')
+User = require('./models/user.js');
 
 passport.serializeUser(function(user, done) {
     done(null, JSON.stringify(user));
@@ -207,15 +208,63 @@ app.get('/seed', function(req, res) {
     })
 });
 app.get('/profile/my', function(req, res) {
-    render(req, res, {
-        view: 'editProfile',
-        title: 'Edit profile',
-        meta: {
-            description: 'Редактиование сраницы пользователя'
-        }
-    })
-});
+    //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
+    var userId = '57b8697a5e7f529f275508c4';
 
+    User.findById(userId, function (err, user) {
+        if (err) console.log(err);
+
+        render(req, res, {
+            view: 'editProfile',
+            title: 'Мои настройки',
+            meta: {
+                description: 'Редактирование профиля',
+                og: {
+                    siteName: 'Pepo',
+                    locale: 'ru_RU',
+                    url: 'http://'+process.env.HOSTNAME
+                }
+            },
+            profileSettings: user,
+            userPath: 'http://'+process.env.HOSTNAME+'/profile/'+user.nick,
+            formSave: req.query.success
+        })
+    });
+});
+var avatarStorage = multer.diskStorage({
+    destination: staticFolder+'/avatar/',
+    filename: function (req, file, cb) {
+        if(req.body.nick){
+            //TODO req.body не приходит. Хорошо бы сделать.
+            cb(null, req.body.nick);
+            return;
+        }
+        cb(null, file.originalname);
+    }
+});
+app.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), function(req, res) {
+    var body = req.body;
+
+    var user = {
+        // nick: body.nick,
+        userData: {
+            firstName: body.firstName,
+            lastName: body.lastName,
+            description: body.aboutMe
+        },
+        // timeZone: obj.timeZone
+    };
+    var avatar = req.file;
+    if(avatar){
+        user.avatar = 'avatar/'+avatar.originalname;
+    }
+
+    User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
+        if (err) {console.log(err); res.redirect('/profile/my?success=error');}
+
+        res.redirect('/profile/my?success=done');
+    });
+});
 
 app.get('/fakedata',function(req,res) {
     res.send('depreacated');

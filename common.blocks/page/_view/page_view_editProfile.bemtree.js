@@ -1,4 +1,8 @@
 block('page').mod('view', 'editProfile').content()(function() {
+
+    var profileSettings = this.data.profileSettings || {};
+    var userPath = this.data.userPath || '';
+    var formSave = this.data.formSave || null;
     return [
         {
             block: 'header'
@@ -11,8 +15,9 @@ block('page').mod('view', 'editProfile').content()(function() {
                     content: [
                         {
                             block: 'settings-list',
-                            //TODO установить action и method для формы
-                            attrs: {autocomplete:'on', action: '#'}
+                            profileSettings: profileSettings,
+                            userPath: userPath,
+                            formSave: formSave
                         }
                     ]
                 }

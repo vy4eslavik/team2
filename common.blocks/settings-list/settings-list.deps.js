@@ -1,8 +1,34 @@
 ({
     shouldDeps: [
         {
-            block: 'input',
-            mods: {type: 'file'}
+            block: 'attach',
+            mods: {
+                theme: 'islands',
+                size: 'l'
+            }
         },
-        'textarea', 'avatar']
+        {
+            block: 'select',
+            mods: {
+                mode: 'radio',
+                theme: 'islands',
+                size: 'l'
+            }
+        },
+        {
+            block: 'input',
+            mods: {
+                theme: 'islands',
+                size: 'l',
+                disabled: true
+            }
+        },
+        {
+            block: 'textarea',
+            mods: {
+                theme: 'islands',
+                size: 'l'
+            }
+        },
+        'avatar', 'label']
 })

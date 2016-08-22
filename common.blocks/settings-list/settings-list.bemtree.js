@@ -1,27 +1,106 @@
 block('settings-list').content()(function () {
-    var data = this.data;
-
-    var user = {
-        nick: 'test',
-        userData: {
-            firstName: 'Вася',
-            lastName: 'Васичкин',
-            aboutMe: 'Всё хорошо'
-        },
-        timezone: '',
-        follow: [],
-        subscribers: []
+    var profileSettings = this.ctx.profileSettings;
+    var userPath = this.ctx.userPath;
+    var formSave = {
+        elem: 'form-save'
     };
-    return [
-        //TODO надо как-то красивее продумать смену аватара
+    if(this.ctx.formSave === 'done'){
+        formSave.content = 'Изменения успешно сохранены';
+    }else if(this.ctx.formSave === 'error'){
+        formSave.content = 'Упс! Произошла ошибка';
+    }
+
+    var timeZones = [
         {
-            block: 'avatar'
+            name: '(GMT-03:00) Buenos Aires',
+            value: 'Buenos Aires',
+            offset: '-10800'
         },
         {
-            block: 'input',
-            name: 'newAvatar',
-            id: 'newAvatar',
-            mods: {theme: 'islands', size: 'm', type: 'file'}
+            name: '(GMT) UTC',
+            value: 'UTC',
+            offset: '0'
+        },
+        {
+            name: '(GMT+01:00) London',
+            value: 'London',
+            offset: '3600'
+        },
+        {
+            name: '(GMT+02:00) Budapest',
+            value: 'Budapest',
+            offset: '7200'
+        },
+        {
+            name: '(GMT+03:00) Moscow',
+            value: 'Moscow',
+            offset: '10800'
+        }
+    ];
+
+    var selectTimeZone = {
+        block: 'select',
+        mods: { mode : 'radio', theme : 'islands', size : 'l' },
+        name: 'timeZone',
+        id: 'editTimeZone',
+        //TODO поставить значение из базы
+        val: 'Moscow',
+        options: []
+    };
+
+    timeZones.forEach(function (item) {
+        selectTimeZone.options.push(
+            {
+                val: item.value,
+                text: item.name,
+                attrs: {'data-offset': item.offset}
+            }
+        )
+    });
+
+    return [
+        formSave,
+        {
+            elem: 'avatar-edit',
+            content: [
+                {
+                    block: 'label',
+                    attrs: {'for': 'newAvatar'},
+                    content: {
+                        block: 'avatar',
+                        img: '../../'+profileSettings.avatar,
+                        alt: profileSettings.nick
+                    }
+                },
+                {
+                    block: 'attach',
+                    name: 'newAvatar',
+                    id: 'newAvatar',
+                    accept: 'image/jpeg,image/png',
+                    mods: { theme: 'islands', size: 'l'},
+                    button: 'Новый аватар'
+                }
+            ]
+        },
+        {
+            elem: 'nick',
+            content: [
+                {
+                    block: 'label',
+                    attrs: {'for': 'editNick'},
+                    content: 'Никнейм'
+                },
+                {
+                    block: 'input',
+                    name: 'nick',
+                    val: profileSettings.nick,
+                    id: 'editNick',
+                    tabIndex: 1,
+                    required: true,
+                    notification: userPath,
+                    mods: {theme: 'islands', size: 'l', disabled: true}
+                }
+            ]
         },
         {
             elem: 'first-name',
@@ -34,10 +113,10 @@ block('settings-list').content()(function () {
                 {
                     block: 'input',
                     name: 'firstName',
-                    val: user.userData.firstName,
+                    val: profileSettings.userData.firstName,
                     id: 'editFirstName',
-                    tabIndex: 1,
-                    mods: {theme: 'islands', size: 'm'}
+                    tabIndex: 2,
+                    mods: {theme: 'islands', size: 'l'}
                 }
             ]
         },
@@ -52,11 +131,22 @@ block('settings-list').content()(function () {
                 {
                     block: 'input',
                     name: 'lastName',
-                    val: user.userData.lastName,
+                    val: profileSettings.userData.lastName,
                     id: 'editLastName',
-                    tabIndex: 2,
-                    mods: {theme: 'islands', size: 'm'}
+                    tabIndex: 3,
+                    mods: {theme: 'islands', size: 'l'}
                 }
+            ]
+        },
+        {
+            elem: 'time-zone',
+            content: [
+                {
+                    block: 'label',
+                    attrs: {'for': 'editTimeZone'},
+                    content: 'Часовой пояс'
+                },
+                selectTimeZone
             ]
         },
         {
@@ -70,22 +160,22 @@ block('settings-list').content()(function () {
                 {
                     block: 'textarea',
                     name: 'aboutMe',
-                    val: user.userData.aboutMe,
+                    val: profileSettings.userData.description,
                     id: 'editAboutMe',
-                    tabIndex: 3,
-                    mods: {theme: 'islands', size: 'xl', width: 'available'},
-                    attrs: {cols: '35', rows: '4'}
+                    tabIndex: 4,
+                    mods: {theme: 'islands', size: 'l'}
                 }
             ]
         },
         {
             block: 'button',
-            name: 'saveProfile',
-            val: user.nick,
+            name: 'userId',
+            val: profileSettings.id,
             text: 'Сохранить',
             id: 'saveProfile',
-            tabIndex: 4,
-            mods: {theme: 'islands', size: 'm', type: 'submit'}
+            tabIndex: 5,
+            mods: {theme: 'islands', size: 'l', type: 'submit'}
         }
     ];
+
 });
