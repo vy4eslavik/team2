@@ -17,6 +17,7 @@
         'body',
         'content',
         'settings-list',
-        'profile'
+        'profile',
+        'seed-list-item'
     ]
 })
