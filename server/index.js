@@ -120,7 +120,11 @@ app.get('/', function(req, res) {
 
 app.get('/login',
   function(req, res){
-    res.send('<a href="/login/facebook">Log In with Facebook</a><a href="/login/vkontakte">Log In with vkontakte</a>');
+    //res.send('<a href="/login/facebook">Log In with Facebook</a><a href="/login/vkontakte">Log In with vkontakte</a>');
+    render(req, res, {
+      view:'login',
+      title: 'Authorization'
+    });
   });
 
 app.get('/login/facebook',
