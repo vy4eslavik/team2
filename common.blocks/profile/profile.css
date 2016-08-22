@@ -2,6 +2,7 @@
 {
     height: auto;
     margin: 0;
+    margin-bottom: 3px;
 
     border-bottom: 2px solid #979797;
     background-color: #d8d8d8;
@@ -9,6 +10,7 @@
 
 .profile__avatar
 {
+    margin: 5px;
     margin-left: 1em;
 }
 .profile__follow
