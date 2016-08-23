@@ -96,23 +96,22 @@ module.exports = function(conn, passport){
             {
                 id: '',
                 msg: 'Contrary to popular belief, Lorem Ipsum is not simply random text.',
-                datetime: '',
+                datetime: new Date(),
                 parent: '', //Твит на который сделали ответ
                 author_name: 'Drew Coleman',
                 author_nick: 'drew_coleman',
                 author_ava: 'http://xage.ru/media/posts/2013/3/25/fotografii-glaz-zhivotnyh-i-nasekomyh.jpg',
-                img:'/img/cat.jpg'
-
+                img: '/img/cat.jpg'
             },
             {
                 id: '',
                 msg: 'There are many variations of passages of Lorem Ipsum available.',
-                datetime: '',
+                datetime: new Date(),
                 parent: '', //Твит на который сделали ответ
                 author_name: 'Steve Nassar',
                 author_nick: 'steve_nassar',
                 author_ava: 'http://www.popmeh.ru/upload/iblock/1d3/1d36d9dd3c9b46f777d0507205cc74b6.jpg',
-                img:'/img/cat.jpg'
+                img: '/img/cat.jpg'
             }
         ];
 
@@ -131,7 +130,7 @@ module.exports = function(conn, passport){
                         author_name: user.userData.firstName,
                         author_nick: user.nick,
                         author_ava: user.avatar,
-                        img:''
+                        img: seedDb.image
                     });
                     callback();
                 });

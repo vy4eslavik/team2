@@ -76,7 +76,8 @@ function createSeeds(callback) {
                     },
                     {
                         author: alice._id,
-                        msg: 'Во всем есть своя мораль, нужно только уметь ее найти!'
+                        msg: 'Во всем есть своя мораль, нужно только уметь ее найти!',
+                        image: '/img/moral.jpg'
                     },
                     {
                         author: alice._id,
