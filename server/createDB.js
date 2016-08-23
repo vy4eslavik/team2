@@ -38,8 +38,8 @@ function createUsers(callback) {
 
 
     var users = [
-        {nick: 'alice', userData: {firstName: 'Alice'}, avatar:'avatar/alice.jpg'},
-        {nick: 'cheshire', userData: {firstName: 'Cheshire cat'}, avatar:'avatar/cheshire.jpg'}
+        {_id: '57bb1220489d8a7436ab1058', nick: 'alice', userData: {firstName: 'Alice'}, avatar:'avatar/alice.jpg'},
+        {_id: '57bb1220489d8a7436ab1059', nick: 'cheshire', userData: {firstName: 'Cheshire cat'}, avatar:'avatar/cheshire.jpg'}
     ];
 
     async.each(users, function(userData, callback) {
