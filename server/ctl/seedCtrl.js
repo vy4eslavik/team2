@@ -15,7 +15,7 @@ module.exports = function(app) {
                 datetime: Math.floor(Date.now() / 1000),
                 parent: null,
                 child: null,
-                author: '57babc7516a4faab2093b42b',
+                author: '57bb1220489d8a7436ab1058',
                 image: null,
                 latlng: null,
                 link: null
