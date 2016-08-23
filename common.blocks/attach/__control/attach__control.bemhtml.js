@@ -1,7 +1,5 @@
-block('attach').elem('control').attrs()(function() {
-    if(this._attach.accept) {
+block('attach').elem('control').match(function(){ return this._attach.accept; })(
+    attrs()(function() {
         return this.extend(applyNext(), {accept: this._attach.accept});
-    }else {
-        return this.extend(applyNext());
-    }
-});
+    })
+);

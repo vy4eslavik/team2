@@ -14,27 +14,27 @@ block('settings-list').content()(function () {
         {
             name: '(GMT-03:00) Buenos Aires',
             value: 'Buenos Aires',
-            offset: '-10800'
+            offset: -10800
         },
         {
             name: '(GMT) UTC',
             value: 'UTC',
-            offset: '0'
+            offset: 0
         },
         {
             name: '(GMT+01:00) London',
             value: 'London',
-            offset: '3600'
+            offset: 3600
         },
         {
             name: '(GMT+02:00) Budapest',
             value: 'Budapest',
-            offset: '7200'
+            offset: 7200
         },
         {
             name: '(GMT+03:00) Moscow',
             value: 'Moscow',
-            offset: '10800'
+            offset: 10800
         }
     ];
 
@@ -43,19 +43,17 @@ block('settings-list').content()(function () {
         mods: { mode : 'radio', theme : 'islands', size : 'l' },
         name: 'timeZone',
         id: 'editTimeZone',
-        //TODO поставить значение из базы
-        val: 'Moscow',
+        val: profileSettings.timeZone,
         options: []
     };
 
     timeZones.forEach(function (item) {
         selectTimeZone.options.push(
             {
-                val: item.value,
-                text: item.name,
-                attrs: {'data-offset': item.offset}
+                val: item.offset,
+                text: item.name
             }
-        )
+        );
     });
 
     return [

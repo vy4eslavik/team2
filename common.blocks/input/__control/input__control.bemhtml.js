@@ -1,7 +1,5 @@
-block('input').elem('control').attrs()(function() {
-    if(this._input.required) {
+block('input').elem('control').match(function(){ return this._input.required; })(
+    attrs()(function() {
         return this.extend(applyNext(), {required: 'required'});
-    }else {
-        return this.extend(applyNext());
-    }
-});
+    })
+);

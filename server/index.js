@@ -210,10 +210,10 @@ app.get('/seed', function(req, res) {
 });
 app.get('/profile/my', function(req, res) {
     //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
-    var userId = '57b8697a5e7f529f275508c4';
+    var userId = '57bb1220489d8a7436ab1058';
 
     User.findById(userId, function (err, user) {
-        if (err) console.log(err);
+        if (err) { console.log(err); }
 
         render(req, res, {
             view: 'editProfile',
@@ -229,14 +229,14 @@ app.get('/profile/my', function(req, res) {
             profileSettings: user,
             userPath: 'http://'+process.env.HOSTNAME+'/profile/'+user.nick,
             formSave: req.query.success
-        })
+        });
     });
 });
 var avatarStorage = multer.diskStorage({
     destination: staticFolder+'/avatar/',
     filename: function (req, file, cb) {
         if(req.body.nick){
-            //TODO req.body не приходит. Хорошо бы сделать.
+            //TODO req.body не приходит. Хорошо бы сделать. Или можно брать ник по текущему пользователю.
             cb(null, req.body.nick);
             return;
         }
@@ -253,8 +253,9 @@ app.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), 
             lastName: body.lastName,
             description: body.aboutMe
         },
-        // timeZone: obj.timeZone
+        timeZone: body.timeZone
     };
+
     var avatar = req.file;
     if (avatar) {
         user.avatar = 'avatar/' + avatar.originalname;
