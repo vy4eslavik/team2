@@ -10,6 +10,9 @@ module.exports = function(conn, passport){
         ; render = require('./render').render
         ;
 
+    var async = require('async');
+    var Seed = require('./models/seed.js');
+
     var seedController = require('./ctl/seedCtrl')(router);
     var userController = require('./ctl/userCtrl')(router);
 
@@ -87,7 +90,7 @@ module.exports = function(conn, passport){
         res.redirect('/');
     });
 
-    router.get('/home', function(req, res) {
+    router.get('/home', function(req, res, next) {
         var seeds = [
             {
                 id: '',
@@ -109,20 +112,30 @@ module.exports = function(conn, passport){
                 author_nick: 'steve_nassar',
                 author_ava: 'http://www.popmeh.ru/upload/iblock/1d3/1d36d9dd3c9b46f777d0507205cc74b6.jpg',
                 img:''
-            },
+            }
         ];
-        render(req, res, {
-            view: 'home',
-            title: 'Home Page',
-            meta: {
-                description: 'Page description',
-                og: {
-                    url: 'https://site.com',
-                    siteName: 'Site name'
-                }
-            },
-            seeds:seeds
-        })
+
+        Seed.find(function (err, seedsDb) {
+            if (err) return next(err);
+            async.each(seedsDb, function(seedDb, callback) {
+                seeds.push(seedDb);
+                callback();
+            }, function(err) {
+                if (err) return next(err);
+                render(req, res, {
+                    view: 'home',
+                    title: 'Home Page',
+                    meta: {
+                        description: 'Лента твитов',
+                        og: {
+                            url: 'https://pepo.local',
+                            siteName: 'Pepo'
+                        }
+                    },
+                    seeds:seeds
+                })
+            });
+        });
     });
 
     router.get('/ping/', function(req, res) {
