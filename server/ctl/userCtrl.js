@@ -9,7 +9,7 @@ module.exports = function() {
     return {
         findById: function(req, res) {
             //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
-            var userId = '57babc7516a4faab2093b42b';
+            var userId = '57bb1220489d8a7436ab1058';
 
             User.findById(userId, function (err, user) {
                 if (err) console.log(err);
