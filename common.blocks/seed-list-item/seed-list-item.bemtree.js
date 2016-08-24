@@ -5,7 +5,8 @@
 block('seed-list-item').content()(function () {
     var seed = this.ctx.seed;
 
-    var seedBlock = {
+    return [
+        {
             elem: 'item',
             content:[
                 {
@@ -50,12 +51,13 @@ block('seed-list-item').content()(function () {
                 {
                     elem: 'bottom',
                     content:[
+                        seed.img?
                         {
                             block: 'image',
-                            url: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR4mLmKpa_q3lgkn9Je2guQG3YMvhRMCQtpyOoSLUOjWSykvfME',
+                            url: seed.img,
                             alt: 'Seed Image',
                             height: 'auto'
-                        },
+                        } : '',
                         {
                             elem: 'actions',
                             content: [
@@ -77,20 +79,9 @@ block('seed-list-item').content()(function () {
                     ]
             }
         ]
-    };
-    if (seed.img) {
-        seedBlock.content.push({
-            elem: 'bottom',
-            content: {
-                block: 'image',
-                url: seed.img,
-                alt: 'Seed Image',
-                height: 'auto'
-            }
-        });
-    }
-    return [
-        seedBlock
-    ];
+
+    }];
+
 });
+
 
