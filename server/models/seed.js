@@ -7,9 +7,7 @@ var Seed = mongoose.model('Seed', {
         type: Date,
         default: Date.now
     },
-    parent: [
-        Schema.Types.ObjectId // id Другого Seed
-    ],
+    parent: Schema.Types.ObjectId, // id Другого Seed
     child: [
         Schema.Types.ObjectId // id Другого Seed
     ],
