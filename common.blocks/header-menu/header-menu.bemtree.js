@@ -4,6 +4,8 @@
 
 block('header-menu').content()(function() {
 
+    var isAuthenticated = this.data.isAuthenticated;
+
     return [
         {
             elem: 'item',
@@ -15,7 +17,7 @@ block('header-menu').content()(function() {
                 content: 'Home'
             }
         },
-        {
+        isAuthenticated ? {
             elem: 'item',
             tag: 'li',
             content: {
@@ -24,7 +26,7 @@ block('header-menu').content()(function() {
                 attrs: { href: '/profile/my' },
                 content: 'Edit Profile'
             }
-        },
+        } : '',
         {
             elem: 'item',
             tag: 'li',
@@ -35,7 +37,7 @@ block('header-menu').content()(function() {
                 content: 'Seed'
             }
         },
-        {
+        isAuthenticated ? {
             elem: 'item',
             tag: 'li',
             content: {
@@ -44,6 +46,6 @@ block('header-menu').content()(function() {
                 attrs: { href: '/logout' },
                 content: 'Log Out'
             }
-        }
+        } : ''
     ];
 });

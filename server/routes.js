@@ -35,14 +35,8 @@ module.exports = function(conn, passport){
     router.get('/seed/add', seedController.modAddSeed);
 
     //user
-    router.get('/profile/my', userController.findById);
+    router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.findById);
     router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateByID);
-
-    router.get('/profile',
-        require('connect-ensure-login').ensureLoggedIn(),
-        function(req, res){
-            res.send(JSON.stringify(req.user));
-        });
 
     router.get('/', function(req, res) {
         render(req, res, {
@@ -60,7 +54,10 @@ module.exports = function(conn, passport){
 
     router.get('/login',
         function(req, res){
-            res.send('<a href="/login/facebook">Log In with Facebook</a><a href="/login/vkontakte">Log In with vkontakte</a>');
+          render(req, res, {
+          view:'login',
+          title: 'Authorization'
+         });
         });
 
     router.get('/login/facebook',
@@ -91,7 +88,10 @@ module.exports = function(conn, passport){
         res.redirect('/');
     });
 
-    router.get('/home', function(req, res, next) {
+    router.get('/home', require('connect-ensure-login').ensureLoggedIn(), function(req, res, next) {
+
+        var profile = req.user;
+
         var seeds = [
             {
                 id: '',
@@ -146,15 +146,14 @@ module.exports = function(conn, passport){
                             siteName: 'Pepo'
                         }
                     },
-                    seeds:seeds
+                    seeds:seeds,
+                    profile:profile,
+                    isAuthenticated: req.isAuthenticated()
                 })
             });
         });
     });
 
-    router.get('/ping/', function(req, res) {
-        res.send('ok');
-    });
 
     router.get('*', function(req, res) {
         res.status(404);

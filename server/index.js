@@ -23,6 +23,8 @@ var fs = require('fs'),
     config = require('./config'),
     staticFolder = config.staticFolder,
 
+    User = require('./models/user.js'),
+
     Render = require('./render'),
     render = Render.render,
     dropCache = Render.dropCache,
@@ -66,31 +68,77 @@ passport.deserializeUser(function(user, done) {
 passport.use(new FacebookStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://"+process.env.HOSTNAME+"/login/facebook/return"
+    callbackURL: "http://"+process.env.HTTP_HOST+"/login/facebook/return"
   },
   function(accessToken, refreshToken, profile, cb) {
-    // In this example, the user's Facebook profile is supplied as the user
-    // record.  In a production-quality application, the Facebook profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    return cb(null, profile);
+    User.findOne({
+            'facebook.id': profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+            if (!user) {
+                user = new User({
+                    nick: 'should.change.fb.'+profile.id,
+                    userData: {
+                      firstName: profile.displayName.split(' ')[0],
+                      lastName: (profile.displayName.split(' ')[1] ? profile.displayName.split(' ')[1]+'' : ''),
+                      description: ''
+                    },
+                    //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
+                    facebook: profile._json
+                });
+                user.save(function(err) {
+                    if (err) console.log(err);
+                    return cb(err, user);
+                });
+            } else {
+                //found user. Return
+                return cb(err, user);
+            }
+        });
   }));
 
   passport.use(new VKontakteStrategy(
     {
       clientID:     process.env.VKONTAKTE_APP_ID, // VK.com docs call it 'API ID', 'app_id', 'api_id', 'client_id' or 'apiId'
       clientSecret: process.env.VKONTAKTE_APP_SECRET,
-      callbackURL:  "http://"+process.env.HOSTNAME+"/login/vkontakte/return"
+      callbackURL:  "http://"+process.env.HTTP_HOST+"/login/vkontakte/return"
     },
     function myVerifyCallbackFn(accessToken, refreshToken, profile, done) {
 
       // Now that we have user's `profile` as seen by VK, we can
       // use it to find corresponding database records on our side.
       // Here, we have a hypothetical `User` class which does what it says.
-      User.findOrCreate({ vkontakteId: profile.id })
-          .then(function (user) { done(null, user) })
-          .catch(done);
+      User.findOne({
+              'vkontakte.id': profile.id
+          }, function(err, user) {
+              if (err) {
+                  return done(err);
+              }
+              //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+              if (!user) {
+                console.log(profile);
+                  user = new User({
+                      nick: 'should.change.vk.'+profile.id,
+                      userData: {
+                        firstName: profile.displayName.split(' ')[0],
+                        lastName: (profile.displayName.split(' ')[1] ? profile.displayName.split(' ')[1]+'' : ''),
+                        description: ''
+                      },
+                      //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
+                      vkontakte: profile._json
+                  });
+                  user.save(function(err) {
+                      if (err) console.log(err);
+                      return cb(err, user);
+                  });
+              } else {
+                  //found user. Return
+                  return cb(err, user);
+              }
+          });
     }
   ));
 

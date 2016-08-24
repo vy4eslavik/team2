@@ -9,7 +9,7 @@ module.exports = function() {
     return {
         findById: function(req, res) {
             //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
-            var userId = '57bb1220489d8a7436ab1058';
+            var userId = req.user._id;
 
             User.findById(userId, function (err, user) {
                 if (err) console.log(err);
@@ -27,7 +27,8 @@ module.exports = function() {
                     },
                     profileSettings: user,
                     userPath: 'http://'+process.env.HOSTNAME+'/profile/'+user.nick,
-                    formSave: req.query.success
+                    formSave: req.query.success,
+                    isAuthenticated: req.isAuthenticated()
                 })
             });
         },
