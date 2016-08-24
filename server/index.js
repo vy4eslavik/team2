@@ -1,3 +1,4 @@
+'use strict';
 Object.assign || (Object.assign = require('object-assign'));
 
 var fs = require('fs'),
@@ -14,12 +15,10 @@ var fs = require('fs'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
-    VKontakteStrategy = require('passport-vkontakte').Strategy;
+    VKontakteStrategy = require('passport-vkontakte').Strategy,
     env = require('node-env-file'),
 
     mongoose = require('mongoose'),
-
-    multer  = require('multer'),
 
     config = require('./config'),
     staticFolder = config.staticFolder,
@@ -53,10 +52,8 @@ app
     .use(slashes());
     // TODO: csrf, gzip
 
-mongoose.connect('mongodb://localhost/pepo');
-
-Seed = require('./models/seed.js')
-User = require('./models/user.js');
+mongoose.connect(config.mongoose.uri);
+var db = mongoose.connection;
 
 passport.serializeUser(function(user, done) {
     done(null, JSON.stringify(user));
@@ -100,242 +97,8 @@ passport.use(new FacebookStrategy({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/ping/', function(req, res) {
-    res.send('ok');
-});
+app.use(require('./routes.js')(db, passport));
 
-app.get('/', function(req, res) {
-    render(req, res, {
-        view: 'index',
-        title: 'Main page',
-        meta: {
-            description: 'Page description',
-            og: {
-                url: 'https://site.com',
-                siteName: 'Site name'
-            }
-        }
-    })
-});
-
-app.get('/login',
-  function(req, res){
-    //res.send('<a href="/login/facebook">Log In with Facebook</a><a href="/login/vkontakte">Log In with vkontakte</a>');
-    render(req, res, {
-      view:'login',
-      title: 'Authorization'
-    });
-  });
-
-app.get('/login/facebook',
-  passport.authenticate('facebook'));
-
-app.get('/login/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-
-app.get('/login/vkontakte',
-  passport.authenticate('vkontakte'),
-  function (req, res) {
-    // The request will be redirected to vk.com for authentication, so
-    // this function will not be called.
-  });
-
-app.get('/login/vkontakte/return',
-  passport.authenticate('vkontakte', { failureRedirect: '/login' }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
-
-app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.send(JSON.stringify(req.user));
-  });
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-app.get('/home', function(req, res) {
-    var seeds = [
-        {
-            id: '',
-            msg: 'Contrary to popular belief, Lorem Ipsum is not simply random text.',
-            datetime: '',
-            parent: '', //Твит на который сделали ответ
-            author_name: 'Drew Coleman',
-            author_nick: 'drew_coleman',
-            author_ava: 'http://xage.ru/media/posts/2013/3/25/fotografii-glaz-zhivotnyh-i-nasekomyh.jpg',
-            img:''
-
-        },
-        {
-            id: '',
-            msg: 'There are many variations of passages of Lorem Ipsum available.',
-            datetime: '',
-            parent: '', //Твит на который сделали ответ
-            author_name: 'Steve Nassar',
-            author_nick: 'steve_nassar',
-            author_ava: 'http://www.popmeh.ru/upload/iblock/1d3/1d36d9dd3c9b46f777d0507205cc74b6.jpg',
-            img:''
-        },
-    ];
-    render(req, res, {
-        view: 'home',
-        title: 'Home Page',
-        meta: {
-            description: 'Page description',
-            og: {
-                url: 'https://site.com',
-                siteName: 'Site name'
-            }
-        },
-        seeds:seeds
-    })
-});
-
-app.get('/seed', function(req, res) {
-    render(req, res, {
-        view: 'seed',
-        title: 'Seed Page',
-        meta: {
-            description: 'Page description',
-            og: {
-                url: 'https://site.com',
-                siteName: 'Site name'
-            }
-        }
-    })
-});
-app.get('/profile/my', function(req, res) {
-    //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
-    var userId = '57bb1220489d8a7436ab1058';
-
-    User.findById(userId, function (err, user) {
-        if (err) { console.log(err); }
-
-        render(req, res, {
-            view: 'editProfile',
-            title: 'Мои настройки',
-            meta: {
-                description: 'Редактирование профиля',
-                og: {
-                    siteName: 'Pepo',
-                    locale: 'ru_RU',
-                    url: 'http://'+process.env.HOSTNAME
-                }
-            },
-            profileSettings: user,
-            userPath: 'http://'+process.env.HOSTNAME+'/profile/'+user.nick,
-            formSave: req.query.success
-        });
-    });
-});
-var avatarStorage = multer.diskStorage({
-    destination: staticFolder+'/avatar/',
-    filename: function (req, file, cb) {
-        if(req.body.nick){
-            //TODO req.body не приходит. Хорошо бы сделать. Или можно брать ник по текущему пользователю.
-            cb(null, req.body.nick);
-            return;
-        }
-        cb(null, file.originalname);
-    }
-});
-app.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), function(req, res) {
-    var body = req.body;
-
-    var user = {
-        // nick: body.nick,
-        userData: {
-            firstName: body.firstName,
-            lastName: body.lastName,
-            description: body.aboutMe
-        },
-        timeZone: body.timeZone
-    };
-
-    var avatar = req.file;
-    if (avatar) {
-        user.avatar = 'avatar/' + avatar.originalname;
-    }
-
-    User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
-        if (err) {
-            console.log(err);
-            res.redirect('/profile/my?success=error');
-        }
-
-        res.redirect('/profile/my?success=done');
-    });
-
-});
-
-app.get('/seed/add', function(req, res) {
-    render(req, res, {
-        view: 'addSeed',
-        title: 'Add seed page',
-        meta: {
-            description: 'Add seed page',
-            og: {
-                url: 'https://site.com',
-                siteName: 'Site name'
-            }
-        }
-    })
-});
-
-
-app.post('/seed/add', function(req, res) {
-var msg = req.body.name + ':' + req.body.text;
-    console.log('req', req.body);
-    var seed = new Seed({
-        msg : msg,
-        datetime: Math.floor(Date.now() / 1000)
-    });
-
-    seed.save(function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('add');
-        }
-    });
-    // res.send('add query');
-    res.redirect('/');
-
-});
-
-app.get('/fakedata',function(req,res) {
-    res.send('depreacated');
-    /*
-
-  var seed = new Seed({
-    msg: 'test message',
-    datetime: Math.floor(Date.now() / 1000)
-  });
-  seed.save(function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('dees added');
-    }
-  });
-
-  res.send('fakedata added');
-
-    */
-});
-
-app.get('*', function(req, res) {
-    res.status(404);
-    return render(req, res, { view: '404' });
-});
 
 if (isDev) {
     app.get('/error/', function() {
