@@ -20,9 +20,8 @@ module.exports = function(conn, passport){
     var avatarStorage = multer.diskStorage({
         destination: config.staticFolder+'/avatar/',
         filename: function (req, file, cb) {
-            if(req.body.nick){
-                //TODO req.body не приходит. Хорошо бы сделать.
-                cb(null, req.body.nick);
+            if(req.user){
+                cb(null, req.user.nick+'.'+(file.mimetype.split('/')[1]));
                 return;
             }
             cb(null, file.originalname);

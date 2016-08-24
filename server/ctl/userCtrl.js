@@ -8,7 +8,6 @@ module.exports = function() {
 
     return {
         findById: function(req, res) {
-            //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
             var userId = req.user._id;
 
             User.findById(userId, function (err, user) {
@@ -43,11 +42,11 @@ module.exports = function() {
                     lastName: body.lastName,
                     description: body.aboutMe
                 },
-                // timeZone: obj.timeZone
+                timeZone: body.timeZone
             };
-            var avatar = req.file;
-            if (avatar) {
-                user.avatar = 'avatar/' + avatar.originalname;
+
+            if (req.file) {
+                user.avatar = 'avatar/' + req.file.filename;
             }
 
             User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
