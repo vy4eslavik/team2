@@ -20,11 +20,13 @@
 
 .seed-list-item__right{
     padding-left: 100px;
+    min-height: 85px;
 }
 
-.seed-list-item__title{
-     min-height: 85px;
- }
+
+.seed-list-item__reply{
+    color: #0084b4;
+}
 
 .seed-list-item__msg{
     padding: 5px 5px;
@@ -35,4 +37,12 @@
     border-radius: 10px;
     margin: 0 3px;
     width: calc(100% - 6px);
+}
+
+.seed-list-item__actions{
+    text-align: right;
+}
+
+.seed-list-item__actions .link{
+    padding-right: 10px;
 }
