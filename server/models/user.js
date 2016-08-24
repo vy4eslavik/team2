@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var User = mongoose.model('User', {
     //id - автоматическое от MongoDB
@@ -7,6 +8,8 @@ var User = mongoose.model('User', {
         required: true,
         unique: true
     },
+    facebook: Schema.Types.Mixed,
+    vkontakte: Schema.Types.Mixed,
     userData: {
         firstName: String,
         lastName: String,
