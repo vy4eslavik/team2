@@ -15,15 +15,19 @@ block('header').content()(function() {
                     elem: 'right',
                     content:{
                     tag: 'form',
-                    attrs: { action: '' },
+                    attrs: { action: '/search' },
                     content: [
                         {
                             block: 'input',
                             name: 'text',
-                            val: 'Search for seeds'
+                            placeholder: 'Search for seeds'
                         },
                         {
-                            block: 'search-icon'
+                            block: 'search-icon',
+                            tag: 'button',
+                            mods: { type: 'submit'},
+                            type: 'submit'
+
                         }
                     ]
                 }
