@@ -32,6 +32,14 @@ module.exports = function(app) {
             res.redirect('/');
         },
 
+        getCountByAuthor: function (authorId, callback) {
+            Seed.count({author: authorId}, callback);
+        },
+
+        getSeeds: function (user, callback) {
+            Seed.getPlain(user, callback);
+        },
+
         modSeed: function(req, res) {
             render(req, res, {
                 view: 'seed',

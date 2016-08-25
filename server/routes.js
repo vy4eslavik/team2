@@ -11,8 +11,6 @@ module.exports = function(conn, passport){
         ;
 
     var async = require('async');
-    var Seed = require('./models/seed.js');
-    var User = require('./models/user.js');
 
     var seedController = require('./ctl/seedCtrl')(router);
     var userController = require('./ctl/userCtrl')(router);
@@ -87,32 +85,14 @@ module.exports = function(conn, passport){
         res.redirect('/');
     });
 
-    router.get('/home', require('connect-ensure-login').ensureLoggedIn(), function(req, res, next) {
+    router.get('/home', require('connect-ensure-login').ensureLoggedIn(), function (req, res, next) {
 
         var profile = req.user;
-
-        var seeds = [];
-
-        Seed.find(function (err, seedsDb) {
+        seedController.getCountByAuthor(profile._id, function (err, count) {
             if (err) return next(err);
-            async.each(seedsDb, function(seedDb, callback) {
+            profile.seedsCount = count;
 
-
-                User.findById(seedDb.author, function (err, user) {
-                    if (err) return next(err);
-                    seeds.push({
-                        id: seedDb._id,
-                        msg: seedDb.msg,
-                        datetime: seedDb.datetime,
-                        parent: seedDb.parent, //Твит на который сделали ответ
-                        author_name: user.userData.firstName,
-                        author_nick: user.nick,
-                        author_ava: user.avatar,
-                        img: seedDb.image
-                    });
-                    callback();
-                });
-            }, function(err) {
+            seedController.getSeeds(profile, function (err, seeds) {
                 if (err) return next(err);
                 render(req, res, {
                     view: 'home',
@@ -124,8 +104,8 @@ module.exports = function(conn, passport){
                             siteName: 'Pepo'
                         }
                     },
-                    seeds:seeds,
-                    profile:profile,
+                    seeds: seeds,
+                    profile: profile,
                     isAuthenticated: req.isAuthenticated()
                 })
             });

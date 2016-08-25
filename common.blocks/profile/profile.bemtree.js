@@ -13,7 +13,7 @@ block('profile').content()(function() {
               block : 'link',
               mods : { theme : 'greylink', size : 'm', pseudo : true },
               url: '#',
-              content : 'Seeds(0)'
+              content : 'Seeds(' + profile.seedsCount + ')'
             }
           ]
         },

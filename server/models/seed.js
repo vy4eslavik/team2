@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Seed = mongoose.model('Seed', {
+var schema =  new Schema({
     msg: String,
     datetime: {
         type: Date,
@@ -20,4 +20,30 @@ var Seed = mongoose.model('Seed', {
     link: Schema.Types.ObjectId // id в кэше сниппетов ссылок
 });
 
-module.exports = Seed;
+schema.statics.getPlain = function (user, callback) {
+    var seed = this;
+    seed.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "author",
+            foreignField: "_id", as: "user"
+        }
+    }], function(err, seeds) {
+        if (err) return callback(err);
+        var seedsPlain = seeds.map(function (seed) {
+            return {
+                id: seed._id,
+                msg: seed.msg,
+                datetime: seed.datetime,
+                parent: seed.parent, //Твит на который сделали ответ
+                author_name: seed.user[0].userData.firstName,
+                author_nick: seed.user[0].nick,
+                author_ava: seed.user[0].avatar,
+                img: seed.image
+            }
+        });
+        callback(null, seedsPlain);
+    });
+};
+
+module.exports = mongoose.model('Seed', schema);
