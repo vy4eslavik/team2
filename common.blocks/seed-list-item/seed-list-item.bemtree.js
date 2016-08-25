@@ -37,8 +37,8 @@ block('seed-list-item').content()(function () {
                                         },
                                         {
                                             elem: 'nick',
-                                            content: 'Aug 20'
-                                        },
+                                            content: seed.datetime.toLocaleString()
+                                        }
                                     ]
 
                                 }
@@ -83,5 +83,3 @@ block('seed-list-item').content()(function () {
     }];
 
 });
-
-

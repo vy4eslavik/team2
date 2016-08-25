@@ -1,8 +1,9 @@
 block('profile').content()(function() {
+    var profile = this.ctx.profile || {};
     return [
         {
           block : 'avatar',
-          img: 'https://pp.vk.me/c624620/v624620916/54645/sVzPtL8zip8.jpg',
+          img: profile.avatar,
           mix: { block : 'profile', elem: 'avatar' }
         },
         {
@@ -23,7 +24,7 @@ block('profile').content()(function() {
               block : 'link',
               mods : { theme : 'greylink', size : 'm', pseudo : true },
               url: '#',
-              content : 'Follow(25)'
+              content : 'Follow(' + profile.follow.length + ')'
             }
           ]
         }

@@ -6,7 +6,8 @@ block('page').mod('view', 'home').content()(function() {
             block: 'header'
         },
         {
-          block: 'profile'
+          block: 'profile',
+            profile: this.data.profile || ''
         },
         {
             block: 'seed-list',
