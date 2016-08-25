@@ -106,7 +106,7 @@ passport.use(new FacebookStrategy({
       clientSecret: process.env.VKONTAKTE_APP_SECRET,
       callbackURL:  "http://"+process.env.HTTP_HOST+"/login/vkontakte/return"
     },
-    function myVerifyCallbackFn(accessToken, refreshToken, profile, done) {
+    function myVerifyCallbackFn(accessToken, refreshToken, profile, cb) {
 
       // Now that we have user's `profile` as seen by VK, we can
       // use it to find corresponding database records on our side.
@@ -127,6 +127,7 @@ passport.use(new FacebookStrategy({
                         lastName: (profile.displayName.split(' ')[1] ? profile.displayName.split(' ')[1]+'' : ''),
                         description: ''
                       },
+                      avatar: profile._json.photo ? profile._json.photo : '',
                       //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
                       vkontakte: profile._json
                   });
