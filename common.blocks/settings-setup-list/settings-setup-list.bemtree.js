@@ -6,6 +6,8 @@ block('settings-setup-list').content()(function () {
     };
     if(this.ctx.formSave === 'done'){
         formSave.content = 'Изменения успешно сохранены';
+    }else if(this.ctx.formSave === 'errorexists'){
+        formSave.content = 'Упс! Такой ник занят';
     }else if(this.ctx.formSave === 'error'){
         formSave.content = 'Упс! Произошла ошибка';
     }

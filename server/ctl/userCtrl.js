@@ -93,13 +93,12 @@ module.exports = function() {
                 nick: body.nick,
             };
 
-            User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
+            User.findByIdAndUpdate(body.userId, user, { runValidators: true }, function (err, user) {
                 if (err) {
-                    console.log(err);
-                    res.redirect('/profile/setup?success=error');
+                    res.redirect('/profile/setup?success=error' + (err.errors.nick.message === 'exists' ? 'exists' : '') );
+                }else{
+                    res.redirect('/profile/setup?success=done');
                 }
-
-                res.redirect('/profile/setup?success=done');
             });
 
         },
