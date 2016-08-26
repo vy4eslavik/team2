@@ -146,6 +146,18 @@ passport.use(new FacebookStrategy({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function (req, res, next) {
+    if (req.user && req.user.nick.indexOf('should.change.') > -1) {
+        if ( req.url !== '/profile/setup/' ) {
+            res.redirect('/profile/setup');
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
+
 app.use(require('./routes.js')(db, passport));
 
 

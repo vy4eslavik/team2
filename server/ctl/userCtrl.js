@@ -58,6 +58,50 @@ module.exports = function() {
                 res.redirect('/profile/my?success=done');
             });
 
-        }
+        },
+
+        findByIdPickName: function(req, res) {
+            //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
+            var userId = req.user._id;
+
+            User.findById(userId, function (err, user) {
+                if (err) console.log(err);
+
+                render(req, res, {
+                    view: 'setupProfile',
+                    title: 'Мои настройки',
+                    meta: {
+                        description: 'Создание профиля',
+                        og: {
+                            siteName: 'Pepo',
+                            locale: 'ru_RU',
+                            url: 'http://'+process.env.HTTP_HOST
+                        }
+                    },
+                    profileSettings: user,
+                    userPath: 'http://'+process.env.HTTP_HOST+'/profile/'+user.nick,
+                    formSave: req.query.success,
+                    isAuthenticated: req.isAuthenticated()
+                })
+            });
+        },
+
+        updateByIdPickName: function(req, res) {
+            var body = req.body;
+
+            var user = {
+                nick: body.nick,
+            };
+
+            User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
+                if (err) {
+                    console.log(err);
+                    res.redirect('/profile/setup?success=error');
+                }
+
+                res.redirect('/profile/setup?success=done');
+            });
+
+        },
     }
 };

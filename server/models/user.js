@@ -15,6 +15,12 @@ var User = mongoose.model('User', {
         lastName: String,
         description: String
     },
+    facebook: {
+      type: Object
+    },
+    vkontakte: {
+      type: Object
+    },
     avatar: String, // URL
     timeZone: Number, //
     follow: [], // на кого мы подписаны

@@ -1,7 +1,7 @@
 ({
     shouldDeps: [
         {
-            mods: { view: ['404', 'home','profile','seed', 'editProfile', 'addSeed','login'] }
+            mods: {view: ['404', 'home','profile','seed', 'editProfile', 'addSeed', 'login', 'setupProfile']}
         },
         'header',
         'body',
@@ -15,6 +15,7 @@
         'body',
         'content',
         'settings-list',
+        'settings-setup-list',
         'profile',
         'seed-list-item',
         {   block : 'input',
