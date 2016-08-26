@@ -22,7 +22,7 @@ block('settings-setup-list').content()(function () {
                     attrs: {'for': 'editNick'},
                     content: 'Никнейм'
                 },
-                {
+                profileSettings.nick.indexOf('should.change.') > -1 ? {
                     block: 'input',
                     name: 'nick',
                     val: '',
@@ -31,10 +31,19 @@ block('settings-setup-list').content()(function () {
                     required: true,
                     notification: userPath,
                     mods: {theme: 'islands', size: 'l', disabled: false}
+                } : {
+                    block: 'input',
+                    name: 'nick',
+                    val: profileSettings.nick,
+                    id: 'editNick',
+                    tabIndex: 1,
+                    required: true,
+                    notification: userPath,
+                    mods: {theme: 'islands', size: 'l', disabled: true}
                 }
             ]
         },
-        {
+        profileSettings.nick.indexOf('should.change.') > -1 ? {
             block: 'button',
             name: 'userId',
             val: profileSettings.id,
@@ -42,7 +51,7 @@ block('settings-setup-list').content()(function () {
             id: 'saveProfile',
             tabIndex: 5,
             mods: {theme: 'islands', size: 'l', type: 'submit'}
-        }
+        } : ''
     ];
 
 });

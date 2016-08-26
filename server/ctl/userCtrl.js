@@ -102,9 +102,9 @@ module.exports = function() {
                     req.logIn(user, function(error) {
                         if (!error) {
                             // successfully serialized user to session
+                            res.redirect('/profile/setup?success=done');
                         }
                     });
-                    res.redirect('/profile/setup?success=done');
                 }
             });
 
