@@ -115,7 +115,7 @@ passport.use(new FacebookStrategy({
               'vkontakte.id': profile.id
           }, function(err, user) {
               if (err) {
-                  return done(err);
+                  return cb(err);
               }
               //No user was found... so create a new user with values from Facebook (all the profile. stuff)
               if (!user) {
@@ -145,6 +145,18 @@ passport.use(new FacebookStrategy({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function (req, res, next) {
+    if (req.user && req.user.nick.indexOf('should.change.') > -1) {
+        if ( req.url.indexOf('/profile/setup') > -1 || req.url === '/logout' ) {
+            next();
+        } else {
+            res.redirect('/profile/setup/');
+        }
+    } else {
+        next();
+    }
+});
 
 app.use(require('./routes.js')(db, passport));
 

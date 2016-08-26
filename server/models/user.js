@@ -21,4 +21,12 @@ var User = mongoose.model('User', {
     subscribers:[] // на кого мы подписались
 });
 
+User.schema.path('nick').validate(function(value, respond) {
+  User.findOne({nick: value}, function(err, user) {
+    if(err) throw err;
+    if(user) return respond(false);
+    respond(true);
+  });
+}, 'exists');
+
 module.exports = User;
