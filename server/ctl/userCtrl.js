@@ -97,6 +97,13 @@ module.exports = function() {
                 if (err) {
                     res.redirect('/profile/setup?success=error' + (err.errors.nick.message === 'exists' ? 'exists' : '') );
                 }else{
+
+                    user.nick = body.nick;
+                    req.logIn(user, function(error) {
+                        if (!error) {
+                            // successfully serialized user to session
+                        }
+                    });
                     res.redirect('/profile/setup?success=done');
                 }
             });
