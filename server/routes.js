@@ -25,6 +25,9 @@ module.exports = function(conn, passport){
             cb(null, file.originalname);
         }
     });
+    //user initial setup
+    router.get('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.findByIdPickName);
+    router.post('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.updateByIdPickName);
 
     //seed
     router.post('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.add);
@@ -35,10 +38,6 @@ module.exports = function(conn, passport){
     router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateMyProfile);
 
     router.get('/profile/:nick', userController.viewProfile);
-
-    //user initial setup
-    router.get('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.findByIdPickName);
-    router.post('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.updateByIdPickName);
 
     router.get('/login',
         function(req, res){
