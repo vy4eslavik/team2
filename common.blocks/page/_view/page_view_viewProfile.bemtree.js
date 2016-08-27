@@ -1,6 +1,8 @@
 block('page').mod('view', 'viewProfile').content()(function() {
 
-    var userInfo = this.data.user || '';
+    var userInfo = this.data.user || false;
+    var subscribe = this.data.subscribe || false;
+    var seeds = this.data.seeds || [];
     return [
         {
             block: 'header'
@@ -13,12 +15,13 @@ block('page').mod('view', 'viewProfile').content()(function() {
                     content:
                     {
                         block: 'view-profile',
-                        userInfo: userInfo
+                        userInfo: userInfo,
+                        subscribe: subscribe
                     }
                 },
                 {
                     block: 'seed-list',
-                    seeds: []
+                    seeds: seeds
                 }
             ]
         },

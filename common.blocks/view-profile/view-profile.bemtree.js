@@ -1,5 +1,9 @@
-block('view-profile').content()(function () {
+block('view-profile')(
+    js()(true),
+    content()(function () {
     var userInfo = this.ctx.userInfo;
+    var subscribeText = this.ctx.subscribe ? 'Отписаться' : 'Подписаться' ;
+    if(!userInfo){ return 'Упс! Произошла ошибка!'; }
     return [
         {
             block: 'avatar',
@@ -32,13 +36,15 @@ block('view-profile').content()(function () {
             content: userInfo.userData.description
         },
         {
-            block : 'button',
-            mods : { theme : 'islands', size : 'l' },
-            text : 'Подписаться'
+            block: 'button',
+            mix: {elem: 'subscribe'},
+            mods: { theme: 'islands', size: 'l' },
+            text: subscribeText
         },
         {
             elem: 'hr',
             tag: 'hr'
         }
     ];
-});
+    })
+);

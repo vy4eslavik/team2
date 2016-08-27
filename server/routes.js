@@ -31,8 +31,10 @@ module.exports = function(conn, passport){
     router.get('/seed/add', seedController.modAddSeed);
 
     //user
-    router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.findById);
-    router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateByID);
+    router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.editMyProfile);
+    router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateMyProfile);
+
+    router.get('/profile/:nick', userController.viewProfile);
 
     //user initial setup
     router.get('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.findByIdPickName);
@@ -97,30 +99,6 @@ module.exports = function(conn, passport){
                     profile: profile,
                     isAuthenticated: req.isAuthenticated()
                 })
-            });
-        });
-    });
-
-    app.get('/profile/:nick', function (req, res, next) {
-        User.findOne({ nick: req.params.nick}, function (err, user){
-            if(err || !user)  {
-                console.log(err);
-                res.status(404);
-                return render(req, res, { view: '404' });
-            }
-
-            render(req, res, {
-                view: 'viewProfile',
-                title: user.nick,
-                meta: {
-                    description: user.userData.description,
-                    og: {
-                        siteName: 'Pepo',
-                        locale: 'ru_RU',
-                        url: 'http://'+process.env.HOSTNAME
-                    }
-                },
-                user: user
             });
         });
     });

@@ -5,13 +5,19 @@
 module.exports = function() {
     const render = require('../render').render;
     var User = require('../models/user.js');
+    var Seed = require('../models/seed.js');
 
     return {
-        findById: function(req, res) {
+        editMyProfile: function(req, res) {
             var userId = req.user._id;
 
             User.findById(userId, function (err, user) {
-                if (err) console.log(err);
+
+                if (err || !user) {
+                    console.log(err);
+                    res.status(404);
+                    return render(req, res, { view: '404' });
+                }
 
                 render(req, res, {
                     view: 'editProfile',
@@ -21,18 +27,18 @@ module.exports = function() {
                         og: {
                             siteName: 'Pepo',
                             locale: 'ru_RU',
-                            url: 'http://'+process.env.HOSTNAME
+                            url: 'http://'+process.env.HTTP_HOST
                         }
                     },
                     profileSettings: user,
-                    userPath: 'http://'+process.env.HOSTNAME+'/profile/'+user.nick,
+                    userPath: 'http://'+process.env.HTTP_HOST+'/profile/'+user.nick,
                     formSave: req.query.success,
                     isAuthenticated: req.isAuthenticated()
-                })
+                });
             });
         },
 
-        updateByID: function(req, res) {
+        updateMyProfile: function(req, res) {
             var body = req.body;
 
             var user = {
@@ -50,7 +56,7 @@ module.exports = function() {
             }
 
             User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
-                if (err) {
+                if (err || !user) {
                     console.log(err);
                     res.redirect('/profile/my?success=error');
                 }
@@ -60,8 +66,38 @@ module.exports = function() {
 
         },
 
+        viewProfile: function (req, res, next) {
+
+            User.findOne({ nick: req.params.nick}, function (err, user){
+                if(err || !user)  {
+                    console.log(err);
+                    res.status(404);
+                    return render(req, res, { view: '404' });
+                }
+
+                Seed.getPlain(user, function(err, seeds){
+                    if (err) console.log(err);
+
+                    render(req, res, {
+                        view: 'viewProfile',
+                        title: user.nick,
+                        meta: {
+                            description: user.userData.description,
+                            og: {
+                                siteName: 'Pepo',
+                                locale: 'ru_RU',
+                                url: 'http://'+process.env.HTTP_HOST
+                            }
+                        },
+                        user: user,
+                        seeds: seeds
+                    });
+
+                });
+            });
+        },
+
         findByIdPickName: function(req, res) {
-            //TODO получать данные текущего пользователя. Сейчас получаем данные Алисы.
             var userId = req.user._id;
 
             User.findById(userId, function (err, user) {

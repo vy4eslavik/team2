@@ -11,6 +11,7 @@ var path = require('path'),
     cache = {};
 
 function render(req, res, data, context) {
+    useCache = false;
     if(data.profileSettings){
         dropCache();
     }
