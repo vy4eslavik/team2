@@ -18,10 +18,10 @@ modules.define('followed-unfollowed',['i-bem__dom','popup'], function(provide, B
             }
         },
         _onLinkClick : function() {
-            this.toggleMod('opened');
+            this._popup.toggleMod('visible');
         },
         _onPopupHide : function() {
-            this.delMod('opened');
+            this._popup.delMod('visible');
         }
     },{}));
 });
