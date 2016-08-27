@@ -45,19 +45,26 @@ block('seed-list-item').content()(function () {
                     ]
                 },
                 {
-                    elem: 'msg',
-                    content: seed.msg
-                },
-                {
-                    elem: 'bottom',
-                    content:[
+                    block: 'link',
+                    url: 'seed/view/?id=' + seed.id,
+                    content: [
+                        {
+                            elem: 'msg',
+                            content: seed.msg
+                        },
                         seed.img?
                         {
                             block: 'image',
                             url: seed.img,
                             alt: 'Seed Image',
                             height: 'auto'
-                        } : '',
+                        } : ''
+                    ]
+
+                },
+                {
+                    elem: 'bottom',
+                    content:[
                         {
                             elem: 'actions',
                             content: [

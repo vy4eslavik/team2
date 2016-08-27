@@ -28,12 +28,17 @@
     color: #0084b4;
 }
 
-.seed-list-item__msg{
+.seed-list-item__item .link{
+    text-decoration: none;
+}
+
+.link__msg{
     padding: 5px 5px;
+    color: #565656;
 }
 
 
-.seed-list-item__bottom .image{
+.seed-list-item__item .link .image{
     border-radius: 10px;
     margin: 0 3px;
     width: calc(100% - 6px);
