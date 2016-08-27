@@ -7,8 +7,12 @@ block('header').content()(function() {
                 {
                     elem: 'left',
                     content: {
-                        block: 'image',
-                        url: '/img/pepo.png'
+                        block: 'link',
+                        url: '/',
+                        content:{
+                            block: 'image',
+                            url: '/img/pepo.png'
+                        }
                     }
                 },
                 {
