@@ -14,7 +14,8 @@ module.exports = function(app) {
                 var seed = new Seed({
                     msg : msg,
                     datetime: Date.now(),
-                    author: req.user._id
+                    author: req.user._id,
+                    parent: req.body.parent
                 });
 
                 seed.save(function (err) {
@@ -52,6 +53,7 @@ module.exports = function(app) {
             render(req, res, {
                 view: 'addSeed',
                 title: 'Add seed page',
+                seedReplyTo: req.query.id,
                 meta: {
                     description: 'Add seed page',
                     og: {

@@ -47,4 +47,13 @@ schema.statics.getPlain = function (user, callback) {
     });
 };
 
+schema.post('save', function(doc) {
+    console.log('%s has been saved', doc._id);
+    if (doc.parent) {
+        this.model('Seed').findByIdAndUpdate(doc.parent, {$push: {child: doc._id }}, function (err, doc){
+            if (err) console.log(err);
+        });
+    }
+});
+
 module.exports = mongoose.model('Seed', schema);
