@@ -95,7 +95,7 @@ module.exports = function() {
 
             User.findByIdAndUpdate(body.userId, user, { runValidators: true }, function (err, user) {
                 if (err) {
-                    res.redirect('/profile/setup?success=error' + (err.errors.nick.message === 'exists' ? 'exists' : '') );
+                    res.redirect('/profile/setup?success=error' + (err.errors.nick.message ? err.errors.nick.message : '') );
                 }else{
 
                     user.nick = body.nick;
