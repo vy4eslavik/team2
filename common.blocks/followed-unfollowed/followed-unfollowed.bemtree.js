@@ -13,7 +13,7 @@ block('followed-unfollowed').content()(function() {
         },
         {
             block : 'popup',
-            mods : { target : 'anchor',  autoclosable : true },
+            mods : { theme : 'islands', target : 'anchor',  autoclosable : true },
             content : followed?
             {
                 block : 'link',
