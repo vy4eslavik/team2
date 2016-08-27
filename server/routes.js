@@ -39,20 +39,6 @@ module.exports = function(conn, passport){
     router.get('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.findByIdPickName);
     router.post('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.updateByIdPickName);
 
-    router.get('/', function(req, res) {
-        render(req, res, {
-            view: 'index',
-            title: 'Main page',
-            meta: {
-                description: 'Page description',
-                og: {
-                    url: 'https://site.com',
-                    siteName: 'Site name'
-                }
-            }
-        })
-    });
-
     router.get('/login',
         function(req, res){
           render(req, res, {
@@ -89,7 +75,7 @@ module.exports = function(conn, passport){
         res.redirect('/');
     });
 
-    router.get('/home', require('connect-ensure-login').ensureLoggedIn(), function (req, res, next) {
+    router.get('/', require('connect-ensure-login').ensureLoggedIn(), function (req, res, next) {
 
         var profile = req.user;
         seedController.getCountByAuthor(profile._id, function (err, count) {
