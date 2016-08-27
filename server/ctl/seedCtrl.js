@@ -8,28 +8,22 @@ module.exports = function(app) {
     var Seed = require('../models/seed.js');
 
     return {
-        add: function(req, res) {
-            var msg = req.body.name + ':' + req.body.text;
-            var seed = new Seed({
-                msg : msg,
-                datetime: Math.floor(Date.now() / 1000),
-                parent: null,
-                child: null,
-                author: '57bb1220489d8a7436ab1058',
-                image: null,
-                latlng: null,
-                link: null
-            });
+        add: function(req, res, next) {
+            if (req.body.text) {
+                var msg = req.body.text;
+                var seed = new Seed({
+                    msg : msg,
+                    datetime: Date.now(),
+                    author: req.user._id
+                });
 
-            seed.save(function (err) {
-                if (err) {
-                    console.log(err);
-                    return;
-                } else {
-                    console.log('add');
-                }
-            });
-            res.redirect('/');
+                seed.save(function (err) {
+                    if (err) return next (err);
+                });
+                res.redirect('/');
+            } else {
+                res.redirect('/seed/add');
+            }
         },
 
         getCountByAuthor: function (authorId, callback) {

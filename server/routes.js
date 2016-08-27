@@ -27,8 +27,8 @@ module.exports = function(conn, passport){
     });
 
     //seed
-    router.post('/seed/add', seedController.add);
-    router.get('/seed/add', seedController.modAddSeed);
+    router.post('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.add);
+    router.get('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.modAddSeed);
 
     //user
     router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.editMyProfile);
