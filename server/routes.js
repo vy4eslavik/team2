@@ -77,27 +77,34 @@ module.exports = function(conn, passport){
 
     router.get('/', require('connect-ensure-login').ensureLoggedIn(), function (req, res, next) {
 
+        var isAjax = false;
+        if( req.headers.isajax ) {
+            isAjax = true;
+        }
         var profile = req.user;
         seedController.getCountByAuthor(profile._id, function (err, count) {
             if (err) return next(err);
             profile.seedsCount = count;
-
             seedController.getSeeds(profile, function (err, seeds) {
                 if (err) return next(err);
-                render(req, res, {
-                    view: 'home',
-                    title: 'Home Page',
-                    meta: {
-                        description: 'Лента твитов',
-                        og: {
-                            url: 'https://pepo.local',
-                            siteName: 'Pepo'
-                        }
-                    },
-                    seeds: seeds,
-                    profile: profile,
-                    isAuthenticated: req.isAuthenticated()
-                })
+                if (!isAjax) {
+                    render(req, res, {
+                        view: 'home',
+                        title: 'Home Page',
+                        meta: {
+                            description: 'Лента твитов',
+                            og: {
+                                url: 'https://pepo.local',
+                                siteName: 'Pepo'
+                            }
+                        },
+                        seeds: seeds,
+                        profile: profile,
+                        isAuthenticated: req.isAuthenticated()
+                    })
+                } else {
+                    res.send( JSON.stringify(seeds) );
+                }
             });
         });
     });
