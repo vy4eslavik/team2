@@ -13,7 +13,7 @@ block('header-menu').content()(function() {
             content: {
                 elem: 'link',
                 tag: 'a',
-                attrs: { href: '/home' },
+                attrs: { href: '/' },
                 content: 'Home'
             }
         },

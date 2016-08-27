@@ -148,10 +148,10 @@ app.use(passport.session());
 
 app.use(function (req, res, next) {
     if (req.user && req.user.nick.indexOf('should.change.') > -1) {
-        if ( req.url.indexOf('/profile/setup') > -1 || req.url === '/logout' ) {
+        if ( req.url.indexOf('/profile/setup') > -1 || req.url.indexOf('/logout') > -1 ) {
             next();
         } else {
-            res.redirect('/profile/setup/');
+            res.redirect('/profile/setup');
         }
     } else {
         next();
