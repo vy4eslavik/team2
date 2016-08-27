@@ -1,7 +1,7 @@
 ({
     shouldDeps: [
         {
-            mods: {view: ['404', 'home','profile','seed', 'editProfile', 'addSeed', 'login', 'setupProfile']}
+            mods: {view: ['404', 'home','profile','seed', 'editProfile', 'addSeed', 'login', 'setupProfile', 'viewProfile']}
         },
         'header',
         'body',
@@ -18,6 +18,7 @@
         'settings-setup-list',
         'profile',
         'seed-list-item',
+        'view-profile',
         {   block : 'input',
             mods : { theme: 'islands', size : 'm' }
         },

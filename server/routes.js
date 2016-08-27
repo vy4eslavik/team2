@@ -31,8 +31,10 @@ module.exports = function(conn, passport){
     router.get('/seed/add', seedController.modAddSeed);
 
     //user
-    router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.findById);
-    router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateByID);
+    router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.editMyProfile);
+    router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateMyProfile);
+
+    router.get('/profile/:nick', userController.viewProfile);
 
     //user initial setup
     router.get('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.findByIdPickName);
@@ -100,7 +102,6 @@ module.exports = function(conn, passport){
             });
         });
     });
-
 
     router.get('*', function(req, res) {
         res.status(404);
