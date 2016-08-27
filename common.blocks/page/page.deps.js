@@ -26,6 +26,7 @@
             mods : { theme : 'islands', size : 'm', type : 'submit' }
         },
         'login',
-        'select'
+        'select',
+        'addSeed'
     ]
 })

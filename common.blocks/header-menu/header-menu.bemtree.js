@@ -33,7 +33,7 @@ block('header-menu').content()(function() {
             content: {
                 elem: 'link',
                 tag: 'a',
-                attrs: { href: '/seed' },
+                attrs: { href: '/seed/add' },
                 content: 'Seed'
             }
         },
