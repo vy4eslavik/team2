@@ -27,7 +27,6 @@ module.exports = function(conn, passport){
     });
 
     //seed
-    router.get('/seed', seedController.modSeed);
     router.post('/seed/add', seedController.add);
     router.get('/seed/add', seedController.modAddSeed);
 
