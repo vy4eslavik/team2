@@ -8,12 +8,21 @@ block('settings-setup-list').content()(function () {
         formSave.content = 'Изменения успешно сохранены';
     }else if(this.ctx.formSave === 'errorexists'){
         formSave.content = 'Упс! Такой ник занят';
+    }else if(this.ctx.formSave === 'errornoformat'){
+        formSave.content = 'Упс! Ник должен состоять только из английский знаков, цифр';
     }else if(this.ctx.formSave === 'error'){
         formSave.content = 'Упс! Произошла ошибка';
     }
 
     return [
         formSave,
+        profileSettings.nick.indexOf('should.change.') > -1 ? {
+            'block': 'content',
+            'content': 'Для окончания регистрации вы должны выбрать ник'
+        } : {
+            'block': 'content',
+            'content': 'Теперь вы можете пользоваться всеми функциями'
+        },
         {
             elem: 'nick',
             content: [
@@ -29,7 +38,6 @@ block('settings-setup-list').content()(function () {
                     id: 'editNick',
                     tabIndex: 1,
                     required: true,
-                    notification: userPath,
                     mods: {theme: 'islands', size: 'l', disabled: false}
                 } : {
                     block: 'input',
@@ -38,7 +46,7 @@ block('settings-setup-list').content()(function () {
                     id: 'editNick',
                     tabIndex: 1,
                     required: true,
-                    notification: userPath,
+                    notification: 'Адрес вашей страницы: ' + userPath,
                     mods: {theme: 'islands', size: 'l', disabled: true}
                 }
             ]

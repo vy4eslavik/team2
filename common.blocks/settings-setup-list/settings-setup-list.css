@@ -1,28 +1,14 @@
 .settings-setup-list .label
 {
-    display: inline-block;
-
-    min-width: 150px;
+    display: block;
 }
+
 .settings-setup-list .input
 {
     width: 100%;
-    max-width: 245px;
     box-sizing: border-box;
 }
 
-.settings-setup-list > div
-{
-    margin-bottom: 10px;
-}
-.settings-setup-list > div > div
-{
-    vertical-align: middle;
-}
-.settings-setup-list__avatar-edit .label
-{
-    vertical-align: bottom;
-}
 .settings-setup-list__form-save{
     text-align: center;
 }

@@ -6,7 +6,13 @@ var User = mongoose.model('User', {
     nick: {
         type:String,
         required: true,
-        unique: true
+        unique: true,
+        validate: {
+          validator: function(v) {
+            return /^[a-z0-9._-]+$/i.test(v);
+          },
+          message: 'noformat'
+        }
     },
     facebook: Schema.Types.Mixed,
     vkontakte: Schema.Types.Mixed,
@@ -28,5 +34,6 @@ User.schema.path('nick').validate(function(value, respond) {
     respond(true);
   });
 }, 'exists');
+
 
 module.exports = User;
