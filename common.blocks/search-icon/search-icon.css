@@ -19,3 +19,11 @@
     width: 17px;
 }
 
+
+.search-icon:focus{
+    outline: none;
+}
+.search-icon > svg:focus{
+    outline: none;
+}
+
