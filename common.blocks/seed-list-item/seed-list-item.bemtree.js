@@ -64,8 +64,8 @@ block('seed-list-item').content()(function () {
                                 {
                                     block : 'link',
                                     mods : { theme : 'greylink', size : 'm', pseudo : true },
-                                    url: '#',
-                                    content : 'View & Reply'
+                                    url: '/seed/add/?id=' + seed.id,
+                                    content : 'Reply'
                                 },
                                 {
                                     block: 'followed-unfollowed',
