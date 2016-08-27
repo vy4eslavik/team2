@@ -1,7 +1,7 @@
 .search-icon
 {
     position: absolute;
-    top: 25px;
+    top: 26px;
     right: 2px;
 
     width: 17px;
@@ -12,6 +12,8 @@
     fill: none;
     stroke: rgba(151, 151, 151, 1);
     stroke-width: 2;
+    background: none;
+    border: none;
 }
 .search-icon > svg{
     width: 17px;
