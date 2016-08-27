@@ -7,6 +7,12 @@
                 size: 'm',
                 width: 'available'
             }
+        },
+        {
+            block: 'input',
+            mods: {
+                type: 'hidden'
+            }
         }
     ]
 })
