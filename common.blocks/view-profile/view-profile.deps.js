@@ -1,12 +1,3 @@
 ({
-    shouldDeps: [
-        {
-            block: 'button',
-            mods: {
-                theme: 'islands',
-                size: 'l'
-            }
-        },
-        'avatar'
-    ]
+    shouldDeps: ['avatar']
 })
