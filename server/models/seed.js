@@ -39,7 +39,8 @@ schema.statics.getPlain = function (user, callback) {
                 author_name: seed.user[0].userData.firstName,
                 author_nick: seed.user[0].nick,
                 author_ava: seed.user[0].avatar,
-                img: seed.image
+                img: seed.image,
+                followed: 1
             }
         });
         callback(null, seedsPlain);

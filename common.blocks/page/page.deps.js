@@ -25,6 +25,7 @@
             block : 'button',
             mods : { theme : 'islands', size : 'm', type : 'submit' }
         },
-        'login'
+        'login',
+        'select'
     ]
 })

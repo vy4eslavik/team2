@@ -68,11 +68,11 @@ block('seed-list-item').content()(function () {
                                     content : 'View & Reply'
                                 },
                                 {
-                                    block : 'link',
-                                    mix: { block: 'followed-unfollowed' },
-                                    mods : { theme : 'greylink', size : 'm', pseudo : true },
-                                    url: '#',
-                                    content : 'Followed'
+                                    block: 'followed-unfollowed',
+                                    js: true,
+                                    followed: seed.followed? seed.followed: 0,
+                                    nick: seed.author_nick
+
                                 }
                             ]
                         }
