@@ -67,7 +67,12 @@ module.exports = function() {
         },
 
         viewProfile: function (req, res, next) {
-
+            if(req.query.userId) {
+                User.subscribe(req.user._id, req.query.userId, function (err, subscribeState) {
+                    res.send(err || subscribeState);
+                });
+                return;
+            }
             User.findOne({ nick: req.params.nick}, function (err, user){
                 if(err || !user)  {
                     console.log(err);
@@ -90,7 +95,9 @@ module.exports = function() {
                             }
                         },
                         user: user,
-                        seeds: seeds
+                        subscribe: user.subscribers.indexOf(req.user._id) >= 0,
+                        seeds: seeds,
+                        currentUser: req.user._id
                     });
 
                 });

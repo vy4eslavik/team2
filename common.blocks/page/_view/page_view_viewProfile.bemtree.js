@@ -1,8 +1,8 @@
-block('page').mod('view', 'viewProfile').content()(function() {
-
+block('page').mod('view', 'viewProfile').content()(function () {
     var userInfo = this.data.user || false;
     var subscribe = this.data.subscribe || false;
     var seeds = this.data.seeds || [];
+    var currentUser = this.data.currentUser || '';
     return [
         {
             block: 'header'
@@ -16,7 +16,8 @@ block('page').mod('view', 'viewProfile').content()(function() {
                     {
                         block: 'view-profile',
                         userInfo: userInfo,
-                        subscribe: subscribe
+                        subscribe: subscribe,
+                        currentUser: currentUser
                     }
                 },
                 {

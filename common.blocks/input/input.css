@@ -21,4 +21,5 @@
 .input__notification .notification
 {
     position: absolute;
+    white-space: nowrap;
 }
