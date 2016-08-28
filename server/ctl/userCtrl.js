@@ -52,7 +52,7 @@ module.exports = function() {
             };
 
             if (req.file) {
-                user.avatar = 'avatar/' + req.file.filename;
+                user.avatar = '/avatar/' + req.file.filename;
             }
 
             User.findByIdAndUpdate(body.userId, user, {new: true}, function (err, user) {
@@ -73,6 +73,7 @@ module.exports = function() {
                 });
                 return;
             }
+
             User.findOne({ nick: req.params.nick}, function (err, user){
                 if(err || !user)  {
                     console.log(err);
@@ -80,26 +81,29 @@ module.exports = function() {
                     return render(req, res, { view: '404' });
                 }
 
-                Seed.getPlain(user, function(err, seeds){
-                    if (err) console.log(err);
+                Seed.count({author: user.id}, function (err, count) {
+                    if(err) { console.log(err); }
 
-                    render(req, res, {
-                        view: 'viewProfile',
-                        title: user.nick,
-                        meta: {
-                            description: user.userData.description,
-                            og: {
-                                siteName: 'Pepo',
-                                locale: 'ru_RU',
-                                url: 'http://'+process.env.HTTP_HOST
-                            }
-                        },
-                        user: user,
-                        subscribe: user.subscribers.indexOf(req.user._id) >= 0,
-                        seeds: seeds,
-                        currentUser: req.user._id
+                    user.seedsCount = count;
+                    Seed.getPlain(user, function(err, seeds){
+                        if (err) console.log(err);
+
+                        render(req, res, {
+                            view: 'viewProfile',
+                            title: user.nick,
+                            meta: {
+                                description: user.userData.description,
+                                og: {
+                                    siteName: 'Pepo',
+                                    locale: 'ru_RU',
+                                    url: 'http://'+process.env.HTTP_HOST
+                                }
+                            },
+                            user: user,
+                            seeds: seeds,
+                            currentUserId: req.user._id
+                        });
                     });
-
                 });
             });
         },

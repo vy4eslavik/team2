@@ -1,23 +1,23 @@
 block('page').mod('view', 'viewProfile').content()(function () {
-    var userInfo = this.data.user || false;
-    var subscribe = this.data.subscribe || false;
-    var seeds = this.data.seeds || [];
-    var currentUser = this.data.currentUser || '';
+    var profile = this.data.user || false,
+        currentUserId = this.data.currentUserId || '',
+        subscribe = profile.subscribers.indexOf(currentUserId) >= 0,
+        seeds = this.data.seeds || [];
     return [
         {
             block: 'header'
         },
         {
             block: 'body',
-            content:[
+            content: [
                 {
                     block: 'content',
-                    content:
-                    {
-                        block: 'view-profile',
-                        userInfo: userInfo,
-                        subscribe: subscribe,
-                        currentUser: currentUser
+                    content: {
+                        block: 'profile',
+                        profile: profile,
+                        mods: {followInfo: true, description: true, subscribeButton: true},
+                        currentUserId: currentUserId,
+                        subscribe: subscribe
                     }
                 },
                 {

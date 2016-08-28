@@ -1,34 +1,59 @@
-block('profile').content()(function() {
-    var profile = this.ctx.profile || {};
-    return [
-        {
-          block : 'avatar',
-          img: profile.avatar,
-          mix: { block : 'profile', elem: 'avatar' }
-        },
-        {
-          elem : 'seeds',
-          content : [
+block('profile')(
+    content()(function () {
+        var profile = this.ctx.profile,
+            mods = this.ctx.mods;
+        return [
             {
-              block : 'link',
-              mods : { theme : 'greylink', size : 'm', pseudo : true },
-              url: '#',
-              content : 'Seeds(' + profile.seedsCount + ')'
-            }
-          ]
-        },
-        {
-          elem : 'follow',
-          content: [
+                block: 'avatar',
+                img: profile.avatar,
+                alt: profile.nick
+            },
             {
-              block : 'link',
-              mods : { theme : 'greylink', size : 'm', pseudo : true },
-              url: '#',
-              content : 'Follow(' + profile.follow.length + ')'
+                elem: 'userInfo',
+                content: [
+                    {
+                        block: 'link',
+                        mix: {elem: 'name'},
+                        url: '/profile/'+profile.nick,
+                        content: [
+                            profile.userData.firstName + ' ' + profile.userData.lastName,
+                            {
+                                elem: 'nick',
+                                tag: 'span',
+                                content: '@' + profile.nick
+                            }
+                        ]
+                    },
+                    mods.description ? {
+                        elem: 'description',
+                        content: profile.userData.description
+                    } : '',
+                    mods.followInfo ? [
+                        {
+                            block: 'link',
+                            mix: {elem: 'follow'},
+                            url: '/profile/'+profile.nick+'/follow',
+                            content: 'follow (' + profile.follow.length + ')'
+                        },
+                        {
+                            block: 'link',
+                            mix: {elem: 'subscribers'},
+                            url: '/profile/'+profile.nick+'/subscribers',
+                            content: 'subscribers (' + profile.subscribers.length + ')'
+                        },
+                        {
+                            elem: 'seeds',
+                            content: 'seeds (' + profile.seedsCount + ')'
+                        }
+                    ] : '',
+                    mods.subscribeButton ? {
+                        block: 'subscribe-button',
+                        profile: profile,
+                        currentUserId: this.ctx.currentUserId,
+                        subscribe: this.ctx.subscribe
+                    } : ''
+                ]
             }
-          ]
-        }
-        /// TODO: контент фейковый, сделать ссылкой и корректное отображение количества Seeds и follow в соответствии с БД
-
-    ];
-});
+        ];
+    })
+);

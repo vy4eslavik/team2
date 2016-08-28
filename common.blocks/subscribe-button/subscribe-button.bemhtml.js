@@ -1,21 +1,21 @@
 block('subscribe-button')(
     js()(function () {
         return {
-            subscribers: this.ctx.userInfo.subscribers.length,
-            userId: this.ctx.userInfo.id
+            userId: this.ctx.profile.id,
+            subscribers: this.ctx.profile.subscribers.length
         };
     }),
     content()(function () {
-        var userInfo = this.ctx.userInfo,
-            currentUser = this.ctx.currentUser,
+        var userId = this.ctx.profile.id,
+            currentUserId = this.ctx.currentUserId,
             button = {
                 block: 'button',
-                mix: {elem: 'subscribe'},
+                mix: {block: 'subscribe-button', elem: 'subscribe'},
                 mods: {theme: 'islands', size: 'l'},
                 text: this.ctx.subscribe ? 'Отписаться' : 'Подписаться'
             };
 
-        if (currentUser === userInfo.id) {
+        if (currentUserId === userId) {
             button.mods.type = 'link';
             button.url = '/profile/my';
             button.mix = {};

@@ -3,24 +3,20 @@ modules.define('subscribe-button', ['i-bem__dom', 'jquery'], function (provide, 
         onSetMod: {
             'js': {
                 'inited': function () {
-                    // var currentSubscribersCount = Number(this.params.subscribers);
+                    var subscribersCount = Number(this.params.subscribers);
                     this.bindTo('subscribe', 'click', function (e) {
-                        $.get(document.location.href, this.params)
+                        $.get('http://localhost:3000/profile/subscribe', this.params)
                             .done(function (data) {
                                 switch (data) {
                                     case true:
-                                        // currentSubscribersCount++;
+                                        subscribersCount++;
                                         $('.subscribe-button__subscribe .button__text').text('Отписаться');
-                                        /*$('.subscribe-button__subscribers').text(
-                                            'subscribers ('+currentSubscribersCount+')'
-                                        );*/
+                                        $('.link__subscribers').text('subscribers ('+subscribersCount+')');
                                         break;
                                     case false:
-                                        // currentSubscribersCount--;
+                                        subscribersCount--;
                                         $('.subscribe-button__subscribe .button__text').text('Подписаться');
-                                        /*$('.view-profile__subscribers').text(
-                                            'subscribers ('+currentSubscribersCount+')'
-                                        );*/
+                                        $('.link__subscribers').text('subscribers ('+subscribersCount+')');
                                         break;
                                     default:
                                         console.log(data);
