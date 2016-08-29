@@ -2,7 +2,7 @@
  * Created by Yulia on 26.08.16.
  */
 
-block('followed-unfollowed').content()(function() {
+block('followed-unfollowed').content()(function () {
     var followed = this.ctx.followed;
     var nick = this.ctx.nick;
     return [

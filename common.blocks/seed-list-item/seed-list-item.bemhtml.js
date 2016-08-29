@@ -8,7 +8,7 @@ block('seed-list-item').content()(function () {
     return [
         {
             elem: 'item',
-            content:[
+            content: [
                 {
                     elem: 'left',
                     content: {
