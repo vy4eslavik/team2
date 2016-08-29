@@ -17,7 +17,7 @@ block('root').replace()(function() {
             },
             {
                 elem: 'css',
-                url: "https://fonts.googleapis.com/css?family=Roboto"
+                url: "https://fonts.googleapis.com/css?family=Roboto:300,400,700&subset=cyrillic"
             }
         ],
         scripts: [
