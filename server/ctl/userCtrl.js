@@ -85,7 +85,7 @@ module.exports = function() {
                     if(err) { console.log(err); }
 
                     user.seedsCount = count;
-                    Seed.getPlain(user, function(err, seeds){
+                    Seed.getPlain(user, {}, function(err, seeds){
                         if (err) console.log(err);
 
                         render(req, res, {
