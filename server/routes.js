@@ -33,6 +33,9 @@ module.exports = function(conn, passport){
     router.post('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.add);
     router.get('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.modAddSeed);
 
+    //view seed with replies
+    router.get('/seed/view', seedController.view);
+
     //user
     router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.editMyProfile);
     router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateMyProfile);
