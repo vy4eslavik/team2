@@ -31,8 +31,8 @@ module.exports = function(app) {
             Seed.count({author: authorId}, callback);
         },
 
-        getSeeds: function (user, callback) {
-            Seed.getPlain(user, callback);
+        getSeeds: function (user, opts, callback) {
+            Seed.getPlain(user, opts, callback);
         },
 
         modSeed: function(req, res) {

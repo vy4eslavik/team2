@@ -20,15 +20,34 @@ var schema =  new Schema({
     link: Schema.Types.ObjectId // id в кэше сниппетов ссылок
 });
 
-schema.statics.getPlain = function (user, callback) {
+schema.statics.getPlain = function (user, opts, callback) {
     var seed = this;
-    seed.aggregate([{
-        $lookup: {
-            from: "users",
-            localField: "author",
-            foreignField: "_id", as: "user"
+    var fromtime = opts.fromtime || false;
+    console.log(fromtime);
+    var agregators = [
+        {
+            $lookup: {
+                from: "users",
+                localField: "author",
+                foreignField: "_id", as: "user"
+            }
+        }, {
+            $sort: {
+                datetime: -1
+            }
+        },
+        {
+            $match: fromtime ? {
+                datetime: {$lt: fromtime}
+            } : {}
+        },
+        {
+            $limit: 6
         }
-    }], function(err, seeds) {
+    ];
+
+    agregators.push();
+    seed.aggregate(agregators, function(err, seeds) {
         if (err) return callback(err);
         var seedsPlain = seeds.map(function (seed) {
             return {

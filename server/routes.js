@@ -85,7 +85,11 @@ module.exports = function(conn, passport){
         seedController.getCountByAuthor(profile._id, function (err, count) {
             if (err) return next(err);
             profile.seedsCount = count;
-            seedController.getSeeds(profile, function (err, seeds) {
+            var opts = {};
+            if (req.headers.fromtime) {
+                opts.fromtime = new Date(req.headers.fromtime * 1000);
+            }
+            seedController.getSeeds(profile, opts, function (err, seeds) {
                 if (err) return next(err);
                 if (!isAjax) {
                     render(req, res, {
