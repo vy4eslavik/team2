@@ -16,13 +16,13 @@
     margin-right: 10px;
     vertical-align: top;
 }
-.profile .link__nick
+.profile .profile__nick
 {
     color: #657786;
     font-size: 11pt;
     padding-left: 5px;
 }
-.profile .link__name
+.profile .profile__name
 {
     display: block;
     font-weight: bold;
@@ -38,8 +38,8 @@
 {
     outline: none;
 }
-.link__follow,
-.link__subscribers,
+.profile__follow,
+.profile__subscribers,
 .profile__seeds
 {
     display: inline-block;

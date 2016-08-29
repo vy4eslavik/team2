@@ -7,16 +7,17 @@ block('header-menu').content()(function() {
     var isAuthenticated = this.data.isAuthenticated;
 
     return [
+        isAuthenticated ?
         {
             elem: 'item',
             tag: 'li',
             content: {
                 elem: 'link',
                 tag: 'a',
-                attrs: { href: '/' },
-                content: 'Home'
+                attrs: { href: '/seed/add' },
+                content: 'Add Seed'
             }
-        },
+        } : '',
         isAuthenticated ? {
             elem: 'item',
             tag: 'li',
@@ -27,16 +28,6 @@ block('header-menu').content()(function() {
                 content: 'Edit Profile'
             }
         } : '',
-        {
-            elem: 'item',
-            tag: 'li',
-            content: {
-                elem: 'link',
-                tag: 'a',
-                attrs: { href: '/seed/add' },
-                content: 'Seed'
-            }
-        },
         isAuthenticated ? {
             elem: 'item',
             tag: 'li',
@@ -46,6 +37,15 @@ block('header-menu').content()(function() {
                 attrs: { href: '/logout' },
                 content: 'Log Out'
             }
-        } : ''
+        } : {
+            elem: 'item',
+            tag: 'li',
+            content: {
+                elem: 'link',
+                tag: 'a',
+                attrs: {href: '/login'},
+                content: 'Log In'
+            }
+        }
     ];
 });

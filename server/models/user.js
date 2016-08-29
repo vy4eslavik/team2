@@ -47,33 +47,33 @@ schema.statics.subscribe = function (currentUser, subscribeUser, callback) {
     var userSchema = this;
     this.findOne({_id: currentUser, follow: subscribeUser}, function (err, user) {
         if (err) {
-            callback(err, null);
+            return callback(err, null);
         }
 
         if (user) {
             // Отписываемся
             userSchema.findByIdAndUpdate(subscribeUser, {$pull: {subscribers: currentUser}}, function (err, user) {
                 if (err) {
-                    callback(err, null);
+                    return callback(err, null);
                 }
                 userSchema.findByIdAndUpdate(currentUser, {$pull: {follow: subscribeUser}}, function (err, user) {
                     if (err) {
-                        callback(err, null);
+                        return callback(err, null);
                     }
-                    callback(null, false);
+                    return callback(null, false);
                 });
             });
         } else {
             // Подписываемся
             userSchema.findByIdAndUpdate(subscribeUser, {$push: {subscribers: currentUser}}, function (err, user) {
                 if (err) {
-                    callback(err, null);
+                    return callback(err, null);
                 }
                 userSchema.findByIdAndUpdate(currentUser, {$push: {follow: subscribeUser}}, function (err, user) {
                     if (err) {
-                        callback(err, null);
+                        return callback(err, null);
                     }
-                    callback(null, true);
+                    return callback(null, true);
                 });
             });
         }
