@@ -96,7 +96,6 @@ module.exports = function(conn, passport){
             seedController.getSeeds(profile, opts, function (err, seeds) {
                 if (err) return next(err);
                 if (!isAjax) {
-                  console.log(seeds);
                     render(req, res, {
                         view: 'home',
                         title: 'Home Page',

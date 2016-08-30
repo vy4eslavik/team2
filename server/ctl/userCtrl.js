@@ -160,7 +160,14 @@ module.exports = function() {
                     return res.send('parameter userId required!');
                 }
                 User.subscribe(req.user._id, req.query.userId, function (err, subscribeState) {
-                    res.send(err || subscribeState);
+                    User.findOne({ _id: req.user._id}, function (err, user){
+                        req.logIn(user, function(error) {
+                            if(!error){
+                                res.send(err || subscribeState);
+                            }
+                        });
+                    });
+
                 });
                 return;
             }
