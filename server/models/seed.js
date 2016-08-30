@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var schema =  new Schema({
     msg: String,
+    tags: [],
     datetime: {
         type: Date,
         default: Date.now
@@ -67,12 +68,23 @@ schema.statics.getPlain = function (user, opts, callback) {
 };
 
 schema.post('save', function(doc) {
-    console.log('%s has been saved', doc._id);
     if (doc.parent) {
         this.model('Seed').findByIdAndUpdate(doc.parent, {$push: {child: doc._id }}, function (err, doc){
             if (err) console.log(err);
         });
     }
+});
+
+schema.pre('save', function(next) {
+    if (this.msg) {
+        var tags = this.msg.match(/#.+?(\s|$)/g);
+        if (tags) {
+            this.tags = tags.map(function(tag){
+                return tag.trim().substr(1);
+            });
+        }
+    }
+    next();
 });
 
 module.exports = mongoose.model('Seed', schema);
