@@ -67,13 +67,6 @@ module.exports = function() {
         },
 
         viewProfile: function (req, res, next) {
-            if(req.query.userId) {
-                User.subscribe(req.user._id, req.query.userId, function (err, subscribeState) {
-                    res.send(err || subscribeState);
-                });
-                return;
-            }
-
             User.findOne({ nick: req.params.nick}, function (err, user){
                 if(err || !user)  {
                     console.log(err);
@@ -156,6 +149,41 @@ module.exports = function() {
                 }
             });
 
+        },
+
+        profileAction: function(req, res) {
+            if(req.params.action === 'subscribe') {
+                if(!req.query.userId) {
+                    return res.send('parameter userId required!');
+                }
+                User.subscribe(req.user._id, req.query.userId, function (err, subscribeState) {
+                    res.send(err || subscribeState);
+                });
+                return;
+            }
+
+            User.subscription(req.user._id, req.params.nick, req.params.action, function (err, profiles) {
+                if(err) {
+                    res.status(404);
+                    return render(req, res, { view: '404' });
+                }
+
+                render(req, res, {
+                    view: 'viewSubscription',
+                    title: req.params.nick + ' '+req.params.action,
+                    meta: {
+                        description: req.params.nick + ' '+req.params.action,
+                        og: {
+                            siteName: 'Pepo',
+                            locale: 'ru_RU',
+                            url: 'http://'+process.env.HTTP_HOST
+                        }
+                    },
+                    profiles: profiles,
+                    currentUserId: req.user._id,
+                    isAuthenticated: req.isAuthenticated()
+                });
+            });
         }
-    }
+    };
 };

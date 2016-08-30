@@ -80,4 +80,29 @@ schema.statics.subscribe = function (currentUser, subscribeUser, callback) {
     });
 };
 
+/*
+* Возвращает список подписок/подписавшихся
+*
+* @param {id} currentUser Текущий пользователь
+* @param {string} nick Ник пользователя для которого получаем подписки/подписавшихся
+* @param {string} subscription (follow || subscriptions) Тип списка который получаем
+* @param {function} callback
+* */
+schema.statics.subscription = function(currentUser, nick, subscription, callback) {
+    var userSchema = this;
+    userSchema.findOne({nick: nick}).exec().then(function(user) {
+        console.log(user[subscription]);
+        return userSchema.find({'_id': { $in: user[subscription]}}).exec().then(function (users) {
+            return users.map(function (user) {
+                user.subscribeState = (user.subscribers.indexOf(currentUser) >= 0);
+                return user;
+            });
+        });
+    }).then(function(profiles) {
+        return callback(null, profiles);
+    }).catch(function(err) {
+        return callback(err, null);
+    });
+};
+
 module.exports = mongoose.model('User', schema);

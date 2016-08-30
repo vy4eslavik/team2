@@ -39,7 +39,7 @@ module.exports = function(conn, passport){
     //user
     router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.editMyProfile);
     router.post('/profile/my', multer({ storage: avatarStorage }).single('newAvatar'), userController.updateMyProfile);
-
+    router.get('/profile/:nick/:action', require('connect-ensure-login').ensureLoggedIn(), userController.profileAction);
     router.get('/profile/:nick', require('connect-ensure-login').ensureLoggedIn(), userController.viewProfile);
 
     router.get('/login',

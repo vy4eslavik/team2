@@ -1,12 +1,15 @@
 block('profile')(
     js()(function () {
         return {
-            subscribers: this.ctx.profile.subscribers.length
+            subscribers: this.ctx.profile ? this.ctx.profile.subscribers.length : 0
         };
     }),
     content()(function () {
-        var profile = this.ctx.profile,
-            mods = this.ctx.mods;
+        var profile = this.ctx.profile || false,
+            mods = this.ctx.mods || false;
+        if(!profile) {
+            return 'Упс. Профиль не загрузился';
+        }
         return [
             {
                 block: 'avatar',
