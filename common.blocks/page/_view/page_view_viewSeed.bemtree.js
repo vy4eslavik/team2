@@ -3,12 +3,16 @@
  */
 
 
-block('page').mod('view', 'view').content()(function() {
+block('page').mod('view', 'viewSeed').content()(function() {
 
     var seed = this.data.seed || [];
     return [
         {
             block: 'header'
+        },
+        {
+            block: 'seed-list-item',
+            seed: seed
         },
         {
             block: 'footer'
