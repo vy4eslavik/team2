@@ -1,4 +1,4 @@
-/**
+  /**
  * Created by lenur on 8/22/16.
  */
 
@@ -54,8 +54,7 @@ module.exports = function(conn, passport){
     router.get('/profile/:nick', require('connect-ensure-login').ensureLoggedIn(), userController.viewProfile);
     router.get('/profiles', require('connect-ensure-login').ensureLoggedIn(), userController.viewProfiles);
 
-    router.get('/login',
-        function(req, res){
+    router.get('/login', function(req, res){
           render(req, res, {
           view:'login',
           title: 'Authorization'
@@ -133,6 +132,19 @@ module.exports = function(conn, passport){
         });
     });
 
+    router.get('/search', require('connect-ensure-login').ensureLoggedIn(), function(req, res) {
+          var profile = req.user;
+
+          seedController.seedSearch(req.query.text, function(err, searchedSeeds) {
+          render(req,res,{
+          view: 'search',
+          title: 'search',
+          seeds: searchedSeeds,
+          profile: profile,
+          isAuthenticated: req.isAuthenticated()
+    });
+  });
+});
     router.get('*', function(req, res) {
         res.status(404);
         return render(req, res, { view: '404' });
