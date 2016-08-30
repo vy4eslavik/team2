@@ -83,10 +83,10 @@ user = {
 ## Роуты
 * /
 * /login
-* /profile/nick
-* /home/
-* /search/
+* /search
 * /seed/id
+* /profile/setup
 * /profile/my
-* /signup
+* /profile/:nick
+* /profile/:nick:action
 * /logout

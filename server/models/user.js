@@ -81,9 +81,12 @@ schema.statics.subscribe = function (currentUser, subscribeUser, callback) {
 };
 
 /*
-* Возвращает списки подписок
+* Возвращает список подписок/подписавшихся
 *
-* @param
+* @param {id} currentUser Текущий пользователь
+* @param {string} nick Ник пользователя для которого получаем подписки/подписавшихся
+* @param {string} subscription (follow || subscriptions) Тип списка который получаем
+* @param {function} callback
 * */
 schema.statics.subscription = function(currentUser, nick, subscription, callback) {
     var userSchema = this;
