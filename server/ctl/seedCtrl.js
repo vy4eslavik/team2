@@ -27,6 +27,20 @@ module.exports = function(app) {
             }
         },
 
+        view: function(req, res) {
+            render(req, res, {
+                view: 'view',
+                title: 'Seed View Page',
+                meta: {
+                    description: 'Seed View Page',
+                    og: {
+                        url: 'https://site.com',
+                        siteName: 'Site name'
+                    }
+                }
+            })
+        },
+
         getCountByAuthor: function (authorId, callback) {
             Seed.count({author: authorId}, callback);
         },
