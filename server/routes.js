@@ -92,6 +92,7 @@ module.exports = function(conn, passport){
             if (req.headers.fromtime) {
                 opts.fromtime = new Date(req.headers.fromtime * 1000);
             }
+            opts.author = profile.follow;
             seedController.getSeeds(profile, opts, function (err, seeds) {
                 if (err) return next(err);
                 if (!isAjax) {

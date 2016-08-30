@@ -27,6 +27,8 @@ schema.statics.getPlain = function (user, opts, callback) {
     var fromtime = opts.fromtime || false;
     var author = opts.author || false;
     console.log(author);
+
+    console.log(typeof author);
     var agregators = [
         {
             $lookup: {
@@ -45,9 +47,15 @@ schema.statics.getPlain = function (user, opts, callback) {
             } : {}
         },
         {
-            $match: author ? {
-                author: new ObjectId(author)
-            } : {}
+            $match: author ? (
+                author instanceof Array && author.length > -1 ? {
+                    $or: author.map(function (item) {
+                        return {author: new ObjectId(item)};
+                    })
+                } : {
+                    author: new ObjectId(author)
+                }
+            ) : {}
         },
         {
             $limit: 6
