@@ -1,8 +1,11 @@
-.followed-unfollowed{
- display: inline-block;
+.followed-unfollowed
+{
     position: relative;
+
+    display: inline-block;
 }
 
-.popup .link_theme_greylink{
+.popup .link_theme_greylink
+{
     margin: 5px;
 }

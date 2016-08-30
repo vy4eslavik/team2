@@ -3,20 +3,19 @@ modules.define('subscribe-button', ['i-bem__dom', 'jquery'], function (provide, 
         onSetMod: {
             'js': {
                 'inited': function () {
-                    var subscribersCount = Number(this.params.subscribers);
+                    var subscribeButton = this.findBlockInside('subscribe', 'button');
+                    var self = this;
                     this.bindTo('subscribe', 'click', function (e) {
-                        $.get('http://localhost:3000/profile/subscribe', this.params)
+                        $.get('/profile/subscribe', this.params)
                             .done(function (data) {
                                 switch (data) {
                                     case true:
-                                        subscribersCount++;
-                                        $('.subscribe-button__subscribe .button__text').text('Отписаться');
-                                        $('.link__subscribers').text('subscribers ('+subscribersCount+')');
+                                        subscribeButton.setText('Отписаться');
+                                        self.emit('subscribe');
                                         break;
                                     case false:
-                                        subscribersCount--;
-                                        $('.subscribe-button__subscribe .button__text').text('Подписаться');
-                                        $('.link__subscribers').text('subscribers ('+subscribersCount+')');
+                                        subscribeButton.setText('Подписаться');
+                                        self.emit('unSubscribe');
                                         break;
                                     default:
                                         console.log(data);

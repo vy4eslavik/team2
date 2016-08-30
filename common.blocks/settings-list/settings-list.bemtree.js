@@ -66,7 +66,7 @@ block('settings-list').content()(function () {
                     attrs: {'for': 'newAvatar'},
                     content: {
                         block: 'avatar',
-                        img: '../../'+profileSettings.avatar,
+                        img: profileSettings.avatar,
                         alt: profileSettings.nick
                     }
                 },

@@ -1,4 +1,9 @@
 block('profile')(
+    js()(function () {
+        return {
+            subscribers: this.ctx.profile.subscribers.length
+        };
+    }),
     content()(function () {
         var profile = this.ctx.profile,
             mods = this.ctx.mods;
@@ -13,12 +18,13 @@ block('profile')(
                 content: [
                     {
                         block: 'link',
-                        mix: {elem: 'name'},
+                        mix: {block: 'profile', elem: 'name'},
                         url: '/profile/'+profile.nick,
                         content: [
                             profile.userData.firstName + ' ' + profile.userData.lastName,
                             {
                                 elem: 'nick',
+                                mix: {block: 'profile', elem: 'nick'},
                                 tag: 'span',
                                 content: '@' + profile.nick
                             }
@@ -31,13 +37,13 @@ block('profile')(
                     mods.followInfo ? [
                         {
                             block: 'link',
-                            mix: {elem: 'follow'},
+                            mix: {block: 'profile', elem: 'follow'},
                             url: '/profile/'+profile.nick+'/follow',
                             content: 'follow (' + profile.follow.length + ')'
                         },
                         {
                             block: 'link',
-                            mix: {elem: 'subscribers'},
+                            mix: {block: 'profile', elem: 'subscribers'},
                             url: '/profile/'+profile.nick+'/subscribers',
                             content: 'subscribers (' + profile.subscribers.length + ')'
                         },

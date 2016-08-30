@@ -12,6 +12,7 @@ block('page').mod('view', 'home').content()(function () {
                 {
                     block: 'profile',
                     mods: {followInfo: true, description: false, subscribeButton: false},
+                    //TODO данные профиля кешируются
                     profile: profile
                 },
                 {

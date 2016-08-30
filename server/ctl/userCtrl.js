@@ -101,7 +101,8 @@ module.exports = function() {
                             },
                             user: user,
                             seeds: seeds,
-                            currentUserId: req.user._id
+                            currentUserId: req.user._id,
+                            isAuthenticated: req.isAuthenticated()
                         });
                     });
                 });
