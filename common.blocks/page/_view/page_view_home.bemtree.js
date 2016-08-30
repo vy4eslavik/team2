@@ -17,9 +17,9 @@ block('page').mod('view', 'home').content()(function () {
                 },
                 {
                     block: 'seed-list',
-                    attrs: {
+                    attrs: (seeds && seeds.length) ? {
                         'data-last': seeds[seeds.length-1].datetime.getTime()/1000
-                    },
+                    } : '',
                     js: true,
                     seeds: seeds
                 }
