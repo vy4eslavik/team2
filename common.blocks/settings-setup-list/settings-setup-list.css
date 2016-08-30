@@ -5,10 +5,11 @@
 
 .settings-setup-list .input
 {
-    width: 100%;
     box-sizing: border-box;
+    width: 100%;
 }
 
-.settings-setup-list__form-save{
+.settings-setup-list__form-save
+{
     text-align: center;
 }

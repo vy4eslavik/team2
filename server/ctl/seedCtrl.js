@@ -84,9 +84,9 @@ module.exports = function(app) {
                         url: 'https://site.com',
                         siteName: 'Site name'
                     }
-                }
-            })
+                },
+                isAuthenticated: req.isAuthenticated()
+            });
         }
-    }
-
+    };
 };

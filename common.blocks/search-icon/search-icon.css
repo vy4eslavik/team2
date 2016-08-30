@@ -9,21 +9,24 @@
 
     cursor: pointer;
 
+    border: none;
+    background: none;
+
     fill: none;
     stroke: rgba(151, 151, 151, 1);
     stroke-width: 2;
-    background: none;
-    border: none;
 }
-.search-icon > svg{
+.search-icon > svg
+{
     width: 17px;
 }
 
 
-.search-icon:focus{
+.search-icon:focus
+{
     outline: none;
 }
-.search-icon > svg:focus{
+.search-icon > svg:focus
+{
     outline: none;
 }
-

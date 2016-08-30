@@ -9,10 +9,11 @@
 .settings-list textarea,
 .settings-list .attach
 {
+    box-sizing: border-box;
     width: 100%;
     max-width: 245px;
-    box-sizing: border-box;
     margin-bottom: 10px;
+
     vertical-align: middle;
 }
 .settings-list__about-me .label
@@ -23,6 +24,7 @@
 {
     vertical-align: bottom;
 }
-.settings-list__form-save{
+.settings-list__form-save
+{
     text-align: center;
 }

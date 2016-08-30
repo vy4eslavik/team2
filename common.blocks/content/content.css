@@ -1,7 +1,8 @@
 .content
 {
+    overflow: hidden;
+
     max-width: 600px;
     margin: 0 auto;
     padding: 10px;
-    overflow: hidden;
 }

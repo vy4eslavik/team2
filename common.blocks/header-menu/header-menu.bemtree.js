@@ -7,7 +7,7 @@ block('header-menu').content()(function() {
     var isAuthenticated = this.data.isAuthenticated;
 
     return [
-        isAuthenticated ?
+        (isAuthenticated && this.data.view !== 'addSeed')?
         {
             elem: 'item',
             tag: 'li',
