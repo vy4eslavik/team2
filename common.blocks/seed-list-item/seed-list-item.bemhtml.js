@@ -13,7 +13,7 @@ block('seed-list-item').content()(function () {
                     elem: 'left',
                     content: {
                                 block : 'avatar',
-                                img: seed.author_ava,
+                                img: '../../'+ seed.author_ava,
                                 mix: { block : 'seed-list', elem: 'avatar' }
                     }
                 },
@@ -46,7 +46,7 @@ block('seed-list-item').content()(function () {
                 },
                 {
                     block: 'link',
-                    url: 'seed/view/?id=' + seed.id,
+                    url: '/seed/view/?id=' + seed.id,
                     content: [
                         {
                             elem: 'msg',
