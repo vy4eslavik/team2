@@ -2,10 +2,12 @@
 {
     display: inline-block;
 
-    border: 2px solid #565656;
+    border: 2px inset #565656;
     border-radius: 10px;
     width: 80px;
     height: 80px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .avatar .image

@@ -6,7 +6,6 @@
                 theme: 'islands',
                 size: 'l'
             }
-        },
-        'avatar'
+        }
     ]
 })

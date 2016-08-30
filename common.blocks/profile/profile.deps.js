@@ -1,14 +1,3 @@
 ({
-    shouldDeps: [
-      {
-        block : 'avatar'
-      },
-
-      {
-        block : 'link',
-        mods : {theme : 'greylink'}
-      }
-
-
-    ]
-});
+    shouldDeps: ['link', 'avatar', 'subscribe-button']
+})
