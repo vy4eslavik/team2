@@ -79,7 +79,9 @@ module.exports = function() {
                     if(err) { console.log(err); }
 
                     user.seedsCount = count;
-                    Seed.getPlain(user, {}, function(err, seeds){
+                    var opts = {};
+                    opts.author = user.id;
+                    Seed.getPlain(user, opts, function(err, seeds){
                         if (err) console.log(err);
 
                         render(req, res, {

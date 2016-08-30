@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = require('mongoose').Types.ObjectId;
 
 var schema =  new Schema({
     msg: String,
@@ -24,7 +25,8 @@ var schema =  new Schema({
 schema.statics.getPlain = function (user, opts, callback) {
     var seed = this;
     var fromtime = opts.fromtime || false;
-    console.log(fromtime);
+    var author = opts.author || false;
+    console.log(author);
     var agregators = [
         {
             $lookup: {
@@ -40,6 +42,11 @@ schema.statics.getPlain = function (user, opts, callback) {
         {
             $match: fromtime ? {
                 datetime: {$lt: fromtime}
+            } : {}
+        },
+        {
+            $match: author ? {
+                author: new ObjectId(author)
             } : {}
         },
         {
