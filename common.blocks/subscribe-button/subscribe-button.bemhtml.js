@@ -1,7 +1,8 @@
 block('subscribe-button')(
     js()(function () {
         return {
-            userId: this.ctx.profile.id
+            userId: this.ctx.profile.id,
+            userNick: this.ctx.profile.nick
         };
     }),
     content()(function () {

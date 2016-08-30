@@ -6,7 +6,7 @@ modules.define('subscribe-button', ['i-bem__dom', 'jquery'], function (provide, 
                     var subscribeButton = this.findBlockInside('subscribe', 'button');
                     var self = this;
                     this.bindTo('subscribe', 'click', function (e) {
-                        $.get('/profile/subscribe', this.params)
+                        $.get('/profile/'+this.params.userNick+'/subscribe', this.params)
                             .done(function (data) {
                                 switch (data) {
                                     case true:
