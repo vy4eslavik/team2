@@ -28,17 +28,27 @@ module.exports = function(app) {
         },
 
         view: function(req, res) {
-            render(req, res, {
-                view: 'view',
-                title: 'Seed View Page',
-                meta: {
-                    description: 'Seed View Page',
-                    og: {
-                        url: 'https://site.com',
-                        siteName: 'Site name'
-                    }
+            var seedId = req.query.id;
+            console.log(seedId);
+            Seed.getSeed(seedId, function(err,seed){
+                if (err || !seed) {
+                    console.log(err);
+                    res.status(404);
+                    return render(req, res, {view: '404'});
                 }
-            })
+                render(req, res, {
+                    view: 'viewSeed',
+                    title: 'Seed View Page',
+                    seed: seed,
+                    meta: {
+                        description: 'Seed View Page',
+                        og: {
+                            url: 'https://site.com',
+                            siteName: 'Site name'
+                        }
+                    }
+                });
+            });
         },
 
         getCountByAuthor: function (authorId, callback) {
