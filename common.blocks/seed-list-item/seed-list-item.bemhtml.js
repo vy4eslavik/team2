@@ -10,49 +10,23 @@ block('seed-list-item').content()(function () {
             elem: 'item',
             content: [
                 {
-                    elem: 'left',
-                    content: {
-                                block : 'avatar',
-                                img: '../../'+ seed.author_ava,
-                                mix: { block : 'seed-list', elem: 'avatar' }
-                    }
-                },
-                {
-                    elem: 'right',
-                    content: [
-                                seed.parent? {
-                                    elem: 'reply',
-                                    content: 'In Reply'
-                                } : '',
-                                {
-                                    elem: 'title',
-                                    content: [
-                                        {
-                                          elem: 'name',
-                                          content: seed.author_name
-                                        },
-                                        {
-                                            elem: 'nick',
-                                            content: '@'+seed.author_nick
-                                        },
-                                        {
-                                            elem: 'nick',
-                                            content: seed.datetime.toLocaleString()
-                                        }
-                                    ]
-
-                                }
-                    ]
+                    block: 'profile',
+                    profile: seed.profile
                 },
                 {
                     block: 'link',
                     url: '/seed/view/?id=' + seed.id,
                     content: [
                         {
+                            elem: 'date',
+                            mix: {block: 'seed-list-item', elem: 'date'},
+                            content: seed.datetime.toLocaleString()
+                        },
+                        {
                             elem: 'msg',
                             content: seed.msg
                         },
-                        seed.img?
+                        seed.img ?
                         {
                             block: 'image',
                             url: seed.img,
@@ -64,29 +38,21 @@ block('seed-list-item').content()(function () {
                 },
                 {
                     elem: 'bottom',
-                    content:[
+                    content: [
+                        seed.parent ? {
+                            elem: 'reply',
+                            content: '(Это ответ)'
+                        } : '',
                         {
-                            elem: 'actions',
-                            content: [
-                                {
-                                    block : 'link',
-                                    mods : { theme : 'greylink', size : 'm', pseudo : true },
-                                    url: '/seed/add/?id=' + seed.id,
-                                    content : 'Reply'
-                                },
-                                {
-                                    block: 'followed-unfollowed',
-                                    js: true,
-                                    followed: seed.followed? seed.followed: 0,
-                                    nick: seed.author_nick
-
-                                }
-                            ]
+                            block: 'button',
+                            mods: {theme: 'islands', size: 'm', view: 'action', type: 'link'},
+                            mix: {block: 'seed-list-item', elem: 'answer'},
+                            url: '/seed/add/?id=' + seed.id,
+                            text: 'Ответить'
                         }
                     ]
-            }
-        ]
-
-    }];
-
+                }
+            ]
+        }
+    ];
 });

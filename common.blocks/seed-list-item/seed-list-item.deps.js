@@ -5,7 +5,7 @@
 
 ({
     shouldDeps: [
-        'followed-unfollowed',
+        'followed-unfollowed', 'profile',
         {
             block: 'popup',
             mods: {
@@ -13,8 +13,15 @@
                 target: 'anchor',
                 autoclosable: true
             }
+        },
+        {
+            block: 'button',
+            mods: {
+                theme: 'islands',
+                size: 'm',
+                type: 'link',
+                view: 'action'
+            }
         }
     ]
 })
-
-
