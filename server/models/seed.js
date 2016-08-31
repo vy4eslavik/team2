@@ -22,9 +22,47 @@ var schema =  new Schema({
     link: Schema.Types.ObjectId // id в кэше сниппетов ссылок
 });
 
+schema.statics.getCountPlain = function (user, opts, callback) {
+  var seed = this;
+  var fromtime = opts.fromtime || false;
+  var newest = opts.newest || false;
+  var author = opts.author || false;
+  var agregators = [
+      {
+          $match: fromtime ? {
+              datetime: {$lt: fromtime}
+          } : {}
+      },{
+          $match: newest ? {
+              datetime: {$gt: newest}
+          } : {}
+      },
+      {
+          $match: author && (author.length > 0) ? (
+              author instanceof Array && author.length > 0 ? {
+                  $or: author.map(function (item) {
+                      return {author: new ObjectId(item)};
+                  })
+              } : {
+                  author: new ObjectId(author)
+              }
+          ) : {
+              author: null
+          }
+      }
+  ];
+
+  console.log(agregators);
+  seed.aggregate(agregators, function(err, seeds) {
+      if (err) return callback(err);
+      callback(null, seeds.length);
+  });
+}
+
 schema.statics.getPlain = function (user, opts, callback) {
     var seed = this;
     var fromtime = opts.fromtime || false;
+    var newest = opts.newest || false;
     var author = opts.author || false;
     var agregators = [
         {
@@ -41,6 +79,10 @@ schema.statics.getPlain = function (user, opts, callback) {
         {
             $match: fromtime ? {
                 datetime: {$lt: fromtime}
+            } : {}
+        },{
+            $match: newest ? {
+                datetime: {$gte: newest}
             } : {}
         },
         {
@@ -78,7 +120,6 @@ schema.statics.getPlain = function (user, opts, callback) {
         callback(null, seedsPlain);
     });
 };
-
 
 schema.statics.getSeed = function (seedId, callback) {
     var seed = this;

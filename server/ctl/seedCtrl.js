@@ -75,9 +75,18 @@ module.exports = function(app) {
             Seed.getPlain(user, opts, callback);
         },
 
-        countNewSeeds: function(req, res){
-            console.log(req.body.newest);
-            res.send('10');
+        countNewSeeds: function(req, res, next){
+            var profile = req.user;
+            var opts = {};
+            if (req.body.newest) {
+                opts.newest = new Date(req.body.newest * 1000);
+            }
+            opts.author = profile.follow;
+
+            Seed.getCountPlain(profile, opts, function (err, seeds) {
+                if (err) return next(err);
+                res.send(seeds.toString());
+            });
         },
 
         modSeed: function(req, res) {
