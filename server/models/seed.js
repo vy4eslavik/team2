@@ -70,7 +70,6 @@ schema.statics.getPlain = function (user, opts, callback) {
 
 schema.statics.getSeed = function (seedId, callback) {
     var seed = this;
-    console.log(seedId);
     var agregators = [
         {
             $lookup: {
@@ -92,6 +91,7 @@ schema.statics.getSeed = function (seedId, callback) {
                 msg: seed.msg,
                 datetime: seed.datetime,
                 parent: seed.parent, //Твит на который сделали ответ
+                child: seed.child,
                 author_name: seed.user[0].userData.firstName,
                 author_nick: seed.user[0].nick,
                 author_ava: seed.user[0].avatar,

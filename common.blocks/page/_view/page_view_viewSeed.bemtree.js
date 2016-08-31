@@ -5,14 +5,14 @@
 
 block('page').mod('view', 'viewSeed').content()(function() {
 
-    var seed = this.data.seed || [];
+    var seeds = this.data.seeds || [];
     return [
         {
             block: 'header'
         },
         {
-            block: 'seed-list-item',
-            seed: seed
+            block: 'seed-list',
+            seeds: seeds
         },
         {
             block: 'footer'

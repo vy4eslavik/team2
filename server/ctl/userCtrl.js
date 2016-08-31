@@ -11,8 +11,9 @@ module.exports = function() {
         editMyProfile: function(req, res) {
             var userId = req.user._id;
 
-            User.findById(userId, function (err, user) {
 
+            User.findById(userId, function (err, user) {
+                console.log(user);
                 if (err || !user) {
                     console.log(err);
                     res.status(404);
@@ -131,7 +132,7 @@ module.exports = function() {
             var body = req.body;
 
             var user = {
-                nick: body.nick,
+                nick: body.nick
             };
 
             User.findByIdAndUpdate(body.userId, user, { runValidators: true }, function (err, user) {
