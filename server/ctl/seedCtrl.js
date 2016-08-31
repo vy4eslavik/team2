@@ -75,6 +75,11 @@ module.exports = function(app) {
             Seed.getPlain(user, opts, callback);
         },
 
+        countNewSeeds: function(req, res){
+            console.log(req.body.newest);
+            res.send('10');
+        },
+
         modSeed: function(req, res) {
             render(req, res, {
                 view: 'seed',

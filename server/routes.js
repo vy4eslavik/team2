@@ -32,6 +32,7 @@ module.exports = function(conn, passport){
     //seed
     router.post('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.add);
     router.get('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.modAddSeed);
+    router.post('/seeds/notify', require('connect-ensure-login').ensureLoggedIn(), seedController.countNewSeeds);
 
     //view seed with replies
     router.get('/seed/view', seedController.view);

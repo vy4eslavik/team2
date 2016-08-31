@@ -11,6 +11,7 @@
         'button',
         'search-icon',
         'header-menu',
+        'header-notification',
         'seed-list',
         'body',
         'content',
@@ -27,6 +28,7 @@
         },
         'login',
         'select',
-        'addSeed'
+        'addSeed',
+        'events__channels'
     ]
 })

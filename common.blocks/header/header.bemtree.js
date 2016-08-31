@@ -42,9 +42,10 @@ block('header').content()(function() {
         {
             block: 'header-menu',
             tag: 'ul'
+        },
+        {
+            block: 'header-notification',
+            js: true
         }
     ];
 });
-
-
-
