@@ -5,7 +5,6 @@ modules.define('header-notification', ['i-bem__dom', 'BEMHTML','jquery', 'events
             onSetMod: {
                 js: {
                     inited: function () {
-                        console.log('notifications block inited');
                         channels('new-seeds').on('update', function(e, data) {
                             BEMDOM.update(this.domElem, 'Новых сидов:'+data.seedCount);
                         }, this);

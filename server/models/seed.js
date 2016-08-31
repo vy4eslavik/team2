@@ -82,7 +82,7 @@ schema.statics.getPlain = function (user, opts, callback) {
             } : {}
         },{
             $match: newest ? {
-                datetime: {$gte: newest}
+                datetime: {$gt: newest}
             } : {}
         },
         {
