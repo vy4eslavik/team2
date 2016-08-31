@@ -10,7 +10,7 @@ modules.define('header-notification', ['i-bem__dom', 'BEMHTML','jquery', 'events
                             BEMDOM.update(this.domElem, 'Новых сидов:'+data.seedCount);
                         }, this);
 
-                        this.domElem.on('click', this._emitSeedsUpdate);
+                        this.domElem.on('click', this._emitSeedsUpdate.bind(this));
 
                     }
                 }
@@ -18,6 +18,7 @@ modules.define('header-notification', ['i-bem__dom', 'BEMHTML','jquery', 'events
 
             _emitSeedsUpdate: function() {
                 channels('new-seeds').emit('fetch', {newSeeds: true});
+                $("html, body").animate({ scrollTop: 0 }, "fast");
                 BEMDOM.update(this.domElem, '');
             }
 
