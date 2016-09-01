@@ -13,6 +13,17 @@
             mods: {
                 type: 'hidden'
             }
+        },
+        {
+            block: 'attach',
+            mods: {
+                theme: 'islands',
+                size: 'l',
+                preview: 'image'
+            }
+        },
+        {
+            block: 'clearfix'
         }
     ]
 })

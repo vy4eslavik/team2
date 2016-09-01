@@ -1,0 +1,22 @@
+.attach_preview_image .attach___text {
+    display: inline-block;
+}
+
+.attach_preview_image .attach__image img {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+.attach__file-image {
+    position: relative;
+}
+.attach_preview_image.attach_theme_islands .attach__file-image .attach__clear {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 24px;
+    height: 24px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #fff;
+}

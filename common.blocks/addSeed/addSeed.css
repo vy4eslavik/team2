@@ -1,4 +1,35 @@
 .addSeed .textarea
 {
     height: 6em;
+    margin-bottom: 0.5em;
+}
+
+.addSeed .attach
+{
+    float: left;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.addSeed .button
+{
+    float: right;
+}
+
+.addSeed .attach .button {
+    float: none;
+}
+
+.addSeed .attach__file {
+    clear: left;
+    float: left;
+}
+.addSeed .attach__text {
+    max-width:calc(100vw - 32px);
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    display: inline-block;
 }
