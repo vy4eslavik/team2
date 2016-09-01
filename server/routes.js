@@ -35,7 +35,7 @@ module.exports = function(conn, passport){
     router.post('/seeds/notify', require('connect-ensure-login').ensureLoggedIn(), seedController.countNewSeeds);
 
     //view seed with replies
-    router.get('/seed/view', seedController.view);
+    router.get('/seed/view/:id', seedController.view);
 
     //user
     router.get('/profile/my', require('connect-ensure-login').ensureLoggedIn(), userController.editMyProfile);
