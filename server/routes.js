@@ -32,6 +32,7 @@ module.exports = function(conn, passport){
     //seed
     router.post('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.add);
     router.get('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.modAddSeed);
+    router.post('/seeds/notify', require('connect-ensure-login').ensureLoggedIn(), seedController.countNewSeeds);
 
     //view seed with replies
     router.get('/seed/view', seedController.view);
@@ -91,6 +92,9 @@ module.exports = function(conn, passport){
             var opts = {};
             if (req.headers.fromtime) {
                 opts.fromtime = new Date(req.headers.fromtime * 1000);
+            }
+            if (req.headers.newest) {
+                opts.newest = new Date(req.headers.newest * 1000);
             }
             opts.author = profile.follow;
             opts.author.push(profile._id);

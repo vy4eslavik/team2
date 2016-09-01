@@ -2,7 +2,10 @@
 {
     height: auto;
     margin: 0;
-
-    border-bottom: 2px solid #979797;
+    border-bottom: 1px solid #979797;
     background-color: #d8d8d8;
+    position: fixed;
+    width: 100%;
+    z-index: 20;
+    top: 0;
 }
