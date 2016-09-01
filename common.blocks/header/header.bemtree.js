@@ -1,5 +1,4 @@
-
-block('header').content()(function() {
+block('header').content()(function () {
     return [
         {
             block: 'layout',
@@ -17,24 +16,26 @@ block('header').content()(function() {
                 },
                 {
                     elem: 'right',
-                    content:{
-                    tag: 'form',
-                    attrs: { action: '/search' },
                     content: [
                         {
-                            block: 'input',
-                            name: 'text',
-                            placeholder: 'Search for seeds'
-                        },
-                        {
-                            block: 'search-icon',
-                            tag: 'button',
-                            mods: { type: 'submit'},
-                            type: 'submit'
+                        tag: 'form',
+                        attrs: { action: '/search' },
+                        content: [
+                            {
+                                block: 'input',
+                                name: 'text',
+                                placeholder: 'Search for seeds'
+                            },
+                            {
+                                block: 'search-icon',
+                                tag: 'button',
+                                mods: { type: 'submit'},
+                                type: 'submit'
 
+                            }
+                        ]
                         }
                     ]
-                }
 
                 }
             ]
@@ -42,6 +43,9 @@ block('header').content()(function() {
         {
             block: 'header-menu',
             tag: 'ul'
+        },
+        {
+            block: 'header-hamburger-menu'
         },
         {
             block: 'header-notification',
