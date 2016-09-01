@@ -54,6 +54,7 @@ schema.statics.getProfiles = function (user_id, callback) {
         var result = users.map(function (user) {
             user.seedsCount = user.seeds.length || 0;
             delete user.seeds;
+            user.id = user._id;
             if(user._id != user_id ) return user;
         });
         callback(null, result, user_id);
