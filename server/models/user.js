@@ -56,7 +56,7 @@ schema.statics.getProfiles = function (user_id, callback) {
             delete user.seeds;
             if(user._id != user_id ) return user;
         });
-        callback(null, result);
+        callback(null, result, user_id);
     });
 };
 

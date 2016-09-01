@@ -105,8 +105,7 @@ module.exports = function() {
             });
         },
         viewProfiles: function (req, res) {
-            var user_id = req.user._id || ''
-            User.getProfiles(req.user._id,function (err, users){
+            User.getProfiles(req.user._id,function (err, users, user_id){
                 if (err || !users) {
                     console.log(err);
                     res.status(404);
@@ -124,7 +123,7 @@ module.exports = function() {
                         }
                     },
                     users: users,
-                    currentUserId: req.user._id,
+                    currentUserId: user_id,
                     isAuthenticated: req.isAuthenticated()
                 });
             });
