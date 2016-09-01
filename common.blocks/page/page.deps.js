@@ -11,6 +11,7 @@
         'button',
         'search-icon',
         'header-menu',
+        'header-hamburger-menu',
         'header-notification',
         'seed-list',
         'body',
