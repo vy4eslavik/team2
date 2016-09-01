@@ -35,6 +35,31 @@ schema.path('nick').validate(function (value, respond) {
     });
 }, 'exists');
 
+schema.statics.getProfiles = function (user_id, callback) {
+    var user = this;
+
+    var agregators = [
+        {
+            $lookup: {
+                from: "seeds",
+                localField: "_id",
+                foreignField: "author", as: "seeds"
+            }
+        },
+    ];
+
+    agregators.push();
+    user.aggregate(agregators, function(err, users) {
+        if (err) return callback(err);
+        var result = users.map(function (user) {
+            user.seedsCount = user.seeds.length || 0;
+            delete user.seeds;
+            if(user._id != user_id ) return user;
+        });
+        callback(null, result);
+    });
+};
+
 /*
  * Подписывает или отписывает пользователя.
  * Возвращает в callback функцию ошибку и новое состояние подписки.
