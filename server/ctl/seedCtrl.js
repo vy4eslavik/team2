@@ -29,7 +29,7 @@ module.exports = function(app) {
 
         view: function(req, res) {
 
-            var seedId = req.query.id;
+            var seedId = req.params.id;
             console.log(seedId);
             var seeds = [];
 

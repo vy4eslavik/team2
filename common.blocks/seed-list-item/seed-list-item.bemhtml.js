@@ -15,7 +15,7 @@ block('seed-list-item').content()(function () {
                 },
                 {
                     block: 'link',
-                    url: '/seed/view/?id=' + seed.id,
+                    url: '/seed/view/' + seed.id,
                     content: [
                         {
                             elem: 'date',
