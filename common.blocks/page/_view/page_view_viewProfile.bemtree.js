@@ -12,17 +12,19 @@ block('page').mod('view', 'viewProfile').content()(function () {
             content: [
                 {
                     block: 'content',
-                    content: {
+                    content: [
+                        {
                         block: 'profile',
                         profile: profile,
                         mods: {followInfo: true, description: true, subscribeButton: true},
                         currentUserId: currentUserId,
                         subscribe: subscribe
-                    }
-                },
-                {
-                    block: 'seed-list',
-                    seeds: seeds
+                        },
+                        {
+                            block: 'seed-list',
+                            seeds: seeds
+                        }
+                    ]
                 }
             ]
         },

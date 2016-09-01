@@ -57,7 +57,7 @@ schema.statics.getPlain = function (user, opts, callback) {
             }
         },
         {
-            $limit: 6
+            $limit: 10
         }
     ];
 
@@ -70,12 +70,10 @@ schema.statics.getPlain = function (user, opts, callback) {
                 msg: seed.msg,
                 datetime: seed.datetime,
                 parent: seed.parent, //Твит на который сделали ответ
-                author_name: seed.user[0].userData.firstName,
-                author_nick: seed.user[0].nick,
-                author_ava: seed.user[0].avatar,
+                profile: seed.user[0],
                 img: seed.image,
                 followed: 1
-            }
+            };
         });
         callback(null, seedsPlain);
     });
@@ -106,12 +104,10 @@ schema.statics.getSeed = function (seedId, callback) {
                 datetime: seed.datetime,
                 parent: seed.parent, //Твит на который сделали ответ
                 child: seed.child,
-                author_name: seed.user[0].userData.firstName,
-                author_nick: seed.user[0].nick,
-                author_ava: seed.user[0].avatar,
+                profile: seed.user[0],
                 img: seed.image,
                 followed: 1
-            }
+            };
         callback(null, result);
     });
 };
