@@ -64,6 +64,7 @@ schema.statics.getPlain = function (user, opts, callback) {
     var fromtime = opts.fromtime || false;
     var newest = opts.newest || false;
     var author = opts.author || false;
+    var search = opts.search || false;
     var agregators = [
         {
             $lookup: {
@@ -94,14 +95,17 @@ schema.statics.getPlain = function (user, opts, callback) {
                 } : {
                     author: new ObjectId(author)
                 }
-            ) : {
-                author: null
-            }
+            ) : {}
+        },
+        {
+            $match: search ? {
+                msg: new RegExp(search)
+            } : {}
         },
         {
             $limit: 10
         }
-    ];
+];
 
     agregators.push();
     seed.aggregate(agregators, function(err, seeds) {

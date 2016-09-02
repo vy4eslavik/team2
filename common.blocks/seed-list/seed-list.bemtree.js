@@ -1,5 +1,6 @@
 block('seed-list').content()(function () {
-    var seeds = this.ctx.seeds;
+    var seeds = this.data.seeds;
+    
 
     return seeds.map(function (item) {
         return {

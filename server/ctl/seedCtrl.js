@@ -7,6 +7,7 @@ module.exports = function(app) {
     const render = require('../render').render;
     var Seed = require('../models/seed.js');
 
+
     return {
         add: function(req, res, next) {
             if (req.body.text) {
@@ -120,6 +121,17 @@ module.exports = function(app) {
                     }
                 },
                 isAuthenticated: req.isAuthenticated()
+              })
+        },
+        seedSearch : function(content, callback){
+            console.log(content);
+            Seed.getPlain({}, {search: content, fromtime: new Date()},  function(err, searchedSeeds) {
+              if(err) return console.error(err);
+              else {
+                console.log(searchedSeeds);
+
+                return callback(null, searchedSeeds);
+              }
             });
         }
     };
