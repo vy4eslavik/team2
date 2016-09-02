@@ -16,9 +16,7 @@ block('subscribe-button')(
             };
 
         if (currentUserId === userId) {
-            button.mods.type = 'link';
-            button.url = '/profile/my';
-            button.mix = {};
+            button.mix.elem = 'edit-profile';
             button.text = 'Редактировать профиль';
         }
         return button;

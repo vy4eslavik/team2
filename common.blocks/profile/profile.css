@@ -5,35 +5,21 @@
     border: 1px solid #979797;
     border-radius: 10px;
 }
-.profile__userInfo
-{
-    display: inline-block;
-
-    height: 100%;
-
-    vertical-align: top;
-}
 .profile .avatar
 {
-    display: inline-block;
-
+    float: left;
     margin-right: 10px;
-
-    vertical-align: top;
 }
-.profile .profile__nick
+.profile__nick
 {
     font-size: 11pt;
 
-    padding-left: 5px;
-
-    color: #657786;
+    color: #0084b4;
 }
-.profile .profile__name
+.profile__link
 {
-    font-weight: bold;
-
     display: block;
+    min-height: 80px;
 }
 .profile .link:visited,
 .profile .link:link
@@ -47,6 +33,20 @@
 {
     outline: none;
 }
+.profile__description
+{
+    padding: 10px 0;
+}
+.profile__statistics
+{
+    text-align: center;
+    margin: 5px;
+}
+.profile .subscribe-button
+{
+    text-align: right;
+    margin: 5px;
+}
 .profile__follow,
 .profile__subscribers,
 .profile__seeds
@@ -56,12 +56,4 @@
     padding-right: 10px;
 
     white-space: nowrap;
-}
-.profile__description
-{
-    padding: 10px;
-}
-.profile .subscribe-button
-{
-    margin: 5px 0;
 }

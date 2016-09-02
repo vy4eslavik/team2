@@ -15,6 +15,7 @@ block('seed-list-item').content()(function () {
                 },
                 {
                     block: 'link',
+                    mix: {block: 'seed-list-item', elem: 'seed-link'},
                     url: '/seed/view/' + seed.id,
                     content: [
                         {
@@ -39,17 +40,17 @@ block('seed-list-item').content()(function () {
                 {
                     elem: 'bottom',
                     content: [
-                        seed.parent ? {
-                            elem: 'reply',
-                            content: '(Это ответ)'
-                        } : '',
                         {
                             block: 'button',
                             mods: {theme: 'islands', size: 'm', view: 'action', type: 'link'},
                             mix: {block: 'seed-list-item', elem: 'answer'},
                             url: '/seed/add/?id=' + seed.id,
                             text: 'Ответить'
-                        }
+                        },
+                        seed.parent ? {
+                            elem: 'reply',
+                            content: '(Это ответ)'
+                        } : ''
                     ]
                 }
             ]
