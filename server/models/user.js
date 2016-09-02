@@ -9,7 +9,7 @@ var schema = new Schema({
         unique: true,
         validate: {
             validator: function (v) {
-                return /^[a-z0-9._-]+$/i.test(v);
+                return /^[a-z0-9_-]+$/i.test(v);
             },
             message: 'noformat'
         }

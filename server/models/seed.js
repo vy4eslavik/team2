@@ -5,6 +5,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var schema =  new Schema({
     msg: String,
     tags: [],
+    mention: [],
     datetime: {
         type: Date,
         default: Date.now
@@ -52,12 +53,11 @@ schema.statics.getCountPlain = function (user, opts, callback) {
       }
   ];
 
-  console.log(agregators);
   seed.aggregate(agregators, function(err, seeds) {
       if (err) return callback(err);
       callback(null, seeds.length);
   });
-}
+};
 
 schema.statics.getPlain = function (user, opts, callback) {
     var seed = this;
@@ -114,6 +114,8 @@ schema.statics.getPlain = function (user, opts, callback) {
                 parent: seed.parent, //Твит на который сделали ответ
                 profile: seed.user[0],
                 img: seed.image,
+                tags: seed.tags,
+                mention: seed.mention,
                 followed: 1
             };
         });
@@ -168,6 +170,13 @@ schema.pre('save', function(next) {
         if (tags) {
             this.tags = tags.map(function(tag){
                 return tag.trim().substr(1);
+            });
+        }
+
+        var nicks = this.msg.match(/@[a-z0-9_-]+/ig);
+        if (nicks) {
+            this.mention = nicks.map(function(nick){
+                return nick.trim().substr(1);
             });
         }
     }
