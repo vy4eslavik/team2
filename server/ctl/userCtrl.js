@@ -104,6 +104,30 @@ module.exports = function() {
                 });
             });
         },
+        viewProfiles: function (req, res) {
+            User.getProfiles(req.user._id,function (err, users, user_id){
+                if (err || !users) {
+                    console.log(err);
+                    res.status(404);
+                    return render(req, res, {view: '404'});
+                }
+                render(req, res, {
+                    view: 'viewProfiles',
+                    title: 'Profiles',
+                    meta: {
+                        description: 'Profiles',
+                        og: {
+                            siteName: 'Pepo',
+                            locale: 'ru_RU',
+                            url: 'http://'+process.env.HTTP_HOST
+                        }
+                    },
+                    users: users,
+                    currentUserId: user_id,
+                    isAuthenticated: req.isAuthenticated()
+                });
+            });
+        },
 
         findByIdPickName: function(req, res) {
             var userId = req.user._id;
