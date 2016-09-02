@@ -18,6 +18,10 @@ module.exports = function(app) {
                     parent: req.body.parent
                 });
 
+                if (req.file) {
+                    seed.image = '/usercontent/' + req.file.filename;
+                }
+
                 seed.save(function (err) {
                     if (err) return next (err);
                 });

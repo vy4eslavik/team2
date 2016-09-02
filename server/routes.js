@@ -25,12 +25,22 @@ module.exports = function(conn, passport){
             cb(null, file.originalname);
         }
     });
+    var userContent = multer.diskStorage({
+        destination: config.staticFolder + '/usercontent/',
+        filename: function (req, file, cb) {
+            return cb(null, req.user.nick + '_file_' + Date.now() + '_' + file.originalname);
+        }
+    });
     //user initial setup
     router.get('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.findByIdPickName);
     router.post('/profile/setup', require('connect-ensure-login').ensureLoggedIn(), userController.updateByIdPickName);
 
     //seed
-    router.post('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.add);
+    router.post(
+        '/seed/add',
+        require('connect-ensure-login').ensureLoggedIn(),
+        multer({ storage: userContent }).single('image'),
+        seedController.add);
     router.get('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.modAddSeed);
     router.post('/seeds/notify', require('connect-ensure-login').ensureLoggedIn(), seedController.countNewSeeds);
 

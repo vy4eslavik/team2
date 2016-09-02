@@ -19,9 +19,24 @@ block('addSeed').content()(function () {
             } : '',
             {
                 block: 'button',
-                mods: {theme: 'islands', size: 'm', type: 'submit'},
+                mods: {theme: 'islands', size: 'l', type: 'submit'},
                 type: 'submit',
                 text: 'add'
+            },
+            {
+                block: 'attach',
+                name: 'image',
+                id: 'attachImage',
+                accept: 'image/gif,image/jpeg,image/jpg,image/png',
+                mods: { theme: 'islands', size: 'l', preview: 'image'},
+                button: {
+                    block: 'button',
+                    icon: {
+                        block: 'icon',
+                        url: '/img/icon-camera.svg'
+                    },
+                    text:'Добавить фото'
+                }
             }
         ]
     }
