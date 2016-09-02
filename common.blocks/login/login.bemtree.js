@@ -7,7 +7,8 @@ block('login').content()(function () {
                 url: '/',
                 content:{
                     block: 'image',
-                    url: '/img/pepo.png'
+                    url: '/img/pepo.png',
+                    width: '120px'
                 }
             }
         },
