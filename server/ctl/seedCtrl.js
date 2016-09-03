@@ -157,6 +157,17 @@ module.exports = function(app) {
         },
         seedSearch : function(content, callback){
             console.log(content);
+            if (content[0] == '#'){
+                content = content.substr(1);
+                Seed.getPlain({}, {tag: content, fromtime: new Date()},  function(err, searchedTags) {
+                if(err) return console.error(err);
+                else {
+                  console.log(searchedTags);
+                  return callback(null, searchedTags);
+                }
+            });
+          }
+            else {
             Seed.getPlain({}, {search: content, fromtime: new Date()},  function(err, searchedSeeds) {
               if(err) return console.error(err);
               else {
@@ -165,6 +176,7 @@ module.exports = function(app) {
                 return callback(null, searchedSeeds);
               }
             });
+          }
         }
     };
 };
