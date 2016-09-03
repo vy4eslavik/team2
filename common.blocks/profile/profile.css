@@ -10,6 +10,12 @@
     float: left;
     margin-right: 10px;
 }
+.profile .avatar_largeView
+{
+    float: none;
+    margin-right: 0;
+    margin-bottom: 10px;
+}
 .profile__nick
 {
     font-size: 11pt;
@@ -56,4 +62,9 @@
     padding-right: 10px;
 
     white-space: nowrap;
+}
+
+
+.profile_largeView .link__username {
+  margin-left: 10px;
 }

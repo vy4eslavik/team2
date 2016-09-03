@@ -24,9 +24,14 @@ block('profile')(
                         img: profile.avatar,
                         alt: profile.nick,
                         width: 80,
-                        height: 80
+                        height: 80,
+                        mods: {largeView: mods.largeView}
                     },
-                    name,
+                    {
+                        elem: 'username',
+                        tag: 'span',
+                        content: name,
+                    },
                     {
                         elem: 'nick',
                         mix: {block: 'profile', elem: 'nick'},

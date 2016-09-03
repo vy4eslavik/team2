@@ -16,7 +16,7 @@ block('page').mod('view', 'viewProfile').content()(function () {
                         {
                         block: 'profile',
                         profile: profile,
-                        mods: {followInfo: true, description: true, subscribeButton: true},
+                        mods: {followInfo: true, description: true, subscribeButton: true, largeView: true},
                         currentUserId: currentUserId,
                         subscribe: subscribe
                         },
