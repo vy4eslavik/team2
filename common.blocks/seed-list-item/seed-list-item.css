@@ -43,8 +43,8 @@
 
 .seed-list-item__item .link
 {
-    text-decoration: none;
-    color: inherit;
+    /*text-decoration: none;*/
+    /*color: inherit;*/
 }
 
 .link__msg
