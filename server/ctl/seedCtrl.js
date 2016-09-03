@@ -8,6 +8,7 @@ module.exports = function(app) {
 
     const render = require('../render').render;
     var Seed = require('../models/seed.js');
+    var User = require('../models/user.js');
 
 
     return {
@@ -95,7 +96,8 @@ module.exports = function(app) {
                                 locale: 'ru_RU',
                                 url: 'http://' + process.env.HTTP_HOST
                             }
-                        }
+                        },
+                        currentUser: req.user
                     });
                 }
             ]);
@@ -133,7 +135,8 @@ module.exports = function(app) {
                         url: 'https://site.com',
                         siteName: 'Site name'
                     }
-                }
+                },
+                currentUser: req.user || {}
             })
         },
 

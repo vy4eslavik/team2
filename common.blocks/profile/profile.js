@@ -8,10 +8,10 @@ modules.define('profile', ['i-bem__dom'], function (provide, BEMDOM) {
                     var subscribersLink = this.findBlockInside('subscribers', 'link');
                     if(subscribeButton && subscribersLink) {
                         subscribeButton.on('subscribe', function () {
-                            subscribersLink.domElem.text('subscribers ('+(++subscribersCount)+')');
+                            subscribersLink.domElem.text('подписчики ('+(++subscribersCount)+')');
                         });
                         subscribeButton.on('unSubscribe', function () {
-                            subscribersLink.domElem.text('subscribers ('+(--subscribersCount)+')');
+                            subscribersLink.domElem.text('подписчики ('+(--subscribersCount)+')');
                         });
                     }
                 }
