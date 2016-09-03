@@ -80,7 +80,7 @@ passport.use(new FacebookStrategy({
             //No user was found... so create a new user with values from Facebook (all the profile. stuff)
             if (!user) {
                 user = new User({
-                    nick: 'should.change.fb.'+profile.id,
+                    nick: 'should-change-fb-'+profile.id,
                     userData: {
                       firstName: profile.displayName.split(' ')[0],
                       lastName: (profile.displayName.split(' ')[1] ? profile.displayName.split(' ')[1]+'' : ''),
@@ -121,7 +121,7 @@ passport.use(new FacebookStrategy({
               if (!user) {
                 console.log(profile);
                   user = new User({
-                      nick: 'should.change.vk.'+profile.id,
+                      nick: 'should-change-vk-'+profile.id,
                       userData: {
                         firstName: profile.displayName.split(' ')[0],
                         lastName: (profile.displayName.split(' ')[1] ? profile.displayName.split(' ')[1]+'' : ''),
@@ -147,7 +147,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function (req, res, next) {
-    if (req.user && req.user.nick.indexOf('should.change.') > -1) {
+    if (req.user && req.user.nick.indexOf('should-change-') > -1) {
         if ( req.url.indexOf('/profile/setup') > -1 || req.url.indexOf('/logout') > -1 ) {
             next();
         } else {
