@@ -7,6 +7,7 @@ module.exports = function(conn, passport){
         , router  = express.Router()
         , multer  = require('multer')
         , config = require('./config')
+        , og = require('open-graph')
         ; render = require('./render').render
         ;
 
@@ -42,6 +43,13 @@ module.exports = function(conn, passport){
         multer({ storage: userContent }).single('image'),
         seedController.add);
     router.get('/seed/add', require('connect-ensure-login').ensureLoggedIn(), seedController.modAddSeed);
+    router.post('/og-scraper', require('connect-ensure-login').ensureLoggedIn(), function(req, res, next){
+        var url = req.body.url;
+        og(url, function(err, meta){
+            if(err) console.log(err);
+            res.send( meta );
+        })
+    });
     router.post('/seeds/notify', require('connect-ensure-login').ensureLoggedIn(), seedController.countNewSeeds);
 
     //view seed with replies
