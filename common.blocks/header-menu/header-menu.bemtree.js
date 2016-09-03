@@ -15,30 +15,8 @@ block('header-menu').content()(function() {
                     elem: 'link',
                     tag: 'a',
                     attrs: { href: '/seed/add' },
-                    content: 'Сид'
+                    content: 'Создать Новый Сид'
                 }
-            } : '',
-        isAuthenticated ?
-            {
-                elem: 'item',
-                tag: 'li',
-                content: {
-                    elem: 'link',
-                    tag: 'a',
-                    attrs: { href: '/seed/add#photo' },
-                    content: 'Фото'
-                }
-            } : '',
-        isAuthenticated ?
-            {
-                elem: 'item',
-                tag: 'li',
-                content: {
-                    elem: 'link',
-                    tag: 'a',
-                    attrs: { href: '/seed/add#location' },
-                    content: 'Место'
-                }
-            } : '',
+            } : ''
     ];
 });
