@@ -55,7 +55,7 @@
 }
 
 
-.seed-list-item__item .seed-list-item__seed-link .image
+.seed-list-item__item .image
 {
     width: calc(100% - 6px);
     margin: 0 3px;
