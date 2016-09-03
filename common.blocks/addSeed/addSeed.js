@@ -26,7 +26,10 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML','jquery', 'events__channels']
                                     this.elem('og').val(JSON.stringify(data));
                                     BEMDOM.update(
                                         this.elem('preview'),
-                                        JSON.stringify(data)
+                                        BEMHTML.apply({
+                                            block: 'link-preview',
+                                            og: data
+                                        })
                                     );
                                 });
                             }

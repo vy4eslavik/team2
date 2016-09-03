@@ -41,5 +41,6 @@
                 size: 'l'
             }
         },
+        'link-preview'
     ]
 })
