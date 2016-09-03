@@ -33,6 +33,13 @@
         'login',
         'select',
         'addSeed',
-        'events__channels'
+        'events__channels',
+        {
+            block: 'link',
+            mods: {
+                theme: 'islands',
+                size: 'l'
+            }
+        },
     ]
 })
