@@ -19,7 +19,10 @@
         'settings-list',
         'settings-setup-list',
         'profile',
-        'seed-list-item',
+        {
+            block: 'seed-list-item',
+            mods: {item: 'current'}
+        },
         {   block : 'input',
             mods : { theme: 'islands', size : 'm' }
         },
