@@ -16,7 +16,7 @@ block('settings-setup-list').content()(function () {
 
     return [
         formSave,
-        profileSettings.nick.indexOf('should.change.') > -1 ? {
+        profileSettings.nick.indexOf('should-change-') > -1 ? {
             'block': 'content',
             'content': 'Для окончания регистрации вы должны выбрать ник'
         } : {
@@ -31,7 +31,7 @@ block('settings-setup-list').content()(function () {
                     attrs: {'for': 'editNick'},
                     content: 'Никнейм'
                 },
-                profileSettings.nick.indexOf('should.change.') > -1 ? {
+                profileSettings.nick.indexOf('should-change-') > -1 ? {
                     block: 'input',
                     name: 'nick',
                     val: '',
@@ -51,7 +51,7 @@ block('settings-setup-list').content()(function () {
                 }
             ]
         },
-        profileSettings.nick.indexOf('should.change.') > -1 ? {
+        profileSettings.nick.indexOf('should-change-') > -1 ? {
             block: 'button',
             name: 'userId',
             val: profileSettings.id,
