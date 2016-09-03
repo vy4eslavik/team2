@@ -1,3 +1,9 @@
 block('search-icon').content()(function() {
-    return require('fs').readFileSync('common.blocks/search-icon/search-icon.svg', 'utf8');
+    return [
+        {
+            block: 'image',
+            url: this.ctx.img || '/Search.png',
+            alt: this.ctx.alt || 'search icon'
+        }
+    ];
 });

@@ -4,6 +4,8 @@
 
 block('seed-list-item').content()(function () {
     var seed = this.ctx.seed;
+    var moment = this.require('moment');
+    // moment.lang("ru");
 
     var msg = seed.msg;
 
@@ -34,7 +36,7 @@ block('seed-list-item').content()(function () {
                             content: {
                                 elem: 'date',
                                 mix: {block: 'seed-list-item', elem: 'date'},
-                                content: seed.datetime.toLocaleString()
+                                content: moment(seed.datetime.toLocaleString()).format('LL')
                             }
                         },
                         {
