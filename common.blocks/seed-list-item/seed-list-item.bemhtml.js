@@ -36,7 +36,7 @@ block('seed-list-item').content()(function () {
                             content: {
                                 elem: 'date',
                                 mix: {block: 'seed-list-item', elem: 'date'},
-                                content: moment(seed.datetime.toLocaleString()).format('LL')
+                                content: moment(seed.datetime).fromNow()
                             }
                         },
                         {
