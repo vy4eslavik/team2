@@ -167,6 +167,19 @@ module.exports = function(app) {
                 }
             });
           }
+
+          else if (content[0] == '@'){
+              content = content.substr(1);
+              console.log(content);
+              User.find( {nick: new RegExp(content)},  function(err, searchedNicks) {
+              if(err) return console.error(err);
+              else {
+                console.log(searchedNicks);
+                return callback(null, searchedNicks);
+              }
+          });
+        }
+
             else {
             Seed.getPlain({}, {search: content, fromtime: new Date()},  function(err, searchedSeeds) {
               if(err) return console.error(err);

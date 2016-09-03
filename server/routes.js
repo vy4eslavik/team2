@@ -135,15 +135,20 @@ module.exports = function(conn, passport){
 
     router.get('/search', require('connect-ensure-login').ensureLoggedIn(), function(req, res) {
           var profile = req.user;
-
-          seedController.seedSearch(req.query.text, function(err, searchedSeeds) {
-          render(req,res,{
+          var viewopts = {
           view: 'search',
           title: 'search',
-          seeds: searchedSeeds,
           profile: profile,
           isAuthenticated: req.isAuthenticated()
-    });
+    }
+          seedController.seedSearch(req.query.text, function(err, searchedResult) {
+            if (req.query.text[0] == "@"){
+                viewopts.users = searchedResult;
+            }
+            else {
+              viewopts.seeds = searchedResult;
+            }
+          render(req,res, viewopts);
   });
 });
     router.get('*', function(req, res) {
