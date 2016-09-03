@@ -24,6 +24,17 @@ block('addSeed').content()(function () {
                 text: 'add'
             },
             {
+                elem: 'og',
+                tag: 'input',
+                attrs: {
+                    type: 'hidden',
+                    name: 'ogdata'
+                }
+            },
+            {
+                elem: 'preview'
+            },
+            {
                 block: 'attach',
                 name: 'image',
                 id: 'attachImage',

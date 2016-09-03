@@ -22,6 +22,12 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML','jquery', 'events__channels']
                                     context: this
                                 }).done(function(data){
                                     console.log(data);
+                                    console.log(this);
+                                    this.elem('og').val(JSON.stringify(data));
+                                    BEMDOM.update(
+                                        this.elem('preview'),
+                                        JSON.stringify(data)
+                                    );
                                 });
                             }
                         }, this);
