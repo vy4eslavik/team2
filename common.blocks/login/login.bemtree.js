@@ -22,7 +22,13 @@ block('login').content()(function () {
                 block: 'button',
                 mods: {theme: 'fvbutton', type: 'link'},
                 url: '/login/facebook',
-                text: 'Через facebook'
+                text: 'Через facebook',
+                icon: {
+                    block: 'icon',
+                    mods: {
+                        social: 'facebook'
+                    }
+                }
             }
         },
         {
@@ -31,7 +37,13 @@ block('login').content()(function () {
                 block: 'button',
                 mods: {theme: 'fvbutton', type: 'link'},
                 url: '/login/vkontakte',
-                text: 'Через vkontakte'
+                text: 'Через vkontakte',
+                icon: {
+                    block: 'icon',
+                    mods: {
+                        social: 'vk'
+                    }
+                }
             }
         }
     ]
