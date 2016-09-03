@@ -1,4 +1,5 @@
 block('header').content()(function () {
+    var currentUser = this.data.currentUser;
     return [
         {
             block: 'layout',
@@ -8,7 +9,7 @@ block('header').content()(function () {
                     content: {
                         block: 'link',
                         url: '/',
-                        content:{
+                        content: {
                             block: 'image',
                             url: '/img/pepo.png'
                         }
@@ -19,7 +20,7 @@ block('header').content()(function () {
                     content: [
                         {
                         tag: 'form',
-                        attrs: { action: '/search' },
+                        attrs: {action: '/search'},
                         content: [
                             {
                                 block: 'input',
@@ -29,7 +30,7 @@ block('header').content()(function () {
                             {
                                 block: 'search-icon',
                                 tag: 'button',
-                                mods: { type: 'submit'},
+                                mods: {type: 'submit'},
                                 type: 'submit'
 
                             }
@@ -45,7 +46,8 @@ block('header').content()(function () {
             tag: 'ul'
         },
         {
-            block: 'header-hamburger-menu'
+            block: 'header-hamburger-menu',
+            currentUser: currentUser
         },
         {
             block: 'header-notification',

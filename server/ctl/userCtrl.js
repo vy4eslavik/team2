@@ -2,22 +2,18 @@
  * Created by lenur on 8/23/16.
  */
 
-module.exports = function() {
+module.exports = function () {
     const render = require('../render').render;
     var User = require('../models/user.js');
     var Seed = require('../models/seed.js');
 
     return {
-        editMyProfile: function(req, res) {
-            var userId = req.user._id;
-
-
-            User.findById(userId, function (err, user) {
-                console.log(user);
+        editMyProfile: function (req, res) {
+            User.findById(req.user._id, function (err, user) {
                 if (err || !user) {
                     console.log(err);
                     res.status(404);
-                    return render(req, res, { view: '404' });
+                    return render(req, res, {view: '404'});
                 }
 
                 render(req, res, {
@@ -28,18 +24,19 @@ module.exports = function() {
                         og: {
                             siteName: 'Pepo',
                             locale: 'ru_RU',
-                            url: 'http://'+process.env.HTTP_HOST
+                            url: 'http://' + process.env.HTTP_HOST
                         }
                     },
                     profileSettings: user,
-                    userPath: 'http://'+process.env.HTTP_HOST+'/profile/'+user.nick,
+                    userPath: 'http://' + process.env.HTTP_HOST + '/profile/' + user.nick,
+                    currentUser: req.user,
                     formSave: req.query.success,
                     isAuthenticated: req.isAuthenticated()
                 });
             });
         },
 
-        updateMyProfile: function(req, res) {
+        updateMyProfile: function (req, res) {
             var body = req.body;
 
             var user = {
@@ -68,20 +65,22 @@ module.exports = function() {
         },
 
         viewProfile: function (req, res, next) {
-            User.findOne({ nick: req.params.nick}, function (err, user){
-                if(err || !user)  {
+            User.findOne({nick: req.params.nick}, function (err, user) {
+                if (err || !user) {
                     console.log(err);
                     res.status(404);
-                    return render(req, res, { view: '404' });
+                    return render(req, res, {view: '404'});
                 }
 
                 Seed.count({author: user.id}, function (err, count) {
-                    if(err) { console.log(err); }
+                    if (err) {
+                        console.log(err);
+                    }
 
                     user.seedsCount = count;
                     var opts = {};
                     opts.author = user.id;
-                    Seed.getPlain(user, opts, function(err, seeds){
+                    Seed.getPlain(user, opts, function (err, seeds) {
                         if (err) console.log(err);
 
                         render(req, res, {
@@ -92,12 +91,13 @@ module.exports = function() {
                                 og: {
                                     siteName: 'Pepo',
                                     locale: 'ru_RU',
-                                    url: 'http://'+process.env.HTTP_HOST
+                                    url: 'http://' + process.env.HTTP_HOST
                                 }
                             },
                             user: user,
                             seeds: seeds,
                             currentUserId: req.user._id,
+                            currentUser: req.user,
                             isAuthenticated: req.isAuthenticated()
                         });
                     });
@@ -105,7 +105,7 @@ module.exports = function() {
             });
         },
         viewProfiles: function (req, res) {
-            User.getProfiles(req.user._id,function (err, users, user_id){
+            User.getProfiles(req.user._id, function (err, users, user_id) {
                 if (err || !users) {
                     console.log(err);
                     res.status(404);
@@ -119,7 +119,7 @@ module.exports = function() {
                         og: {
                             siteName: 'Pepo',
                             locale: 'ru_RU',
-                            url: 'http://'+process.env.HTTP_HOST
+                            url: 'http://' + process.env.HTTP_HOST
                         }
                     },
                     users: users,
@@ -129,7 +129,7 @@ module.exports = function() {
             });
         },
 
-        findByIdPickName: function(req, res) {
+        findByIdPickName: function (req, res) {
             var userId = req.user._id;
 
             User.findById(userId, function (err, user) {
@@ -143,31 +143,31 @@ module.exports = function() {
                         og: {
                             siteName: 'Pepo',
                             locale: 'ru_RU',
-                            url: 'http://'+process.env.HTTP_HOST
+                            url: 'http://' + process.env.HTTP_HOST
                         }
                     },
                     profileSettings: user,
-                    userPath: 'http://'+process.env.HTTP_HOST+'/profile/'+user.nick,
+                    userPath: 'http://' + process.env.HTTP_HOST + '/profile/' + user.nick,
                     formSave: req.query.success,
                     isAuthenticated: req.isAuthenticated()
                 })
             });
         },
 
-        updateByIdPickName: function(req, res) {
+        updateByIdPickName: function (req, res) {
             var body = req.body;
 
             var user = {
                 nick: body.nick
             };
 
-            User.findByIdAndUpdate(body.userId, user, { runValidators: true }, function (err, user) {
+            User.findByIdAndUpdate(body.userId, user, {runValidators: true}, function (err, user) {
                 if (err) {
-                    res.redirect('/profile/setup?success=error' + (err.errors.nick.message ? err.errors.nick.message : '') );
-                }else{
+                    res.redirect('/profile/setup?success=error' + (err.errors.nick.message ? err.errors.nick.message : ''));
+                } else {
 
                     user.nick = body.nick;
-                    req.logIn(user, function(error) {
+                    req.logIn(user, function (error) {
                         if (!error) {
                             // successfully serialized user to session
                             res.redirect('/profile/setup?success=done');
@@ -178,15 +178,15 @@ module.exports = function() {
 
         },
 
-        profileAction: function(req, res) {
-            if(req.params.action === 'subscribe') {
-                if(!req.query.userId) {
+        profileAction: function (req, res) {
+            if (req.params.action === 'subscribe') {
+                if (!req.query.userId) {
                     return res.send('parameter userId required!');
                 }
                 User.subscribe(req.user._id, req.query.userId, function (err, subscribeState) {
-                    User.findOne({ _id: req.user._id}, function (err, user){
-                        req.logIn(user, function(error) {
-                            if(!error){
+                    User.findOne({_id: req.user._id}, function (err, user) {
+                        req.logIn(user, function (error) {
+                            if (!error) {
                                 res.send(err || subscribeState);
                             }
                         });
@@ -197,24 +197,25 @@ module.exports = function() {
             }
 
             User.subscription(req.user._id, req.params.nick, req.params.action, function (err, profiles) {
-                if(err) {
+                if (err) {
                     res.status(404);
-                    return render(req, res, { view: '404' });
+                    return render(req, res, {view: '404'});
                 }
 
                 render(req, res, {
                     view: 'viewSubscription',
-                    title: req.params.nick + ' '+req.params.action,
+                    title: req.params.nick + ' ' + req.params.action,
                     meta: {
-                        description: req.params.nick + ' '+req.params.action,
+                        description: req.params.nick + ' ' + req.params.action,
                         og: {
                             siteName: 'Pepo',
                             locale: 'ru_RU',
-                            url: 'http://'+process.env.HTTP_HOST
+                            url: 'http://' + process.env.HTTP_HOST
                         }
                     },
                     profiles: profiles,
                     currentUserId: req.user._id,
+                    currentUser: req.user,
                     isAuthenticated: req.isAuthenticated()
                 });
             });

@@ -50,18 +50,18 @@ block('profile')(
                         {
                             block: 'link',
                             mix: {block: 'profile', elem: 'follow'},
-                            url: '/profile/' + profile.nick + '/follow',
-                            content: 'follow (' + profile.follow.length + ')'
+                            url: '/profile/'+profile.nick+'/follow',
+                            content: 'подписки (' + profile.follow.length + ')'
                         },
                         {
                             block: 'link',
                             mix: {block: 'profile', elem: 'subscribers'},
-                            url: '/profile/' + profile.nick + '/subscribers',
-                            content: 'subscribers (' + profile.subscribers.length + ')'
+                            url: '/profile/'+profile.nick+'/subscribers',
+                            content: 'подписчики (' + profile.subscribers.length + ')'
                         },
                         {
                             elem: 'seeds',
-                            content: 'seeds (' + profile.seedsCount + ')'
+                            content: 'сиды (' + profile.seedsCount + ')'
                         }
                     ]
                 }

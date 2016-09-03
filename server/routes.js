@@ -123,6 +123,7 @@ module.exports = function(conn, passport){
                         },
                         seeds: seeds,
                         profile: profile,
+                        currentUser: req.user,
                         isAuthenticated: req.isAuthenticated()
                     })
                 } else {
