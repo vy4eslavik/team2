@@ -10,6 +10,9 @@ block('profile')(
         if (!profile) {
             return 'Упс. Профиль не загрузился';
         }
+        var firstName = profile.userData.firstName? profile.userData.firstName : '';
+        var lastName = profile.userData.lastName? profile.userData.lastName : '';
+        var name = firstName + ' ' + lastName;
         return [
             {
                 block: 'link',
@@ -23,7 +26,7 @@ block('profile')(
                         width: 80,
                         height: 80
                     },
-                    profile.userData.firstName + ' ' + profile.userData.lastName,
+                    name,
                     {
                         elem: 'nick',
                         mix: {block: 'profile', elem: 'nick'},
