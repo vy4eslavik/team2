@@ -5,6 +5,7 @@ block('seed-list').content()(function () {
     return seeds.map(function (item) {
         return {
             block: 'seed-list-item',
+            mods: item.current ? {item: 'current'} : {},
             seed: item
         };
     }, this);

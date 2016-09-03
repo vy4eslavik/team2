@@ -2,6 +2,8 @@
  * Created by lenur on 8/22/16.
  */
 
+var async = require('async');
+
 module.exports = function(app) {
 
     const render = require('../render').render;
@@ -32,44 +34,71 @@ module.exports = function(app) {
             }
         },
 
-        view: function(req, res) {
+        view: function (req, res, next) {
 
             var seedId = req.params.id;
-            console.log(seedId);
-            var seeds = [];
 
-            getSeed(seedId, seeds);
+            async.waterfall([
+                function (callback) {
+                    Seed.getSeed(seedId, function (err, seed) {
+                        if (err) return next(err);
+                        seed.current = true;
+                        callback(null, seed);
+                    });
+                },
+                function (current, callback) {
+                    var parents = [];
 
-            function getSeed(seedId,seeds){
-                Seed.getSeed(seedId, function(err, seed){
-                    if (err || !seed) {
-                                console.log(err);
-                                res.status(404);
-                                return render(req, res, {view: '404'});
-                            }
-                    if(seed) seeds.push(seed);
+                    loadParents(current);
 
-
-                    var child = seed.child || [];
-                    if(child.length){
-                        getSeed(child[0], seeds);
-                    } else{
-                        render(req, res, {
-                                    view: 'viewSeed',
-                                    title: 'Seed View Page',
-                                    seeds: seeds,
-                                    meta: {
-                                        description: 'Seed View Page',
-                                        og: {
-                                            siteName: 'Pepo',
-                                            locale: 'ru_RU',
-                                            url: 'http://'+process.env.HTTP_HOST
-                                        }
-                                    }
-                                });
+                    function loadParents(seed) {
+                        if (seed.parent) {
+                            Seed.getSeed(seed.parent, function (err, seed) {
+                                if (err) return next(err);
+                                parents.unshift(seed);
+                                loadParents(seed);
+                            })
+                        } else {
+                            callback(null, current, parents);
+                        }
                     }
-                }, seeds);
-            }
+                },
+                function (current, parents, callback) {
+                    var childs = [];
+
+                    loadChilds(current);
+
+                    function loadChilds(seed) {
+                        if (seed.child && seed.child.length) {
+                            Seed.getSeed(seed.child[0], function (err, seed) {
+                                if (err) return next(err);
+                                childs.push(seed);
+                                loadChilds(seed);
+                            })
+                        } else {
+                            callback(null, current, parents, childs);
+                        }
+                    }
+                }, function (current, parents, childs, callback) {
+                    if (!current) {
+                        res.status(404);
+                        return render(req, res, {view: '404'});
+                    }
+                    render(req, res, {
+                        view: 'viewSeed',
+                        title: 'Seed View Page',
+                        seeds: parents.concat(current, childs),
+                        meta: {
+                            description: 'Seed View Page',
+                            og: {
+                                siteName: 'Pepo',
+                                locale: 'ru_RU',
+                                url: 'http://' + process.env.HTTP_HOST
+                            }
+                        }
+                    });
+                }
+            ]);
         },
 
         getCountByAuthor: function (authorId, callback) {
