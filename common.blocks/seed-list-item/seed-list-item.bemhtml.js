@@ -13,6 +13,7 @@ block('seed-list-item').content()(function () {
      msg = msg.replace(/@[a-z0-9_-]+/ig, '<a class="link link__control" href="/profile/$&">$&</a>');
     msg = msg.replace(/href="\/profile\/@/g, 'href="/profile/');
      msg = msg.replace(/#.+?(\s|$)/g, '<a class="link link__control" href="/search/?text=$&">$&</a>');
+    msg = msg.replace(/\/\?text=#/g, '/?text='+encodeURIComponent('#'));
      msg = msg.replace(/(https?:\/\/[^\s]+)/g, '<a class="link link__control" href="$&" target="_blank">$&</a>');
     //var nicks = msg.match(/@[a-z0-9_-]+/ig);
     //msg.split(/@[a-z0-9_-]+/ig);
