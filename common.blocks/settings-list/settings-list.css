@@ -4,14 +4,17 @@
 
     min-width: 150px;
 }
+.settings-list__avatar-edit
+{
+    margin-bottom: 20px;
+}
 .settings-list .input,
 .settings-list .select,
-.settings-list textarea,
-.settings-list .attach
+.settings-list textarea
+/*.settings-list .attach*/
 {
     box-sizing: border-box;
     width: 100%;
-    max-width: 245px;
     margin-bottom: 10px;
 
     vertical-align: middle;
@@ -27,4 +30,8 @@
 .settings-list__form-save
 {
     text-align: center;
+}
+.settings-list .attach
+{
+    display: none;
 }

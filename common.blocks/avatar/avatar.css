@@ -26,4 +26,5 @@
 
 .avatar_largeView .image {
     display: block;
+    max-height: 300px;
 }

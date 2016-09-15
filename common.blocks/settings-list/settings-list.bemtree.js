@@ -1,84 +1,69 @@
 block('settings-list').content()(function () {
-    var profileSettings = this.ctx.profileSettings;
-    var userPath = this.ctx.userPath;
-    var formSave = {
-        elem: 'form-save'
-    };
-    if(this.ctx.formSave === 'done'){
-        formSave.content = 'Изменения успешно сохранены';
-    }else if(this.ctx.formSave === 'error'){
-        formSave.content = 'Упс! Произошла ошибка';
+    var profileSettings = this.ctx.profileSettings,
+        userPath = this.ctx.userPath,
+        saveInfo = '';
+
+    if (this.ctx.formSave === 'done') {
+        saveInfo = 'Изменения успешно сохранены';
+    } else if (this.ctx.formSave === 'error') {
+        saveInfo = 'Упс! Произошла ошибка';
     }
 
     var timeZones = [
         {
-            name: '(GMT-03:00) Buenos Aires',
-            value: 'Buenos Aires',
-            offset: -10800
+            text: '(GMT-03:00) Buenos Aires',
+            val: -10800
         },
         {
-            name: '(GMT) UTC',
-            value: 'UTC',
-            offset: 0
+            text: '(GMT) UTC',
+            val: 0
         },
         {
-            name: '(GMT+01:00) London',
-            value: 'London',
-            offset: 3600
+            text: '(GMT+01:00) London',
+            val: 3600
         },
         {
-            name: '(GMT+02:00) Budapest',
-            value: 'Budapest',
-            offset: 7200
+            text: '(GMT+02:00) Budapest',
+            val: 7200
         },
         {
-            name: '(GMT+03:00) Moscow',
-            value: 'Moscow',
-            offset: 10800
+            text: '(GMT+03:00) Moscow',
+            val: 10800
         }
     ];
 
-    var selectTimeZone = {
-        block: 'select',
-        mods: { mode : 'radio', theme : 'islands', size : 'l' },
-        name: 'timeZone',
-        id: 'editTimeZone',
-        val: profileSettings.timeZone,
-        options: []
-    };
-
-    timeZones.forEach(function (item) {
+    /*timeZones.forEach(function (item) {
         selectTimeZone.options.push(
             {
                 val: item.offset,
                 text: item.name
             }
         );
-    });
+    });*/
 
     return [
-        formSave,
+        {
+            elem: 'form-save',
+            content: saveInfo
+        },
         {
             elem: 'avatar-edit',
             content: [
                 {
-                    block: 'label',
-                    attrs: {'for': 'newAvatar'},
-                    content: {
-                        block: 'avatar',
-                        img: profileSettings.avatar,
-                        alt: profileSettings.nick
-                    }
-                },
-                {
-                    block: 'attach',
-                    name: 'newAvatar',
-                    id: 'newAvatar',
-                    accept: 'image/jpeg,image/png',
-                    mods: { theme: 'islands', size: 'l'},
-                    button: 'Новый аватар'
+                    block: 'avatar',
+                    img: profileSettings.avatar,
+                    alt: profileSettings.nick,
+                    mods: {largeView: true},
+                    mix: {block: 'settings-list', elem: 'avatar-image'}
                 }
             ]
+        },
+        {
+            block: 'attach',
+            name: 'newAvatar',
+            id: 'newAvatar',
+            accept: 'image/jpeg,image/png',
+            mods: {preview: 'image'}
         },
         {
             elem: 'nick',
@@ -144,7 +129,14 @@ block('settings-list').content()(function () {
                     attrs: {'for': 'editTimeZone'},
                     content: 'Часовой пояс'
                 },
-                selectTimeZone
+                {
+                    block: 'select',
+                    mods: {mode: 'radio', theme: 'islands', size: 'l'},
+                    name: 'timeZone',
+                    id: 'editTimeZone',
+                    val: profileSettings.timeZone,
+                    options: timeZones
+                }
             ]
         },
         {

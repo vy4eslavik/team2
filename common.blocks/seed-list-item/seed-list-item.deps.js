@@ -3,25 +3,29 @@
  */
 
 
-({
-    shouldDeps: [
-        'followed-unfollowed', 'profile',
-        {
-            block: 'popup',
-            mods: {
-                theme: 'islands',
-                target: 'anchor',
-                autoclosable: true
+[
+    {
+
+        mustDeps: {block: 'i-bem', elems: ['dom', 'i18n']},
+        shouldDeps: [
+            'followed-unfollowed', 'profile', 'moment',
+            {
+                block: 'popup',
+                mods: {
+                    theme: 'islands',
+                    target: 'anchor',
+                    autoclosable: true
+                }
+            },
+            {
+                block: 'button',
+                mods: {
+                    theme: 'islands',
+                    size: 'm',
+                    type: 'link',
+                    view: 'action'
+                }
             }
-        },
-        {
-            block: 'button',
-            mods: {
-                theme: 'islands',
-                size: 'm',
-                type: 'link',
-                view: 'action'
-            }
-        }
-    ]
-})
+        ]
+    }
+]

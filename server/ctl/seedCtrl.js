@@ -97,7 +97,8 @@ module.exports = function(app) {
                                 url: 'http://' + process.env.HTTP_HOST
                             }
                         },
-                        currentUser: req.user
+                        currentUser: req.user,
+                        isAuthenticated: req.isAuthenticated()
                     });
                 }
             ]);

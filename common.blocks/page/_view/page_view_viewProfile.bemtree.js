@@ -8,23 +8,18 @@ block('page').mod('view', 'viewProfile').content()(function () {
             block: 'header'
         },
         {
-            block: 'body',
+            block: 'content',
             content: [
                 {
-                    block: 'content',
-                    content: [
-                        {
-                        block: 'profile',
-                        profile: profile,
-                        mods: {followInfo: true, description: true, subscribeButton: true, largeView: true},
-                        currentUserId: currentUserId,
-                        subscribe: subscribe
-                        },
-                        {
-                            block: 'seed-list',
-                            seeds: seeds
-                        }
-                    ]
+                    block: 'profile',
+                    profile: profile,
+                    mods: {followInfo: true, description: true, subscribeButton: true, largeView: true},
+                    currentUserId: currentUserId,
+                    subscribe: subscribe
+                },
+                {
+                    block: 'seed-list',
+                    seeds: seeds
                 }
             ]
         },

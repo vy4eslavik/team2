@@ -1,4 +1,4 @@
-modules.define('seed-list', ['i-bem__dom', 'BEMHTML','jquery', 'events__channels'], function (provide, BEMDOM, BEMHTML,$,channels) {
+modules.define('seed-list', ['i-bem__dom', 'BEMHTML','jquery', 'events__channels', 'moment'], function (provide, BEMDOM, BEMHTML,$,channels, moment) {
 
     provide(BEMDOM.decl(this.name,
         {
@@ -39,8 +39,9 @@ modules.define('seed-list', ['i-bem__dom', 'BEMHTML','jquery', 'events__channels
                                               this.domElem,
                                               seeds.map(function (item) {
                                                 return BEMHTML.apply({
-                                                    block : 'seed-list-item',
-                                                    seed: item
+                                                    block: 'seed-list-item',
+                                                    seed: item,
+                                                    moment: moment
                                                 })
                                               },this).join('')
 
@@ -80,7 +81,8 @@ modules.define('seed-list', ['i-bem__dom', 'BEMHTML','jquery', 'events__channels
                             seeds.map(function (item) {
                               return BEMHTML.apply({
                                   block : 'seed-list-item',
-                                  seed: item
+                                  seed: item,
+                                  moment: moment
                               })
                             },this).join('')
 

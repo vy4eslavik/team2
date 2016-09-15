@@ -1,4 +1,4 @@
-block('page').mod('view', 'setupProfile').content()(function() {
+block('page').mod('view', 'setupProfile').content()(function () {
 
     var profileSettings = this.data.profileSettings || {};
     var userPath = this.data.userPath || '';
@@ -8,18 +8,13 @@ block('page').mod('view', 'setupProfile').content()(function() {
             block: 'header'
         },
         {
-            block: 'body',
+            block: 'content',
             content: [
                 {
-                    block: 'content',
-                    content: [
-                        {
-                            block: 'settings-setup-list',
-                            profileSettings: profileSettings,
-                            userPath: userPath,
-                            formSave: formSave
-                        }
-                    ]
+                    block: 'settings-setup-list',
+                    profileSettings: profileSettings,
+                    userPath: userPath,
+                    formSave: formSave
                 }
             ]
         },

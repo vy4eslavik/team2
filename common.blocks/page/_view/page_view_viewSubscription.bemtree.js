@@ -6,14 +6,17 @@ block('page').mod('view', 'viewSubscription').content()(function () {
         {
             block: 'header'
         },
-        profiles.map(function (profile) {
-            return {
-                block: 'profile',
-                mods: {subscribeButton: true},
-                profile: profile,
-                subscribe: profile.subscribeState,
-                currentUserId: currentUserId
-            };
-        }, this)
+        {
+            block: 'content',
+            content: profiles.map(function (profile) {
+                return {
+                    block: 'profile',
+                    mods: {subscribeButton: true},
+                    profile: profile,
+                    subscribe: profile.subscribeState,
+                    currentUserId: currentUserId
+                };
+            }, this)
+        }
     ];
 });

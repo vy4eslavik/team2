@@ -3,59 +3,67 @@
  */
 
 
-modules.define('attach',['i-bem__dom', 'i-bem__internal', 'control', 'jquery', 'strings__escape'],
-    function(provide, BEMDOM, INTERNAL, Control, $, escape, attach) {
+modules.define('attach', ['i-bem__dom', 'events__channels', 'strings__escape'],
+    function (provide, BEMDOM, channels, escape, attach) {
+        provide(attach.decl({modName: 'preview', modVal: 'image'}, {
+                _onChange: function () {
+                    this.getVal() ?
+                        this._updatePreview() :
+                        this._clear();
+                },
+                _updatePreview: function () {
+                    var fileName = extractFileNameFromPath(this.getVal());
+                    var files = this.elem('control')[0].files;
 
+                    if (/(png|jpg|jpeg|gif)$/i.test(fileName) && window.FileReader && files && files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            channels('image-uploaded').emit('preview', {url: e.target.result});
+                        };
+                        reader.readAsDataURL(files[0]);
+                    }
 
-provide(attach.decl({ modName: 'preview', modVal: 'image' }, {
-    _onChange : function() {
-        this.elem('no-file').detach();
-        this.getVal()?
-            this
-                ._updatePreview()
-                ._emitChange() :
-            this._clear();
-    },
-    _updatePreview : function() {
-        var fileName = extractFileNameFromPath(this.getVal());
-        var preview = '';
+                    this
+                        ._updateFileElem()
+                        ._emitChange();
+                },
+                _clear: function (data) {
+                    var control = this.elem('control'),
+                        name = control.attr('name'),
+                        tabIndex = control.attr('tabindex'),
+                        accept = control.attr('accept');
 
-        this.elem('file').length && BEMDOM.destruct(this.elem('file'));
-        var files = this.elem('control')[0].files;
+                    BEMDOM.replace(
+                        control,
+                        '<input' +
+                        ' class="' + control.attr('class') + '"' +
+                        ' type="file"' +
+                        (accept ? ' accept="' + accept + '"' : '') +
+                        (name ? ' name="' + name + '"' : '') +
+                        (tabIndex ? ' tabindex="' + tabIndex + '"' : '') +
+                        '/>');
 
-        if (/(png|jpg|jpeg|gif)$/i.test(fileName) && window.FileReader && files && files[0]) {
+                    BEMDOM.destruct(this.elem('file'));
 
-            var reader = new FileReader();
-            var self = this;
-            reader.onload = function (e) {
-                preview = '<img src="' + e.target.result + '">';
-                appendPreview.call(self);
-            };
-            reader.readAsDataURL(files[0]);
+                    this.domElem.append(this.elem('no-file')); // use append because only detached before
 
-        } else {
-            this._updateFileElem();
+                    channels('image-uploaded').emit('preview', {clear: true});
+                    return this
+                        .dropElemCache('control file')
+                        ._emitChange(data);
+                }
+            },
+            {
+                live: function () {
+                    this
+                        .liveBindTo('clear', 'click', this.prototype._onClearClick)
+                        .liveBindTo('control', 'change', this.prototype._onChange);
+
+                    return this.__base.apply(this, arguments);
+                }
+            }));
+
+        function extractFileNameFromPath(path) {
+            return path.split('\\').pop(); // we need this only in windows
         }
-
-        function appendPreview() {
-            BEMDOM.append(
-                this.domElem,
-                '<span class="' +
-                this.__self.buildClass('file') + ' ' + this.__self.buildClass('file-image') + '">' +
-                '<span class="' +
-                this.__self.buildClass('image') + '">' +
-                preview +
-                '</span>' +
-                '<span class="' + this.__self.buildClass('clear') + '"/>' +
-                '</span>');
-        }
-
-        return this.dropElemCache('file');
-    }
-}));
-
-function extractFileNameFromPath(path) {
-    return path.split('\\').pop(); // we need this only in windows
-}
-
-});
+    });

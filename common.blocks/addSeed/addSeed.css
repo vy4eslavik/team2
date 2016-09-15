@@ -1,7 +1,13 @@
+.addSeed
+{
+    padding: 5px;
+    box-sizing: border-box;
+}
 .addSeed .textarea
 {
     height: 6em;
     margin-bottom: 0.5em;
+    border: none;
 }
 
 .addSeed .attach
@@ -17,14 +23,10 @@
     float: right;
 }
 
-.addSeed .attach .button {
-    float: none;
+.addSeed .attach .attach__file {
+    display: none;
 }
 
-.addSeed .attach__file {
-    clear: left;
-    float: left;
-}
 .addSeed .attach__text {
     max-width:calc(100vw - 32px);
     overflow: hidden;
@@ -32,4 +34,29 @@
     text-overflow: ellipsis;
     vertical-align: middle;
     display: inline-block;
+}
+.addSeed .preview {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    max-height: 300px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.addSeed .preview__image
+{
+    width: 100%;
+}
+.addSeed .preview__clear
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 18pt;
 }
