@@ -17,7 +17,17 @@ block('header-menu').content()(function() {
                     attrs: { href: '/seed/add' },
                     content: 'Написать'
                 }
-            } : '',
+            } :
+        {
+            elem: 'item',
+            tag: 'li',
+            content: {
+                elem: 'link',
+                tag: 'a',
+                attrs: {href: '/login'},
+                content: 'Вход/Регитрация'
+            }
+        },
         {
             elem: 'item',
             tag: 'li',

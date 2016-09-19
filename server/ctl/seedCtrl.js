@@ -153,7 +153,8 @@ module.exports = function(app) {
                         siteName: 'Site name'
                     }
                 },
-                isAuthenticated: req.isAuthenticated()
+                isAuthenticated: req.isAuthenticated(),
+                currentUser: req.user
               })
         },
         seedSearch : function(content, callback){

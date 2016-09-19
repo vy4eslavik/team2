@@ -5,13 +5,16 @@ modules.define('avatar', ['i-bem__dom'], function (provide, BEMDOM) {
                 'inited': function () {
                     if(this.findBlockInside('avatar').hasMod('largeView', true)) {
                         if (BEMDOM.win.height() < BEMDOM.win.width()) {
-                            this.findBlockInside('avatar').delMod('largeView');
+                            this.delMod('largeView');
+                            this.findBlockInside('image').domElem.attr({width: 80, height: 80});
                         }
                         this.bindToWin('resize', function (e) {
                             if (BEMDOM.win.height() < BEMDOM.win.width()) {
-                                this.findBlockInside('avatar').delMod('largeView');
+                                this.delMod('largeView');
+                                this.findBlockInside('image').domElem.attr({width: 80, height: 80});
                             }else{
-                                this.findBlockInside('avatar').setMod('largeView');
+                                this.setMod('largeView');
+                                this.findBlockInside('image').domElem.attr({width: '100%', height: 'auto'});
                             }
                         });
                     }
