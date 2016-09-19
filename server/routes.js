@@ -134,13 +134,14 @@ module.exports = function(conn, passport){
     });
 
     router.get('/search', require('connect-ensure-login').ensureLoggedIn(), function(req, res) {
-          var profile = req.user;
+          var currentUser = req.user;
           var viewopts = {
-          view: 'search',
-          title: 'search',
-          profile: profile,
-          isAuthenticated: req.isAuthenticated()
-    }
+              view: 'search',
+              title: 'search',
+              currentUser: currentUser,
+              isAuthenticated: req.isAuthenticated(),
+              search: req.query.text
+          };
           seedController.seedSearch(req.query.text, function(err, searchedResult) {
             if (req.query.text[0] == "@"){
                 viewopts.users = searchedResult;

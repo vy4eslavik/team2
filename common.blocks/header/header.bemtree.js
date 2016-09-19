@@ -1,5 +1,6 @@
 block('header').content()(function () {
     var currentUser = this.data.currentUser;
+    var search = this.data.search;
     return [
         {
             block: 'layout',
@@ -25,6 +26,8 @@ block('header').content()(function () {
                             {
                                 block: 'input',
                                 name: 'text',
+                                val: search,
+                                required: true,
                                 placeholder: 'Search for seeds'
                             },
                             {
