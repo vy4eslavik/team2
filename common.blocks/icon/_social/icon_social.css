@@ -1,11 +1,13 @@
-.icon_social_facebook {
-    background-image: url("fb.svg");
+.icon_social_facebook
+{
+    background-image: url('fb.svg');
     -webkit-background-size: contain;
-    background-size: contain;
+            background-size: contain;
 }
 
-.icon_social_vk {
-    background-image: url("vk.svg");
+.icon_social_vk
+{
+    background-image: url('vk.svg');
     -webkit-background-size: contain;
-    background-size: contain;
+            background-size: contain;
 }

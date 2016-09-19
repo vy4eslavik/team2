@@ -4,17 +4,16 @@
 
     display: flex;
 
+    box-sizing: border-box;
     width: 100%;
     max-width: 600px;
     margin: 10px auto;
+    padding: 5px;
 
     border-bottom: 1px solid #979797;
-
-    padding: 5px;
-    box-sizing: border-box;
 }
 
-.seed-list-item_item_current 
+.seed-list-item_item_current
 {
     background: #ffe399;
 }
@@ -31,6 +30,7 @@
 .seed-list-item .profile .avatar
 {
     float: left;
+
     margin-bottom: 10px;
 }
 
@@ -55,6 +55,7 @@
 .seed-list-item__message .link
 {
     text-decoration: none;
+
     color: #0084b4;
 }
 
@@ -83,11 +84,13 @@
 .seed-list-item .seed-list-item__reply
 {
     float: right;
+
     margin: 5px;
 }
 
 .seed-list-item__date
 {
     font-size: 10pt;
+
     color: #657786;
 }

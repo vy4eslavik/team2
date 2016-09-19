@@ -1,4 +1,6 @@
-.header-notification {
-  background-color: #fca;
-  text-align: center;
+.header-notification
+{
+    text-align: center;
+
+    background-color: #fca;
 }

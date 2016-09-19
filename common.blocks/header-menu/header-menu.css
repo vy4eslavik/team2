@@ -2,14 +2,15 @@
 {
     font-size: 16px;
 
+    display: flex;
+
     height: 100%;
     margin: 0;
     padding: 5px 15px;
 
     background-color: #fff;
 
-    display: flex;
-    justify-content: space-between;  
+    justify-content: space-between;
 }
 
 .header-menu__item
@@ -17,7 +18,6 @@
     display: inline-block;
 
     margin-right: 18px;
-
 
     color: #fff;
 }
