@@ -1,11 +1,12 @@
 .login
 {
-    display: inline-block;
-
-    margin-right: auto;
-    margin-left: auto;
+    text-align: center;
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 125px);
 }
-
 .login__please
 {
     margin-bottom: 2em;
