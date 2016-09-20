@@ -4,16 +4,17 @@
 
     display: flex;
 
+    box-sizing: border-box;
     width: 100%;
     max-width: 600px;
     margin: 10px auto;
+    padding: 5px;
 
     border-bottom: 1px solid #979797;
 }
 
-.seed-list-item_item_current 
+.seed-list-item_item_current
 {
-    padding: 10px 0;
     background: #ffe399;
 }
 
@@ -29,6 +30,8 @@
 .seed-list-item .profile .avatar
 {
     float: left;
+
+    margin-bottom: 10px;
 }
 
 .seed-list-item__reply
@@ -40,11 +43,25 @@
 {
     width: 100%;
 }
-
-.seed-list-item__item .link
+.seed-list-item__message
 {
-    /*text-decoration: none;*/
-    /*color: inherit;*/
+    text-align: center;
+}
+.seed-list-item__msg,
+.seed-list-item__message .link
+{
+    text-align: left;
+}
+.seed-list-item__message .link
+{
+    text-decoration: none;
+
+    color: #0084b4;
+}
+
+.seed-list-item__message .link:visited
+{
+    color: #0084b4;
 }
 
 .link__msg
@@ -55,10 +72,10 @@
 }
 
 
-.seed-list-item__item .image
+.seed-list-item__message .image
 {
-    width: calc(100% - 6px);
-    margin: 0 3px;
+    max-width: 100%;
+    max-height: 300px;
 
     border-radius: 10px;
 }
@@ -67,11 +84,13 @@
 .seed-list-item .seed-list-item__reply
 {
     float: right;
+
     margin: 5px;
 }
 
 .seed-list-item__date
 {
     font-size: 10pt;
+
     color: #657786;
 }

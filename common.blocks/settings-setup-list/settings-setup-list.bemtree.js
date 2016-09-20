@@ -1,6 +1,8 @@
 block('settings-setup-list').content()(function () {
     var profileSettings = this.ctx.profileSettings;
     var userPath = this.ctx.userPath;
+    userPath.replace(/\//g,"/<wbr>");
+    // userPath = "http:/<wbr>/<wbr>localhost:3000/<wbr>profile/<wbr>vy4eslavik";
     var formSave = {
         elem: 'form-save'
     };

@@ -20,7 +20,7 @@
 
     display: block;
 
-    white-space: nowrap;
+    word-wrap: break-word;
 
     background: #fff;
 }

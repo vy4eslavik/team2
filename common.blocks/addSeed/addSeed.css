@@ -1,15 +1,23 @@
+.addSeed
+{
+    box-sizing: border-box;
+    padding: 5px;
+}
 .addSeed .textarea
 {
     height: 6em;
-    margin-bottom: 0.5em;
+    margin-bottom: .5em;
+
+    border: none;
 }
 
 .addSeed .attach
 {
     float: left;
     overflow: hidden;
+
+        text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
 }
 
 .addSeed .button
@@ -17,19 +25,52 @@
     float: right;
 }
 
-.addSeed .attach .button {
-    float: none;
+.addSeed .attach .attach__file
+{
+    display: none;
 }
 
-.addSeed .attach__file {
-    clear: left;
-    float: left;
-}
-.addSeed .attach__text {
-    max-width:calc(100vw - 32px);
-    overflow: hidden;
-    -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    vertical-align: middle;
+.addSeed .attach__text
+{
     display: inline-block;
+    overflow: hidden;
+
+    max-width: calc(100vw - 32px);
+
+    vertical-align: middle;
+        text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+}
+.addSeed .preview
+{
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    max-height: 300px;
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    border-radius: 10px;
+}
+.addSeed .preview__image
+{
+    width: 100%;
+}
+.addSeed .preview__clear
+{
+    font-size: 18pt;
+
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 30px;
+    height: 30px;
+
+    color: #fff;
+    border-radius: 50%;
+    background: #000;
 }

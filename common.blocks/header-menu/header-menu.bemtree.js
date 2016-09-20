@@ -15,8 +15,28 @@ block('header-menu').content()(function() {
                     elem: 'link',
                     tag: 'a',
                     attrs: { href: '/seed/add' },
-                    content: 'Создать Новый Сид'
+                    content: 'Написать'
                 }
-            } : ''
+            } :
+        {
+            elem: 'item',
+            tag: 'li',
+            content: {
+                elem: 'link',
+                tag: 'a',
+                attrs: {href: '/login'},
+                content: 'Вход/Регитрация'
+            }
+        },
+        {
+            elem: 'item',
+            tag: 'li',
+            content: {
+                elem: 'link',
+                tag: 'a',
+                attrs: { href: '#' },
+                content: 'О проекте'
+            }
+        }
     ];
 });

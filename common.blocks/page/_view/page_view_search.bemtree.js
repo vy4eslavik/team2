@@ -2,13 +2,15 @@ block('page').mod('view', 'search').content()(function() {
 
     var seeds = this.data.seeds || [];
     var users = this.data.users || [];
-    var profile = this.data.profile || {};
+    var currentUser = this.data.currentUser || {};
+    var search = this.data.search || '';
 
     return [
           {
-              block: 'header'
+              block: 'header',
+              currentUser: currentUser,
+              search: search
           },
-
           {
           block: 'content',
           content: [
@@ -20,8 +22,8 @@ block('page').mod('view', 'search').content()(function() {
                   block: 'profile',
                   profile: user,
                   mods: {subscribeButton: true},
-                  currentUserId: profile.id,
-                  subscribe: user.subscribers.indexOf(profile.id) >= 0
+                  currentUserId: currentUser.id,
+                  subscribe: user.subscribers.indexOf(currentUser.id) >= 0
                 };
               })
           ]

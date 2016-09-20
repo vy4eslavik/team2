@@ -9,7 +9,10 @@ block('addSeed').content()(function () {
                     maxlength: 140,
                     required: true
                 },
-                placeholder: 'Введите сообщение'
+                placeholder: 'О чём будет сид?'
+            },
+            {
+                block: 'preview'
             },
             this.ctx.replyTo ? {
                 block: 'input',
@@ -21,7 +24,7 @@ block('addSeed').content()(function () {
                 block: 'button',
                 mods: {theme: 'islands', size: 'l', type: 'submit'},
                 type: 'submit',
-                text: 'add'
+                text: 'Написать'
             },
             {
                 block: 'attach',
@@ -34,8 +37,7 @@ block('addSeed').content()(function () {
                     icon: {
                         block: 'icon',
                         url: '/img/icon-camera.svg'
-                    },
-                    text:'Добавить фото'
+                    }
                 }
             }
         ]

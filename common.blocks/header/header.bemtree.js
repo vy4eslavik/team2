@@ -1,5 +1,7 @@
 block('header').content()(function () {
     var currentUser = this.data.currentUser;
+    var search = this.data.search;
+    var isAuthenticated = this.data.isAuthenticated || false;
     return [
         {
             block: 'layout',
@@ -19,22 +21,24 @@ block('header').content()(function () {
                     elem: 'right',
                     content: [
                         {
-                        tag: 'form',
-                        attrs: {action: '/search'},
-                        content: [
-                            {
-                                block: 'input',
-                                name: 'text',
-                                placeholder: 'Search for seeds'
-                            },
-                            {
-                                block: 'search-icon',
-                                tag: 'button',
-                                mods: {type: 'submit'},
-                                type: 'submit'
+                            tag: 'form',
+                            attrs: {action: '/search'},
+                            content: [
+                                {
+                                    block: 'input',
+                                    name: 'text',
+                                    val: search,
+                                    required: true,
+                                    placeholder: 'Search for seeds'
+                                },
+                                {
+                                    block: 'search-icon',
+                                    tag: 'button',
+                                    mods: {type: 'submit'},
+                                    type: 'submit'
 
-                            }
-                        ]
+                                }
+                            ]
                         }
                     ]
 
@@ -45,10 +49,10 @@ block('header').content()(function () {
             block: 'header-menu',
             tag: 'ul'
         },
-        {
+        isAuthenticated ? {
             block: 'header-hamburger-menu',
             currentUser: currentUser
-        },
+        } : '',
         {
             block: 'header-notification',
             js: true

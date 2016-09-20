@@ -11,8 +11,11 @@ block('page').mod('view', 'viewSeed').content()(function() {
             block: 'header'
         },
         {
-            block: 'seed-list',
-            seeds: seeds
+            block: 'content',
+            content: {
+                block: 'seed-list',
+                seeds: seeds
+            }
         },
         {
             block: 'footer'

@@ -8,8 +8,11 @@ block('page').mod('view', 'addSeed').content()(function() {
             block: 'header'
         },
         {
-            block: 'addSeed',
-            replyTo: this.data.seedReplyTo
+            block: 'content',
+            content: {
+                block: 'addSeed',
+                replyTo: this.data.seedReplyTo
+            }
         },
         {
             block: 'footer'

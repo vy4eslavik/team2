@@ -1,11 +1,9 @@
-({
+[
+    {
     shouldDeps: [
         {
             block: 'attach',
-            mods: {
-                theme: 'islands',
-                size: 'l'
-            }
+            mods: {preview: 'image'}
         },
         {
             block: 'select',
@@ -30,5 +28,19 @@
                 size: 'l'
             }
         },
+        {
+            block: 'events',
+            elem: 'channels',
+        },
         'avatar', 'label']
-})
+    },
+    {
+        tech: 'js',
+        mustDeps: [
+            {
+                block: 'avatar',
+                tech: 'bemhtml'
+            }
+        ]
+    }
+]

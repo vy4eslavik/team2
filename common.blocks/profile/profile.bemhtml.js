@@ -25,12 +25,13 @@ block('profile')(
                         alt: profile.nick,
                         width: 80,
                         height: 80,
-                        mods: {largeView: mods.largeView}
+                        mods: {largeView: mods.largeView},
+                        mix: {block: 'profile'},
                     },
                     {
                         elem: 'username',
                         tag: 'span',
-                        content: name,
+                        content: name
                     },
                     {
                         elem: 'nick',

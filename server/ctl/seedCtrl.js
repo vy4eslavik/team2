@@ -97,7 +97,8 @@ module.exports = function(app) {
                                 url: 'http://' + process.env.HTTP_HOST
                             }
                         },
-                        currentUser: req.user
+                        currentUser: req.user,
+                        isAuthenticated: req.isAuthenticated()
                     });
                 }
             ]);
@@ -152,7 +153,8 @@ module.exports = function(app) {
                         siteName: 'Site name'
                     }
                 },
-                isAuthenticated: req.isAuthenticated()
+                isAuthenticated: req.isAuthenticated(),
+                currentUser: req.user
               })
         },
         seedSearch : function(content, callback){

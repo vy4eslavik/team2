@@ -37,7 +37,7 @@ block('root').replace()(function() {
             { elem: 'meta', attrs: { property: 'og:site_name', content: og.siteName } },
             { elem: 'meta', attrs: { property: 'og:locale', content: og.locale || 'en_US' } },
             { elem: 'meta', attrs: { property: 'og:type', content: 'website' } },
-            { elem : 'meta', attrs : { name : 'viewport', content : 'width=device-width, initial-scale=1' } }
+            { elem : 'meta', attrs : { name : 'viewport', content : 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' } }
         ],
         mods: {
             theme: 'islands',

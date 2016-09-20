@@ -10,10 +10,13 @@
     border-radius: 10px;
 }
 
-.avatar_largeView {
+.avatar_largeView
+{
     float: none;
+
     width: 100%;
     height: auto;
+
     border: none;
     border-radius: 0;
 }
@@ -21,9 +24,13 @@
 .avatar .image
 {
     border-radius: 8px;
+
     object-fit: cover;
 }
 
-.avatar_largeView .image {
+.avatar_largeView .image
+{
     display: block;
+
+    max-height: 300px;
 }
