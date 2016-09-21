@@ -126,6 +126,7 @@ schema.statics.getPlain = function (user, opts, callback) {
                 img: seed.image,
                 tags: seed.tags,
                 mention: seed.mention,
+                child: seed.child,
                 followed: 1
             };
         });
