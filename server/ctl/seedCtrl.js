@@ -10,13 +10,26 @@ module.exports = function(app) {
     var Seed = require('../models/seed.js');
     var User = require('../models/user.js');
 
+    // Escape HTML
+    var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    function replaceTag(tag) {
+        return tagsToReplace[tag] || tag;
+    }
+    function escape(str) {
+        return str.replace(/[&<>]/g, replaceTag);
+    }
+    //----------------------
 
     return {
         add: function(req, res, next) {
             if (req.body.text) {
-                var msg = req.body.text;
+                var msg = escape(req.body.text);
                 var seed = new Seed({
-                    msg : msg,
+                    msg: msg,
                     datetime: Date.now(),
                     author: req.user._id,
                     parent: req.body.parent
