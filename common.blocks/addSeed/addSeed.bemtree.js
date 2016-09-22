@@ -3,7 +3,7 @@ block('addSeed').content()(function () {
         content: [
             {
                 block: 'textarea',
-                mods: {theme: 'islands', size: 'm', width: 'available'},
+                mods: {theme: 'islands', size: 'm', width: 'available', focused: true},
                 name: 'text',
                 attrs: {
                     maxlength: 140,
@@ -31,7 +31,7 @@ block('addSeed').content()(function () {
                 name: 'image',
                 id: 'attachImage',
                 accept: 'image/gif,image/jpeg,image/jpg,image/png',
-                mods: { theme: 'islands', size: 'l', preview: 'image'},
+                mods: {theme: 'islands', size: 'l', preview: 'image'},
                 button: {
                     block: 'button',
                     icon: {

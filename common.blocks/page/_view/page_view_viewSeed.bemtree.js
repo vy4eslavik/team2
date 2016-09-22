@@ -5,7 +5,8 @@
 
 block('page').mod('view', 'viewSeed').content()(function() {
 
-    var seeds = this.data.seeds || [];
+    var seeds = this.data.seeds || [],
+        currentUser = this.data.currentUser || {};
     return [
         {
             block: 'header'
@@ -14,7 +15,8 @@ block('page').mod('view', 'viewSeed').content()(function() {
             block: 'content',
             content: {
                 block: 'seed-list',
-                seeds: seeds
+                seeds: seeds,
+                currentUser: currentUser
             }
         },
         {

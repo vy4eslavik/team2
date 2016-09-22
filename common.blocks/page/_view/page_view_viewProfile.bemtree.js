@@ -1,7 +1,7 @@
 block('page').mod('view', 'viewProfile').content()(function () {
     var profile = this.data.user || false,
-        currentUserId = this.data.currentUserId || '',
-        subscribe = profile.subscribers.indexOf(currentUserId) >= 0,
+        currentUser = this.data.currentUser || {},
+        subscribe = profile.subscribers.indexOf(currentUser._id) >= 0,
         seeds = this.data.seeds || [];
     return [
         {
@@ -14,12 +14,13 @@ block('page').mod('view', 'viewProfile').content()(function () {
                     block: 'profile',
                     profile: profile,
                     mods: {followInfo: true, description: true, subscribeButton: true, largeView: true},
-                    currentUserId: currentUserId,
+                    currentUserId: currentUser._id,
                     subscribe: subscribe
                 },
                 {
                     block: 'seed-list',
-                    seeds: seeds
+                    seeds: seeds,
+                    currentUser: currentUser
                 }
             ]
         },

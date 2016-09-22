@@ -17,8 +17,22 @@ modules.define('attach', ['i-bem__dom', 'events__channels', 'strings__escape'],
 
                     if (/(png|jpg|jpeg|gif)$/i.test(fileName) && window.FileReader && files && files[0]) {
                         var reader = new FileReader();
+                        reader.onloadstart = function (e) {
+                            channels('image-loading').emit('preview',
+                                {
+                                    url: '/img/loader.gif',
+                                    state: reader.readyState
+                                });
+                        };
                         reader.onload = function (e) {
-                            channels('image-uploaded').emit('preview', {url: e.target.result});
+                            channels('image-loading').emit('preview',
+                                {
+                                    url: e.target.result,
+                                    state: reader.readyState
+                                });
+                        };
+                        reader.onerror = function (e) {
+                            channels('image-loading').emit('preview', {state: reader.error});
                         };
                         reader.readAsDataURL(files[0]);
                     }
@@ -47,7 +61,7 @@ modules.define('attach', ['i-bem__dom', 'events__channels', 'strings__escape'],
 
                     this.domElem.append(this.elem('no-file')); // use append because only detached before
 
-                    channels('image-uploaded').emit('preview', {clear: true});
+                    channels('image-loading').emit('preview', {state: 'clear'});
                     return this
                         .dropElemCache('control file')
                         ._emitChange(data);
