@@ -7,6 +7,20 @@ module.exports = function () {
     var User = require('../models/user.js');
     var Seed = require('../models/seed.js');
 
+    // Escape HTML
+    var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    function replaceTag(tag) {
+        return tagsToReplace[tag] || tag;
+    }
+    function escape(str) {
+        return str.replace(/[&<>]/g, replaceTag);
+    }
+    //----------------------
+
     return {
         editMyProfile: function (req, res) {
             User.findById(req.user._id, function (err, user) {
@@ -42,9 +56,9 @@ module.exports = function () {
             var user = {
                 // nick: body.nick,
                 userData: {
-                    firstName: body.firstName,
-                    lastName: body.lastName,
-                    description: body.aboutMe
+                    firstName: escape(body.firstName),
+                    lastName: escape(body.lastName),
+                    description: escape(body.aboutMe)
                 },
                 timeZone: body.timeZone
             };
@@ -158,7 +172,7 @@ module.exports = function () {
             var body = req.body;
 
             var user = {
-                nick: body.nick
+                nick: escape(body.nick)
             };
 
             User.findByIdAndUpdate(body.userId, user, {runValidators: true}, function (err, user) {
