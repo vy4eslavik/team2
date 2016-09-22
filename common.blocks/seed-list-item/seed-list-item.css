@@ -2,7 +2,7 @@
 {
     position: relative;
 
-    display: flex;
+    display: block;
 
     box-sizing: border-box;
     width: 100%;
@@ -27,25 +27,16 @@
 {
     min-height: inherit;
 }
-.seed-list-item .profile .avatar
-{
-    float: left;
 
-    margin-bottom: 10px;
-}
-
-.seed-list-item__reply
+.seed-list-item .seed-list-item__reply
 {
     color: #0084b4;
 }
 
-.seed-list-item__item
-{
-    width: 100%;
-}
 .seed-list-item__message
 {
     text-align: center;
+    min-height: 65px;
 }
 .seed-list-item__msg,
 .seed-list-item__message .link
@@ -80,12 +71,17 @@
     border-radius: 10px;
 }
 
-.seed-list-item .seed-list-item__answer,
-.seed-list-item .seed-list-item__reply
+.seed-list-item__bottom
 {
-    float: right;
+    text-align: right;
+}
+.seed-list-item .seed-list-item__answer,
+.seed-list-item .seed-list-item__reply,
+.seed-list-item .seed-list-item__remove
+{
+    display: inline-block;
 
-    margin: 5px;
+    margin-right: 5px;
 }
 
 .seed-list-item__date

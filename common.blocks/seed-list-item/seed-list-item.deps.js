@@ -23,7 +23,8 @@
                     theme: 'islands',
                     size: 'm',
                     type: 'link',
-                    view: 'action'
+                    view: 'action',
+                    disabled: true
                 }
             }
         ]

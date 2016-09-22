@@ -6,7 +6,8 @@ block('seed-list').content()(function () {
         return {
             block: 'seed-list-item',
             mods: item.current ? {item: 'current'} : {},
-            seed: item
+            seed: item,
+            currentUser: this.data.currentUser
         };
     }, this);
 
