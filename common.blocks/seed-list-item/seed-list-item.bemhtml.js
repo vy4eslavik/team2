@@ -35,7 +35,7 @@ block('seed-list-item')(
                 content: [
                     {
                         block: 'link',
-                        url: '/seed/' + seed.id,
+                        url: '/seed/view?seedId=' + seed.id,
                         content: {
                             elem: 'date',
                             mix: {block: 'seed-list-item', elem: 'date'},
@@ -56,6 +56,10 @@ block('seed-list-item')(
                 ]
 
             },
+            seed.urlPreview && seed.urlPreview.url ? {
+                block: 'preview-url',
+                previewData: seed.urlPreview
+            } : '',
             {
                 elem: 'bottom',
                 content: [
@@ -77,7 +81,7 @@ block('seed-list-item')(
                         block: 'button',
                         mods: {theme: 'islands', size: 'm', view: 'action', type: 'link'},
                         mix: {block: 'seed-list-item', elem: 'answer'},
-                        url: '/add_seed?id=' + seed.id,
+                        url: '/seed/add?id=' + seed.id,
                         text: 'Ответить'
                     }
                 ]

@@ -41,9 +41,7 @@ module.exports = function(conn, passport){
         require('connect-ensure-login').ensureLoggedIn(),
         multer({ storage: userContent }).single('image'),
         seedController.add);
-    router.get('/seed/:id', require('connect-ensure-login').ensureLoggedIn(), seedController.view);
-    router.get('/add_seed', require('connect-ensure-login').ensureLoggedIn(), seedController.modAddSeed);
-    router.get('/seed/:id/:action', require('connect-ensure-login').ensureLoggedIn(), seedController.seedAction);
+    router.get('/seed/:action', require('connect-ensure-login').ensureLoggedIn(), seedController.seedAction);
     router.post('/seeds/notify', require('connect-ensure-login').ensureLoggedIn(), seedController.countNewSeeds);
 
     //user

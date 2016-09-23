@@ -14,7 +14,7 @@ block('header-menu').content()(function() {
                 content: {
                     elem: 'link',
                     tag: 'a',
-                    attrs: { href: '/add_seed' },
+                    attrs: { href: '/seed/add' },
                     content: 'Написать'
                 }
             } :

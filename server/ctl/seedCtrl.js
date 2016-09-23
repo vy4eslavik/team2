@@ -13,7 +13,8 @@ module.exports = function (app) {
         bundleName = 'index',
         pathToBundle = path.resolve('desktop.bundles', bundleName),
         BEMTREE = require(path.join(pathToBundle, bundleName + '.bemtree.js')).BEMTREE,
-        BEMHTML = require(path.join(pathToBundle, bundleName + '.bemhtml.js')).BEMHTML;
+        BEMHTML = require(path.join(pathToBundle, bundleName + '.bemhtml.js')).BEMHTML,
+        preview = require("page-previewer");
 
     // Escape HTML
     var tagsToReplace = {
@@ -30,7 +31,7 @@ module.exports = function (app) {
     //----------------------
 
     function remove(req, res) {
-        Seed.findByIdAndRemove(req.params.id, function (err, seed) {
+        Seed.findByIdAndRemove(req.query.seedId, function (err, seed) {
             if (err) return res.send(err);
 
             Seed.update({parent: seed._id}, {$unset: { parent: "" } }, {multi: true}, function (err, seeds){
@@ -52,93 +53,114 @@ module.exports = function (app) {
         });
     }
 
-    return {
-        view: function (req, res, next) {
+    function view (req, res, next) {
 
-            var seedId = req.params.id;
+        var seedId = req.query.seedId;
 
-            async.waterfall([
-                function (callback) {
-                    Seed.getSeed(seedId, function (err, seed) {
-                        if (err) return next(err);
-                        seed.current = true;
-                        callback(null, seed);
-                    });
-                },
-                function (current, callback) {
-                    var parents = [];
+        async.waterfall([
+            function (callback) {
+                Seed.getSeed(seedId, function (err, seed) {
+                    if (err) return next(err);
+                    seed.current = true;
+                    callback(null, seed);
+                });
+            },
+            function (current, callback) {
+                var parents = [];
 
-                    loadParents(current);
+                loadParents(current);
 
-                    function loadParents(seed) {
-                        if (seed.parent) {
-                            Seed.getSeed(seed.parent, function (err, seed) {
-                                if (err) return next(err);
-                                parents.unshift(seed);
-                                loadParents(seed);
-                            })
-                        } else {
-                            callback(null, current, parents);
-                        }
+                function loadParents(seed) {
+                    if (seed.parent) {
+                        Seed.getSeed(seed.parent, function (err, seed) {
+                            if (err) return next(err);
+                            parents.unshift(seed);
+                            loadParents(seed);
+                        })
+                    } else {
+                        callback(null, current, parents);
                     }
-                },
-                function (current, parents, callback) {
-                    var childs = [];
-
-                    loadChilds(current);
-
-                    function loadChilds(seed) {
-                        if (seed.child && seed.child.length) {
-                            Seed.getSeed(seed.child[0], function (err, seed) {
-                                if (err) return next(err);
-                                childs.push(seed);
-                                loadChilds(seed);
-                            })
-                        } else {
-                            callback(null, current, parents, childs);
-                        }
-                    }
-                }, function (current, parents, childs, callback) {
-                    if (!current) {
-                        res.status(404);
-                        return render(req, res, {view: '404'});
-                    }
-                    render(req, res, {
-                        view: 'viewSeed',
-                        title: 'Seed View Page',
-                        seeds: parents.concat(current, childs),
-                        meta: {
-                            description: 'Seed View Page',
-                            og: {
-                                siteName: 'Pepo',
-                                locale: 'ru_RU',
-                                url: 'http://' + process.env.HTTP_HOST
-                            }
-                        },
-                        currentUser: req.user,
-                        isAuthenticated: req.isAuthenticated()
-                    });
                 }
-            ]);
-        },
-        modAddSeed: function (req, res) {
-            render(req, res, {
-                view: 'addSeed',
-                title: 'Add seed page',
-                seedReplyTo: req.query.id,
-                meta: {
-                    description: 'Add seed page',
-                    og: {
-                        url: 'https://site.com',
-                        siteName: 'Site name'
+            },
+            function (current, parents, callback) {
+                var childs = [];
+
+                loadChilds(current);
+
+                function loadChilds(seed) {
+                    if (seed.child && seed.child.length) {
+                        Seed.getSeed(seed.child[0], function (err, seed) {
+                            if (err) return next(err);
+                            childs.push(seed);
+                            loadChilds(seed);
+                        })
+                    } else {
+                        callback(null, current, parents, childs);
                     }
-                },
-                isAuthenticated: req.isAuthenticated(),
-                currentUser: req.user
-            })
-        },
+                }
+            }, function (current, parents, childs, callback) {
+                if (!current) {
+                    res.status(404);
+                    return render(req, res, {view: '404'});
+                }
+                render(req, res, {
+                    view: 'viewSeed',
+                    title: 'Seed View Page',
+                    seeds: parents.concat(current, childs),
+                    meta: {
+                        description: 'Seed View Page',
+                        og: {
+                            siteName: 'Pepo',
+                            locale: 'ru_RU',
+                            url: 'http://' + process.env.HTTP_HOST
+                        }
+                    },
+                    currentUser: req.user,
+                    isAuthenticated: req.isAuthenticated()
+                });
+            }
+        ]);
+    }
+
+    function modAddSeed (req, res) {
+        render(req, res, {
+            view: 'addSeed',
+            title: 'Add seed page',
+            seedReplyTo: req.query.id,
+            meta: {
+                description: 'Add seed page',
+                og: {
+                    url: 'https://site.com',
+                    siteName: 'Site name'
+                }
+            },
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user
+        })
+    }
+
+    function getPreviewUrl (req, res) {
+        preview(req.query.url, function(err, data) {
+            if (err) return res.send(err);
+
+            var html = BEMHTML.apply(
+                BEMTREE.apply(
+                    {
+                        block: 'preview-url',
+                        previewData: data,
+                        mods: {clear: true}
+                    }
+                ));
+            return res.send({previewUrl: html});
+        });
+    }
+
+    return {
         seedAction: function (req, res, next) {
             if (req.params.action === 'remove') return remove(req, res);
+            if (req.params.action === 'view') return view(req, res, next);
+            if (req.params.action === 'add') return modAddSeed(req, res, next);
+            if (req.params.action === 'getPreviewUrl') return getPreviewUrl(req, res, next);
         },
         add: function (req, res, next) {
             if (req.body.text || req.body.seed) {
@@ -155,9 +177,24 @@ module.exports = function (app) {
                     seed.image = '/usercontent/' + req.file.filename;
                 }
 
-                seed.save(function (err) {
-                    if (err) return req.body.seed ? res.send(false) : next(err);
-                });
+                if(req.body.urlPreview) {
+                    preview(req.body.urlPreview, function(err, data) {
+                        if(!err && !data.loadFailed) {
+                            seed.urlPreview.url = data.url;
+                            seed.urlPreview.title = data.title;
+                            seed.urlPreview.description = data.description;
+                            seed.urlPreview.images = data.images;
+                        }
+                        seed.save(function (err) {
+                            if (err) return req.body.seed ? res.send(false) : next(err);
+                        });
+                    });
+                }else {
+                    seed.save(function (err) {
+                        if (err) return req.body.seed ? res.send(false) : next(err);
+                    });
+                }
+
                 return req.body.seed ? res.send(true) : res.redirect('/');
             } else {
                 res.redirect('/seed/add');

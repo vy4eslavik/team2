@@ -63,7 +63,7 @@ modules.define('attach', ['i-bem__dom', 'events__channels', 'strings__escape'],
 
                     channels('image-loading').emit('preview', {state: 'clear'});
                     return this
-                        .dropElemCache('control file')
+                        .dropElemCache('control file clear')
                         ._emitChange(data);
                 }
             },

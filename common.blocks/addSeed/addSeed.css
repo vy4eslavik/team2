@@ -41,7 +41,7 @@
         text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
 }
-.addSeed .preview
+.addSeed .media
 {
     position: relative;
 
@@ -52,10 +52,8 @@
     margin-bottom: 10px;
 
     text-align: center;
-
-    border-radius: 10px;
 }
-.addSeed .preview__clear
+.addSeed .media .preview-img__clear
 {
     font-size: 18pt;
 

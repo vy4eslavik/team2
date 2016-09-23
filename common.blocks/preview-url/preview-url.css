@@ -1,0 +1,42 @@
+.preview-url
+{
+    display: block;
+
+    min-height: 80px;
+    margin: 5px;
+    padding: 10px;
+
+    text-align: left;
+    text-decoration: none;
+
+    color: inherit;
+    border: 1px solid #979797;
+    border-radius: 10px;
+}
+.preview-url__title
+{
+    font-weight: bolder;
+
+    color: #000;
+}
+.preview-url .image
+{
+    float: left;
+}
+.preview-url__clear
+{
+    font-size: 18pt;
+
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 30px;
+    height: 30px;
+
+    text-align: center;
+
+    color: #fff;
+    border-radius: 50%;
+    background: #000;
+}
