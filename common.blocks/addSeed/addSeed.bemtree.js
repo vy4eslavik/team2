@@ -12,7 +12,7 @@ block('addSeed').content()(function () {
                 placeholder: 'О чём будет сид?'
             },
             {
-                block: 'preview'
+                block: 'media'
             },
             this.ctx.replyTo ? {
                 block: 'input',

@@ -58,7 +58,7 @@ modules.define('seed-list-item', ['i-bem__dom', 'jquery'], function (provide, BE
                         return;
                     }
                     e.preventDefault();
-                    $.get('/seed/' + this.params.seedId + '/remove')
+                    $.get('/seed/remove', this.params)
                         .done(function (data) {
                             self._onDelete(data);
                         });
