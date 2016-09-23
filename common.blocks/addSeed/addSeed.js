@@ -24,8 +24,9 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                     }
                 },
                 _imagePreview: function (e, data) {
-                    var media = this.findBlockInside('media');
-                    var attach = this.findBlockInside('attach');
+                    var media = this.findBlockInside('media'),
+                        attach = this.findBlockInside('attach'),
+                        urlPreview = this.findBlockInside({block: 'input', name: 'urlPreview'});
 
                     switch (data.state) {
                         case 1:
@@ -64,9 +65,12 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                                 e.preventDefault();
                                 attach.elem('clear').click();
                             });
+                            urlPreview.setVal('');
                             break;
                         case 'clear':
-                            BEMDOM.destruct(media.findBlockInside('preview-img').domElem);
+                            media.findBlockInside('preview-img') && BEMDOM.destruct(
+                                media.findBlockInside('preview-img').domElem
+                            );
                             break;
                         default:
                             media.domElem.text('Упс! Картинка не загрузилась');
@@ -75,20 +79,21 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                 },
                 _urlPreview: function (e) {
                     var media = this.findBlockInside('media'),
+                        attach = this.findBlockInside('attach'),
+                        urlPreview = this.findBlockInside({block: 'input', name: 'urlPreview'}),
                         pattern = /([-a-zA-Z0-9@:%_\+.~#?&\/\/=]{2,256}\.[a-z]{2,4}\b(\/?[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?)/i,
                         link = e.currentTarget.value.match(pattern);
 
                     if (!link) {
-                        BEMDOM.update(
-                            media.domElem,
-                            ''
-                        );
+                        media.findBlockInside('preview-url') && BEMDOM.destruct(media.findBlockInside('preview-url').domElem);
+                        urlPreview.setVal('');
                         return;
                     }
-                    if (link[0] === self.link) {
+                    if (link[0] === this.link) {
                         return;
                     }
-                    self.link = link[0];
+                    this.link = link[0];
+                    urlPreview.setVal(link[0]);
                     BEMDOM.update(
                         media.domElem,
                         BEMHTML.apply([
@@ -107,7 +112,9 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                             media.findBlockInside('preview-url').bindTo('clear', 'pointerclick', function (e) {
                                 e.preventDefault();
                                 BEMDOM.destruct(media.findBlockInside('preview-url').domElem);
+                                urlPreview.setVal('');
                             });
+                            attach.elem('clear').click();
                         });
                 }
             }

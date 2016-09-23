@@ -147,7 +147,8 @@ module.exports = function (app) {
                 BEMTREE.apply(
                     {
                         block: 'preview-url',
-                        previewData: data
+                        previewData: data,
+                        mods: {clear: true}
                     }
                 ));
             return res.send({previewUrl: html});
@@ -156,7 +157,6 @@ module.exports = function (app) {
 
     return {
         seedAction: function (req, res, next) {
-            console.log(req.params.action);
             if (req.params.action === 'remove') return remove(req, res);
             if (req.params.action === 'view') return view(req, res, next);
             if (req.params.action === 'add') return modAddSeed(req, res, next);
@@ -177,9 +177,24 @@ module.exports = function (app) {
                     seed.image = '/usercontent/' + req.file.filename;
                 }
 
-                seed.save(function (err) {
-                    if (err) return req.body.seed ? res.send(false) : next(err);
-                });
+                if(req.body.urlPreview) {
+                    preview(req.body.urlPreview, function(err, data) {
+                        if(!err && !data.loadFailed) {
+                            seed.urlPreview.url = data.url;
+                            seed.urlPreview.title = data.title;
+                            seed.urlPreview.description = data.description;
+                            seed.urlPreview.images = data.images;
+                        }
+                        seed.save(function (err) {
+                            if (err) return req.body.seed ? res.send(false) : next(err);
+                        });
+                    });
+                }else {
+                    seed.save(function (err) {
+                        if (err) return req.body.seed ? res.send(false) : next(err);
+                    });
+                }
+
                 return req.body.seed ? res.send(true) : res.redirect('/');
             } else {
                 res.redirect('/seed/add');

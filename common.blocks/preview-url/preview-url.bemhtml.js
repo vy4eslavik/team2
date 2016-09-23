@@ -9,6 +9,7 @@ block('preview-url')(
     }),
     content()(function () {
         var previewData = this.ctx.previewData || false;
+        var mods = this.ctx.mods;
         if (!previewData || (!previewData.images && !previewData.title && !previewData.description)) {
             return 'Упс. Ссылка не загрузилась.';
         }
@@ -28,10 +29,10 @@ block('preview-url')(
                 elem: 'desc',
                 content: previewData.description
             },
-            {
+            mods && mods.clear ? {
                 elem: 'clear',
                 content: 'x'
-            }
+            } : ''
         ];
     })
 );

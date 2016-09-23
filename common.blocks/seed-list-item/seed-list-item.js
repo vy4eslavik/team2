@@ -3,6 +3,7 @@ modules.define('seed-list-item', ['i-bem__dom', 'jquery'], function (provide, BE
         {
             restoreMsg: '',
             restoreImage: '',
+            restoreUrlPreview: '',
             restoreBottom: '',
             restoreSeed: false,
             onSetMod: {
@@ -11,6 +12,7 @@ modules.define('seed-list-item', ['i-bem__dom', 'jquery'], function (provide, BE
                         this.restoreMsg = this.elem('msg').clone();
                         this.restoreBottom = this.elem('bottom').clone();
                         this.restoreImage = this.elem('msg-image').clone();
+                        this.restoreUrlPreview = this.findBlockInside('preview-url') && this.findBlockInside('preview-url').domElem.clone();
                     }
                 }
             },
@@ -22,6 +24,7 @@ modules.define('seed-list-item', ['i-bem__dom', 'jquery'], function (provide, BE
                         'Удалено'
                     );
                     BEMDOM.destruct(this.elem('msg-image'));
+                    this.findBlockInside('preview-url') && BEMDOM.destruct(this.findBlockInside('preview-url').domElem);
                     BEMDOM.update(
                         this.elem('bottom'),
                         data.restoreButton
@@ -41,6 +44,10 @@ modules.define('seed-list-item', ['i-bem__dom', 'jquery'], function (provide, BE
                             BEMDOM.append(
                                 self.elem('message'),
                                 self.restoreImage
+                            );
+                            BEMDOM.after(
+                                self.elem('message'),
+                                self.restoreUrlPreview
                             );
                             BEMDOM.update(
                                 self.elem('bottom'),

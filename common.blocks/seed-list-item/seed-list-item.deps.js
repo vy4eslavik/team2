@@ -8,7 +8,7 @@
 
         mustDeps: {block: 'i-bem', elems: ['dom', 'i18n']},
         shouldDeps: [
-            'followed-unfollowed', 'profile', 'moment',
+            'followed-unfollowed', 'profile', 'moment', 'preview-url',
             {
                 block: 'popup',
                 mods: {

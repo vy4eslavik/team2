@@ -56,6 +56,10 @@ block('seed-list-item')(
                 ]
 
             },
+            seed.urlPreview && seed.urlPreview.url ? {
+                block: 'preview-url',
+                previewData: seed.urlPreview
+            } : '',
             {
                 elem: 'bottom',
                 content: [
