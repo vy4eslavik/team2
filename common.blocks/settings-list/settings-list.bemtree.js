@@ -2,13 +2,6 @@ block('settings-list').content()(function () {
     var profileSettings = this.ctx.profileSettings,
         userPath = this.ctx.userPath,
         saveInfo = '';
-
-    if (this.ctx.formSave === 'done') {
-        saveInfo = 'Изменения успешно сохранены';
-    } else if (this.ctx.formSave === 'error') {
-        saveInfo = 'Упс! Произошла ошибка';
-    }
-
     var timeZones = [
         {
             text: '(GMT-03:00) Buenos Aires',
@@ -32,14 +25,11 @@ block('settings-list').content()(function () {
         }
     ];
 
-    /*timeZones.forEach(function (item) {
-        selectTimeZone.options.push(
-            {
-                val: item.offset,
-                text: item.name
-            }
-        );
-    });*/
+    if (this.ctx.formSave === 'done') {
+        saveInfo = 'Изменения успешно сохранены';
+    } else if (this.ctx.formSave === 'error') {
+        saveInfo = 'Упс! Произошла ошибка';
+    }
 
     return [
         {

@@ -110,7 +110,6 @@ module.exports = function () {
                             },
                             user: user,
                             seeds: seeds,
-                            currentUserId: req.user._id,
                             currentUser: req.user,
                             isAuthenticated: req.isAuthenticated()
                         });

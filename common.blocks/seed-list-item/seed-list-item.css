@@ -35,8 +35,9 @@
 
 .seed-list-item__message
 {
-    text-align: center;
     min-height: 65px;
+
+    text-align: center;
 }
 .seed-list-item__msg,
 .seed-list-item__message .link

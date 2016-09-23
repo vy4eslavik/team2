@@ -11,7 +11,7 @@ block('seed-list-item')(
     }),
     content()(function () {
         var seed = this.ctx.seed;
-        var moment = this.require('moment');
+        var moment = this.ctx.moment || this.require('moment');
         // moment.lang("ru");
 
         var msg = seed.msg;

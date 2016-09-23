@@ -7,9 +7,13 @@ var async = require('async');
 module.exports = function (app) {
 
     const render = require('../render').render;
-<<<<<<< 8fef81d5eac488e25b72e42e815bc8305bdfa5a6
-    var Seed = require('../models/seed.js');
-    var User = require('../models/user.js');
+    var Seed = require('../models/seed.js'),
+        User = require('../models/user.js'),
+        path = require('path'),
+        bundleName = 'index',
+        pathToBundle = path.resolve('desktop.bundles', bundleName),
+        BEMTREE = require(path.join(pathToBundle, bundleName + '.bemtree.js')).BEMTREE,
+        BEMHTML = require(path.join(pathToBundle, bundleName + '.bemhtml.js')).BEMHTML;
 
     // Escape HTML
     var tagsToReplace = {
@@ -24,39 +28,6 @@ module.exports = function (app) {
         return str.replace(/[&<>]/g, replaceTag);
     }
     //----------------------
-
-    return {
-        add: function(req, res, next) {
-            if (req.body.text) {
-                var msg = escape(req.body.text);
-                var seed = new Seed({
-                    msg: msg,
-                    datetime: Date.now(),
-                    author: req.user._id,
-                    parent: req.body.parent
-                });
-
-                if (req.file) {
-                    seed.image = '/usercontent/' + req.file.filename;
-                }
-
-                seed.save(function (err) {
-                    if (err) return next (err);
-                });
-                res.redirect('/');
-            } else {
-                res.redirect('/seed/add');
-            }
-        },
-
-=======
-    var Seed = require('../models/seed.js'),
-        User = require('../models/user.js'),
-        path = require('path'),
-        bundleName = 'index',
-        pathToBundle = path.resolve('desktop.bundles', bundleName),
-        BEMTREE = require(path.join(pathToBundle, bundleName + '.bemtree.js')).BEMTREE,
-        BEMHTML = require(path.join(pathToBundle, bundleName + '.bemhtml.js')).BEMHTML;
 
     function remove(req, res) {
         Seed.findByIdAndRemove(req.params.id, function (err, seed) {
@@ -82,7 +53,6 @@ module.exports = function (app) {
     }
 
     return {
->>>>>>> Удаление сида
         view: function (req, res, next) {
 
             var seedId = req.params.id;

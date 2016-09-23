@@ -5,7 +5,7 @@ modules.define('settings-list', ['i-bem__dom', 'BEMHTML', 'events__channels'],
                 onSetMod: {
                     js: {
                         inited: function () {
-                            channels('image-uploaded').on('preview', function (e, data) {
+                            channels('image-loading').on('preview', function (e, data) {
                                 BEMDOM.replace(
                                     this.findBlockInside('avatar').domElem,
                                     BEMHTML.apply(

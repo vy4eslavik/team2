@@ -1,7 +1,8 @@
 block('page').mod('view', 'home').content()(function () {
 
     var seeds = this.data.seeds || [],
-        profile = this.data.profile || {};
+        profile = this.data.profile || {},
+        currentUser = this.data.currentUser || {};
     return [
         {
             block: 'header'
@@ -15,7 +16,8 @@ block('page').mod('view', 'home').content()(function () {
                     'data-last': seeds[0].datetime.getTime() / 1000
                 } : '',
                 js: true,
-                seeds: seeds
+                seeds: seeds,
+                currentUser: currentUser
             } : {
                 block: 'content',
                 content: [

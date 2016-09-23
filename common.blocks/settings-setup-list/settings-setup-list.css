@@ -1,3 +1,14 @@
+.settings-setup-list
+{
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 125px);
+
+    width: 250px;
+    height: 250px;
+
+    text-align: center;
+}
 .settings-setup-list .label
 {
     display: block;
