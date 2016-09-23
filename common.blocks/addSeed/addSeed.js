@@ -2,17 +2,23 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
     function (provide, BEMDOM, BEMHTML, channels, keyCodes, $) {
         provide(BEMDOM.decl(this.name,
             {
+                link: '',
                 onSetMod: {
                     js: {
                         inited: function () {
                             var self = this;
                             channels('image-loading').on('preview', this._imagePreview, this);
                             this.findBlockInside('textarea').bindTo('keyup', function (e) {
-                                if (e.keyCode === keyCodes.SPACE || e.keyCode === keyCodes.BACKSPACE || e.keyCode === keyCodes.DELETE) {
-                                    var pattern = /([-a-zA-Z0-9@:%_\+.~#?&\/\/=]{2,256}\.[a-z]{2,4}\b(\/?[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?)/i;
-                                    var link = e.currentTarget.value.match(pattern);
-                                    self._urlPreview(link);
+                                if (e.keyCode !== keyCodes.SPACE && e.keyCode !== keyCodes.BACKSPACE && e.keyCode !== keyCodes.DELETE) {
+                                    return;
                                 }
+
+                                if (self._urlPreview.timeout) {
+                                    clearTimeout(self._urlPreview.timeout);
+                                }
+                                self._urlPreview.timeout = setTimeout(function () {
+                                    self._urlPreview.call(self, e);
+                                }, 1000);
                             });
                         }
                     }
@@ -20,6 +26,7 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                 _imagePreview: function (e, data) {
                     var media = this.findBlockInside('media');
                     var attach = this.findBlockInside('attach');
+
                     switch (data.state) {
                         case 1:
                             BEMDOM.update(
@@ -27,7 +34,6 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                                 BEMHTML.apply([
                                     {
                                         block: 'image',
-                                        mix: {block: 'preview', elem: 'image'},
                                         url: data.url
                                     }
                                 ])
@@ -67,8 +73,11 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                             break;
                     }
                 },
-                _urlPreview: function (link) {
-                    var media = this.findBlockInside('media');
+                _urlPreview: function (e) {
+                    var media = this.findBlockInside('media'),
+                        pattern = /([-a-zA-Z0-9@:%_\+.~#?&\/\/=]{2,256}\.[a-z]{2,4}\b(\/?[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?)/i,
+                        link = e.currentTarget.value.match(pattern);
+
                     if (!link) {
                         BEMDOM.update(
                             media.domElem,
@@ -76,6 +85,19 @@ modules.define('addSeed', ['i-bem__dom', 'BEMHTML', 'events__channels', 'keyboar
                         );
                         return;
                     }
+                    if (link[0] === self.link) {
+                        return;
+                    }
+                    self.link = link[0];
+                    BEMDOM.update(
+                        media.domElem,
+                        BEMHTML.apply([
+                            {
+                                block: 'image',
+                                url: '/img/loader.gif'
+                            }
+                        ])
+                    );
                     $.get('/seed/getPreviewUrl', {url: link[0]})
                         .done(function (data) {
                             BEMDOM.update(
